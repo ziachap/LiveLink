@@ -1,0 +1,7 @@
+# ============================
+# Front end - gulp, bower etc
+# ============================
+/css/
+/js/
+/Media/
+/node_modules/
