@@ -1,0 +1,19 @@
+﻿.propertylanding__listing {
+	-webkit-box-shadow: 2px 2px 12px -2px rgba(0,0,0,0.2);
+	-moz-box-shadow: 2px 2px 12px -2px rgba(0,0,0,0.2);
+	box-shadow: 2px 2px 12px -2px rgba(0,0,0,0.2);
+	opacity: 0.9;
+	&:hover {
+        opacity: 1;
+    }
+	& a{
+		text-decoration: none;
+	}
+}
+
+.propertylanding__listing-text {
+	padding-top: 12px;
+	padding-bottom: 15px;
+	padding-left: 30px;
+	padding-right: 30px;
+}

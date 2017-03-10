@@ -1,0 +1,144 @@
+﻿
+.nav-items {
+	float: right;
+}
+
+
+
+/* BASE NAV */
+ul.topnav {
+	list-style-type: none;
+	margin: 15px 0px 2px 2px;
+	padding: 0;
+	overflow: hidden;
+
+	li {
+		.nav-logo {
+			float: none;
+		}
+
+		&.nav-item {
+			float: left;
+			margin-top:10px;
+			a {
+				display: inline-block;
+				color: #222;
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+				transition: 0.3s;
+				font-size: 16px;
+
+				&:hover {
+					background-color: #FAFAFA;
+				}
+			}
+		}
+
+		&.icon {
+			display: none;
+			a {
+				display: inline-block;
+				color: #f2f2f2;
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+				transition: 0.3s;
+				font-size: 17px;
+			}
+		}
+	}
+
+	.nav-logo {
+		background-image: url(/images/logo_small.png?width=40);
+		background-position: left center;
+		background-repeat: no-repeat;
+		height: 40px;
+		width: 40px;
+		float: left;
+		margin-right: 10px;
+	}
+
+	.nav-brand {
+		float: left;
+		color: #222;
+		text-align: center;
+		padding: 14px 1px;
+		text-decoration: none;
+		transition: 0.3s;
+		font-size: 30px;
+	}
+}
+
+/* MOBILE NAV - CLOSED */
+@media screen and (max-width:690px) {
+	ul.topnav {
+		li {
+			&.nav-item {
+				display: none;
+			}
+
+			&.icon {
+				float: right;
+				display: inline-block;
+
+				a {
+					display: inline-block;
+					color: #222;
+					text-align: center;
+					padding: 14px 16px;
+					text-decoration: none;
+					transition: 0.3s;
+					font-size: 16px;
+
+					&:hover {
+						background-color: #FAFAFA;
+					}
+				}
+			}
+
+			.nav-brand {
+				display: none;
+			}
+
+			.nav-logo {
+				margin-bottom: 12px;
+				margin-left: 8px;
+			}
+		}
+
+		.nav-items {
+			float: none;
+		}
+	}
+}
+/* MOBILE NAV - OPEN */
+@media screen and (max-width:690px) {
+	ul.topnav.responsive {
+		position: relative;
+
+		li {
+			&.nav-item {
+				float: none;
+				display: inline;
+
+				&.icon {
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
+
+				a {
+					display: block;
+					text-align: left;
+				}
+			}
+
+			.nav-logo {
+				float: none;
+			}
+		}
+
+		
+	}
+}
