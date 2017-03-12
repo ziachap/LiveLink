@@ -186,6 +186,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.3.7\lib\System.Data.SqlServerCe.dll</HintPath>
@@ -297,11 +298,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventImportService\IEventImportService.cs" />
+    <Compile Include="EventSearchService\GetEventsConfiguration.cs" />
+    <Compile Include="EventSearchService\IEventSearchService.cs" />
+    <Compile Include="ExamineService\IExamineSearchProviderWrapper.cs" />
+    <Compile Include="ExamineService\IExamineService.cs" />
     <Compile Include="FacebookEventsService\FacebookApiWrapper.cs" />
     <Compile Include="FacebookEventsService\FacebookEvent.cs" />
     <Compile Include="FacebookEventsService\IFacebookApiWrapper.cs" />
     <Compile Include="FacebookEventsService\IFacebookEventsService.cs" />
     <Compile Include="Models\LiveLinkEvent.cs" />
+    <Compile Include="Models\ViewModels\EventViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

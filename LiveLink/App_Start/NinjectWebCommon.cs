@@ -1,7 +1,9 @@
 using LiveLink.Services.FacebookEventsService;
 using Gibe.UmbracoWrappers;
+using Gibe.DittoServices.ModelConverters;
 using LiveLink.Services.EventImportService;
-using Umbraco.Core.Services;
+using LiveLink.Services.ExamineService;
+using LiveLink.Services.EventSearchService;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(LiveLink.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(LiveLink.App_Start.NinjectWebCommon), "Stop")]
@@ -51,13 +53,18 @@ namespace LiveLink.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 kernel.Bind<IUmbracoWrapper>().To<DefaultUmbracoWrapper>();
+				kernel.Bind<IModelConverter>().To<DittoModelConverter>();
 
-                kernel.Bind<IEventImportService>().To<EventImportService>();
+				kernel.Bind<IEventImportService>().To<EventImportService>();
                 kernel.Bind<IFacebookApiWrapper>().To<FacebookApiWrapper>();
                 kernel.Bind<IFacebookEventsService>().To<FacebookEventsService>();
-                
 
-                RegisterServices(kernel);
+				kernel.Bind<IEventSearchService>().To<EventSearchService>();
+				kernel.Bind<IExamineService>().To<ExamineService>();
+				kernel.Bind<IExamineSearchProviderWrapper>().To<ExamineSearchProviderWrapper>();
+
+
+				RegisterServices(kernel);
                 return kernel;
             }
             catch

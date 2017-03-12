@@ -10,7 +10,7 @@ namespace LiveLink.Services.FacebookEventsService
 {
     public interface IFacebookEventsService
     {
-        IEnumerable<LiveLinkEvent> GetEventsForVenues();
+        IEnumerable<LiveLinkEvent> GetEventsForVenues(int? limit = 10);
     }
 
     public class FacebookEventsService : IFacebookEventsService
@@ -25,15 +25,15 @@ namespace LiveLink.Services.FacebookEventsService
             _umbracoWrapper = umbracoWrapper;
         }
 
-        public IEnumerable<LiveLinkEvent> GetEventsForVenues()
+        public IEnumerable<LiveLinkEvent> GetEventsForVenues(int? limit = 10)
         {
             var authData = _umbracoWrapper.GetPropertyValue<FacebookOAuthData>(Settings(),
                 "settingsFacebookOAuth");
 
             var eventsOptions = new FacebookEventsOptions
             {
-                Limit = 10
-            };
+                Limit = limit
+			};
 
             return Venues().SelectMany(x => GetEventsForVenue(x, authData, eventsOptions)).ToList();
         }

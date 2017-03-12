@@ -14,11 +14,11 @@ namespace LiveLink.Areas.API
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
-            context.MapRoute(
-                "API_default",
-                "API/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
-        }
+            context.MapRoute("ImportFacebookEvents", "API/import-facebook-events",
+                new { controller = "ImportFacebookEvents", action = "Index", id = UrlParameter.Optional });
+
+			context.MapRoute("GetEvents", "API/events",
+				new { controller = "GetEvents", action = "Index", id = UrlParameter.Optional });
+		}
     }
 }

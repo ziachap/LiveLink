@@ -1,7 +1,7 @@
 ﻿using System;
 using Our.Umbraco.Ditto;
 
-namespace LiveLink.ViewModels
+namespace LiveLink.Services.Models.ViewModels
 {
     public class EventViewModel
     {
