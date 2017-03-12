@@ -1,5 +1,18 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Event>
-@using ContentModels = Umbraco.Web.PublishedContentModels;
+﻿@inherits Our.Umbraco.Ditto.DittoView<LiveLink.ViewModels.EventViewModel>
 @{
 	Layout = null;
 }
+<html>
+<head>
+    <title>LiveLink</title>
+</head>
+<body>
+    <h1>@Model.View.Title</h1>
+
+    <p>@Model.View.Summary</p>
+    <p><a href="@Model.View.TicketUri" target="_blank">@Model.View.TicketUri</a></p>
+    <p>@Model.View.StartTime.ToString("U")</p>
+    <p>@Model.View.EndTime.ToString("U")</p>
+
+</body>
+</html>

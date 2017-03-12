@@ -1,3 +1,8 @@
+using LiveLink.Services.FacebookEventsService;
+using Gibe.UmbracoWrappers;
+using LiveLink.Services.EventImportService;
+using Umbraco.Core.Services;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(LiveLink.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(LiveLink.App_Start.NinjectWebCommon), "Stop")]
 
@@ -44,6 +49,13 @@ namespace LiveLink.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+
+                kernel.Bind<IUmbracoWrapper>().To<DefaultUmbracoWrapper>();
+
+                kernel.Bind<IEventImportService>().To<EventImportService>();
+                kernel.Bind<IFacebookApiWrapper>().To<FacebookApiWrapper>();
+                kernel.Bind<IFacebookEventsService>().To<FacebookEventsService>();
+                
 
                 RegisterServices(kernel);
                 return kernel;
