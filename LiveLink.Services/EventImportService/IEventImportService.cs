@@ -58,7 +58,7 @@ namespace LiveLink.Services.EventImportService
         {
             eventContent.SetValue("contentTitle", liveLinkEvent.Title);
             eventContent.SetValue("contentSummary", liveLinkEvent.Description);
-            eventContent.SetValue("contentDescription", liveLinkEvent.Description);
+            eventContent.SetValue("contentDescription", FormatAsHtml(liveLinkEvent.Description));
             eventContent.SetValue("contentStartDateTime", liveLinkEvent.StartDateTime);
             eventContent.SetValue("contentEndDateTime", liveLinkEvent.EndDateTime);
             eventContent.SetValue("contentTicketURI", liveLinkEvent.TicketUri);
@@ -102,6 +102,14 @@ namespace LiveLink.Services.EventImportService
             }
 
             return existingEventMap;
+        }
+
+        // TODO: This might want to go in a dedicated service
+        private string FormatAsHtml(string text)
+        {
+            var paragraphedText = "<p>" + string.Join("</p><p>", text.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries)) + "</p>";
+
+            return paragraphedText;
         }
 
         private IPublishedContent Settings()

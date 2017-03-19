@@ -308,6 +308,8 @@
     <Compile Include="FacebookEventsService\IFacebookEventsService.cs" />
     <Compile Include="Models\LiveLinkEvent.cs" />
     <Compile Include="Models\ViewModels\EventViewModel.cs" />
+    <Compile Include="Models\ViewModels\MetaModel.cs" />
+    <Compile Include="Processors\CanonicalUrlAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

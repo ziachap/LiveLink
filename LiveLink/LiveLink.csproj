@@ -2065,6 +2065,7 @@
     <Content Include="config\uSyncCore.Config" />
     <Content Include="config\uSyncBackOffice.Config" />
     <Content Include="App_Plugins\uSync\package.manifest" />
+    <Content Include="Views\Partials\Meta.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2097,7 +2098,6 @@
     <Folder Include="Areas\API\Views\ImportFacebookEvents\" />
     <Folder Include="Areas\API\Views\Shared\" />
     <Folder Include="gulp\scss\common\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LiveLink.Services\LiveLink.Services.csproj">

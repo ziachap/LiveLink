@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using LiveLink.Services.EventSearchService;
 using LiveLink.Services.Models.ViewModels;
+using Newtonsoft.Json;
 
 namespace LiveLink.Areas.API
 {
@@ -19,9 +20,9 @@ namespace LiveLink.Areas.API
         public object Index(GetEventsConfiguration configuration)
         {
 	        var results = _eventSearchService.GetEvents(configuration);
-			
 
-			return string.Join(", ", results.Select(x => x.Title));
+
+            return JsonConvert.SerializeObject(results);
         }
     }
 }
