@@ -62,7 +62,8 @@ namespace LiveLink.Services.EventImportService
             eventContent.SetValue("contentStartDateTime", liveLinkEvent.StartDateTime);
             eventContent.SetValue("contentEndDateTime", liveLinkEvent.EndDateTime);
             eventContent.SetValue("contentTicketURI", liveLinkEvent.TicketUri);
-            eventContent.SetValue("developerFacebookEventIdentifier", liveLinkEvent.FacebookEventIdentifier);
+			eventContent.SetValue("contentThumbnail", liveLinkEvent.Thumbnail);
+			eventContent.SetValue("developerFacebookEventIdentifier", liveLinkEvent.FacebookEventIdentifier);
 
             eventContent.SetValue("metaTitle", liveLinkEvent.Title);
             eventContent.SetValue("metaDescription", liveLinkEvent.Description);

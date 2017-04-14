@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using Gibe.UmbracoWrappers;
 using LiveLink.Services.Models;
 using Skybrud.Social.Facebook.Options.Events;
 using Skybrud.Social.Umbraco.Facebook.PropertyEditors.OAuth;
+using Umbraco.Core;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 
 namespace LiveLink.Services.FacebookEventsService
 {
@@ -45,11 +50,94 @@ namespace LiveLink.Services.FacebookEventsService
                 "developerFacebookPageIdentifier");
 
             var events = _facebookApiWrapper.GetEvents(authData, options, pageId);
-            
+
+	        foreach (var e in events.ToList())
+	        {
+		        
+	        }
+
             return events.Select(x => ToLiveLinkEvent(x, venue.Id));
         }
 
-        private LiveLinkEvent ToLiveLinkEvent(FacebookEvent facebookEvent, int venueNodeId)
+	    private int? RetrieveAndSaveImage(string url, string filename)
+	    {
+			// TODO: Gallery images
+			// TODO: Clean this shit up
+
+		    if (string.IsNullOrEmpty(url)) return null;
+
+			IMediaService ms = ApplicationContext.Current.Services.MediaService;
+
+			string fileName = filename;
+			bool folderExists = false;
+			int folderId = 1153; //Folder Id in Media Library
+
+			var request = WebRequest.Create(url);
+			request.Timeout = 30000;
+
+			using (var response = (HttpWebResponse)request.GetResponse())
+			using (Stream stream = response.GetResponseStream())
+			{
+				if (response.StatusCode == System.Net.HttpStatusCode.OK)
+				{
+					Stream streamCopy = new MemoryStream();
+
+					stream.CopyTo(streamCopy);
+
+					IEnumerable<IMedia> getAllChildItems = ms.GetChildren(folderId);
+					#region "Either Add the File or Update the Existing one"
+					int assetID = 0;
+					assetID = ms.GetChildren(folderId).Where(c => c.Name == fileName).Select(c => c.Id).FirstOrDefault();
+
+					string origFilename = "";
+
+					Uri uri = new Uri(url);
+
+					origFilename = System.IO.Path.GetFileName(uri.LocalPath);
+
+
+					if (assetID > 0)
+					{
+						try
+						{
+							IMedia existingFile = ms.GetById(assetID);
+							existingFile.SetValue("umbracoFile", origFilename, streamCopy);
+							ms.Save(existingFile);
+							return existingFile.Id;
+						}
+						catch
+						{
+							throw new Exception("There was a problem updating Image - " + assetID);
+						}
+
+					}
+					else
+					{
+						try
+						{
+							IMedia mediaFile = ms.CreateMedia(fileName, folderId, "Image");
+							mediaFile.SetValue("umbracoFile", origFilename, streamCopy);
+							ms.Save(mediaFile);
+							return mediaFile.Id;
+
+						}
+						catch (Exception ex)
+						{
+
+							throw new Exception("There was a problem saving the image - " + fileName);
+						}
+
+					}
+					#endregion
+
+				}
+
+			}
+
+		    return null;
+	    }
+
+	    private LiveLinkEvent ToLiveLinkEvent(FacebookEvent facebookEvent, int venueNodeId)
         {
             return new LiveLinkEvent
             {
@@ -59,8 +147,9 @@ namespace LiveLink.Services.FacebookEventsService
                 EndDateTime = facebookEvent.EndDateTime,
                 VenueNodeId = venueNodeId,
                 FacebookEventIdentifier = facebookEvent.Id,
-                TicketUri = facebookEvent.TicketUri
-            };
+                TicketUri = facebookEvent.TicketUri,
+				Thumbnail = RetrieveAndSaveImage(facebookEvent.CoverUrl, facebookEvent.Id)
+			};
         }
 
         private IPublishedContent Settings()

@@ -21,6 +21,7 @@ namespace LiveLink.Areas.API
         {
 	        var results = _eventSearchService.GetEvents(configuration);
 
+			// TODO: Generic API Response type
 
             return JsonConvert.SerializeObject(results);
         }

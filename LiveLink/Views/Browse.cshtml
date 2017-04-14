@@ -1,6 +1,97 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Browse>
-@using ContentModels = Umbraco.Web.PublishedContentModels;
+﻿@using LiveLink.App_Code
+@using Newtonsoft.Json
+@inherits Our.Umbraco.Ditto.DittoView<LiveLink.Services.Models.ViewModels.BrowseViewModel>
 @{
 	Layout = "Master.cshtml";
 }
-    
+
+<div class="row">
+	<div class="col-lg-8">
+		
+		<!-- Map -->
+		<div class="map"></div>
+		<!-- Form Controls -->
+		<form class="js-map-controls" action="#">
+			<input type="text" name="EarliestDate" value="01/01/2017">
+			<input type="text" name="LatestDate" value="01/01/2018">
+		</form>
+	</div>
+	<div class="col-lg-4 ">
+		<div class="listing__container">
+
+
+			<!-- Page Header -->
+			<div class="row">
+				<div class="col-lg-11">
+					<h1 class="page-header">
+						Browse
+						<small>lots of events</small>
+					</h1>
+				</div>
+			</div>
+			<!-- /.row -->
+			<!-- Projects Row -->
+
+			<div class="row">
+				@foreach (var e in Model.View.Venues.SelectMany(x => x.Events))
+				{
+					<div class="col-md-11 portfolio-item">
+						<a href="@e.Url">
+							<img class="img-responsive" src="@(!string.IsNullOrEmpty(e.ThumbnailUrl) ? e.ThumbnailUrl : "/images/bg.jpg")?width=1050&height=500&mode=crop" alt="">
+						</a>
+						<h3>
+							<a href="@e.Url">@e.Title</a>
+						</h3>
+						<p>@e.StartTime.ToLongDateString() - @e.SummaryShort</p>
+					</div>
+				}
+
+			</div>
+
+			<!-- /.row -->
+
+			<hr>
+
+			<!-- Pagination -->
+			<div class="row text-center">
+				<div class="col-lg-12">
+					<ul class="pagination">
+						<li>
+							<a href="#">&laquo;</a>
+						</li>
+						<li class="active">
+							<a href="#">1</a>
+						</li>
+						<li>
+							<a href="#">2</a>
+						</li>
+						<li>
+							<a href="#">3</a>
+						</li>
+						<li>
+							<a href="#">4</a>
+						</li>
+						<li>
+							<a href="#">5</a>
+						</li>
+						<li>
+							<a href="#">&raquo;</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- /.row -->
+@section JSPlugins
+{
+	<script type="application/json" id="events-json">
+		@Html.Raw(JsonConvert.SerializeObject(Model.View.Venues))
+	</script>
+
+	<script type="text/mustache" id="infoWindowTemplate">
+		@Html.RenderRawContent("~/Views/Partials/InfoWindow.mustache")
+	</script>
+}

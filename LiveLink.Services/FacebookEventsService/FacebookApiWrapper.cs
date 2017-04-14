@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Skybrud.Social.Facebook;
-using Skybrud.Social.Facebook.Endpoints;
-using Skybrud.Social.Facebook.Objects.Events;
 using Skybrud.Social.Facebook.Options.Events;
 using Skybrud.Social.Json;
 using Skybrud.Social.Umbraco.Facebook.PropertyEditors.OAuth;
@@ -13,6 +11,7 @@ namespace LiveLink.Services.FacebookEventsService
 {
     public class FacebookApiWrapper : IFacebookApiWrapper
     {
+		// TODO: This belongs in IFacebookEventsService
         private readonly string[] _fields = {
             "id",
             "name",
@@ -20,7 +19,8 @@ namespace LiveLink.Services.FacebookEventsService
             "start_time",
             "end_time",
             "cover",
-            "ticket_uri"
+            "ticket_uri",
+			"place"
             };
 
         public IEnumerable<FacebookEvent> GetEvents(FacebookOAuthData authenticationData,
@@ -53,33 +53,36 @@ namespace LiveLink.Services.FacebookEventsService
 
         private FacebookEvent FacebookEvent(Dictionary<string, object> properties)
         {
-           // var properties = facebookEvent.Dictionary;
-            var startTimeText = GetValueOrDefault(properties, "start_time") as string;
-            DateTime? startTime = null;
-            if (!string.IsNullOrEmpty(startTimeText))
-            {
-                startTime = DateTime.Parse(startTimeText);
-            }
+	        var cover = GetValueOrDefault(properties, "cover") as Dictionary<string, object>;
 
-            var endTimeText = GetValueOrDefault(properties, "end_time") as string;
-            DateTime? endTime = null;
-            if (!string.IsNullOrEmpty(endTimeText))
-            {
-                endTime = DateTime.Parse(endTimeText);
-            }
-
-            return new FacebookEvent
+			// TODO: Can pull venues from this
+			//var place = GetValueOrDefault(properties, "place") as Dictionary<string, object>;
+			
+			return new FacebookEvent
             {
                 Id = GetValueOrDefault(properties, "id") as string,
                 Name = GetValueOrDefault(properties, "name") as string,
-                StartDateTime = startTime,
-                EndDateTime = endTime,
+                StartDateTime = GetDateTimeOrDefault(properties, "start_time"),
+                EndDateTime = GetDateTimeOrDefault(properties, "end_time"),
                 Description = GetValueOrDefault(properties, "description") as string,
                 TicketUri = GetValueOrDefault(properties, "ticket_uri") as string,
-            };
+				CoverUrl = GetValueOrDefault(cover, "source") as string,
+			};
         }
 
-        private object GetValueOrDefault(IDictionary<string, object> dictionary, string key)
+	    private DateTime? GetDateTimeOrDefault(IDictionary<string, object> dictionary, string key)
+	    {
+			var dateTimeText = GetValueOrDefault(dictionary, key) as string;
+			DateTime? dateTime = null;
+			if (!string.IsNullOrEmpty(dateTimeText))
+			{
+				dateTime = DateTime.Parse(dateTimeText);
+			}
+		    return dateTime;
+	    }
+
+
+		private object GetValueOrDefault(IDictionary<string, object> dictionary, string key)
         {
             if (dictionary.ContainsKey(key))
             {

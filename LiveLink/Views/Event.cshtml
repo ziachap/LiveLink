@@ -2,10 +2,16 @@
 @{
 	Layout = "Master.cshtml";
 }
+<div class="container">
 
-    <h1>@Model.View.Title</h1>
+	<h1>@Model.View.Title</h1>
+	<p><img src="@Model.View.ThumbnailUrl?width=1000&height=400&mode=crop" /></p>
+	<p>@Html.Raw(Model.View.Description)</p>
 
-    <p>@Model.View.Summary</p>
-    <p><a href="@Model.View.TicketUri" target="_blank">@Model.View.TicketUri</a></p>
-    <p>@Model.View.StartTime.ToString("U")</p> 
-    <p>@Model.View.EndTime.ToString("U")</p>
+	<p><a href="@Model.View.TicketUri" target="_blank">@Model.View.TicketUri</a></p>
+	<p>@Model.View.StartTime.ToString("U")</p> 
+	<p>@Model.View.EndTime.ToString("U")</p>
+
+	<p>@Model.View.Venue.Longitude</p>
+
+</div>

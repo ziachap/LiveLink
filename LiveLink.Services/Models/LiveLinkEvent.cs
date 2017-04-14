@@ -11,7 +11,8 @@ namespace LiveLink.Services.Models
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
         public string TicketUri { get; set; }
+		public int? Thumbnail { get; set; }
 
-        public override string ToString() => Title;
+		public override string ToString() => Title;
     }
 }

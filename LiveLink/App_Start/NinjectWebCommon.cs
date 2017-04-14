@@ -1,6 +1,7 @@
 using LiveLink.Services.FacebookEventsService;
 using Gibe.UmbracoWrappers;
 using Gibe.DittoServices.ModelConverters;
+using Gibe.DittoProcessors.Media;
 using LiveLink.Services.EventImportService;
 using LiveLink.Services.ExamineService;
 using LiveLink.Services.EventSearchService;
@@ -53,6 +54,7 @@ namespace LiveLink.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 kernel.Bind<IUmbracoWrapper>().To<DefaultUmbracoWrapper>();
+				kernel.Bind<IMediaService>().To<MediaService>();
 				kernel.Bind<IModelConverter>().To<DittoModelConverter>();
 
 				kernel.Bind<IEventImportService>().To<EventImportService>();

@@ -13,7 +13,7 @@ var nav = {
 
 $(function() {
 	nav.init();
-	$(document).ajaxComplete(function() {
+	site.ajaxComplete(function () {
 		nav.init();
 	});
 });
