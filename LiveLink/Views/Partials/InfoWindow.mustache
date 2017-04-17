@@ -1,39 +1,19 @@
 ﻿<div class="infowindow">
-	<div id="myCarousel" class="carousel slide" data-ride="carousel">
-		<ol class="carousel-indicators">
-			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#myCarousel" data-slide-to="1"></li>
-			<li data-target="#myCarousel" data-slide-to="2"></li>
-			<li data-target="#myCarousel" data-slide-to="3"></li>
-		</ol>
 
 		<!-- Wrapper for slides -->
-		<div class="carousel-inner" role="listbox">
-			{{#Events}}
-				<div class="col-md-12 portfolio-item">
-					{{#Thumbnail}}
-					<a href="{{Url}}">
-						<img class="img-responsive" src="{{Thumbnail.Url}}?width=200&height=100&mode=crop" alt="">
-					</a>
-					{{/Thumbnail}}
-					<h3>
-						<a href="{{Url}}">{{Title}}</a>
-					</h3>
-					<p>{{StartTime}} - {{SummaryShort}}</p>
-				</div>
-			{{/Events}}
-		</div>
+		{{#Events}}
+			<div class="col-md-12">
+				{{#Thumbnail}}
+				<a href="{{.Url}}">
+					<img class="img-responsive" src="{{Thumbnail.Url}}?width=200&height=100&mode=crop" alt="">
+				</a>
+				{{/Thumbnail}}
+				<h3>
+					<a href="{{Url}}">{{Title}}</a>
+				</h3>
+				<p>{{StartTime}} - {{SummaryShort}}</p>
+			</div>
+		{{/Events}}
 
-		<!-- Left and right controls -->
-		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-			<span class="sr-only">Previous</span>
-		</a>
-		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			<span class="sr-only">Next</span>
-		</a>
-
-	</div>
 </div>
 

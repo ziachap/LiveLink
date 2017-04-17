@@ -451,8 +451,6 @@
     <Content Include="gulp\scripts\modules\_mapfilter.js" />
     <Content Include="gulp\scripts\modules\_nav.js" />
     <Content Include="gulp\scripts\plugins\hogan.js" />
-    <Content Include="gulp\scripts\plugins\infobox.js" />
-    <Content Include="gulp\scripts\plugins\infobubble-compiled.js" />
     <Content Include="gulp\scripts\site.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -467,6 +465,8 @@
     <Content Include="gulp\scss\modules\_map.scss" />
     <Content Include="gulp\scss\modules\_listing.scss" />
     <Content Include="gulp\scss\modules\_infowindow.scss" />
+    <Content Include="gulp\scss\modules\_browse.scss" />
+    <Content Include="gulp\scss\modules\_colours.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1931,8 +1931,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="gulp\scss\layout\_nav.scss" />
     <Content Include="gulp\scss\layout\_page.scss" />
-    <Content Include="gulp\scss\modules\_property.scss" />
-    <Content Include="gulp\scss\modules\_propertylanding.scss" />
     <Content Include="gulp\scss\print.scss" />
     <Content Include="gulp\scss\site.scss" />
     <Content Include="gulp\scss\_mixins.scss" />
@@ -2111,6 +2109,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Partials\JSPlugins.cshtml" />
     <Content Include="Views\Partials\InfoWindow.mustache" />
+    <Content Include="Views\BrowseTwo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

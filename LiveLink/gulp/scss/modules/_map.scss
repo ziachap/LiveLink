@@ -1,5 +1,18 @@
 ﻿
+.map__container {
+    height: -webkit-calc(100% - 50px);
+    height:    -moz-calc(100% - 50px);
+    height:         calc(100% - 50px);
+}
+
 .map {
-	height:	100vh;
+	height: -webkit-calc(100% - 50px);
+    height:    -moz-calc(100% - 50px);
+    height:         calc(100% - 50px);
+	width: 100%;
+}
+
+.mapcontrols {
+	height:	50px;
 	width: 100%;
 }

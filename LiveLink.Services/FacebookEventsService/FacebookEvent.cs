@@ -1,5 +1,4 @@
 ﻿using System;
-using Skybrud.Social.Json;
 
 namespace LiveLink.Services.FacebookEventsService
 {

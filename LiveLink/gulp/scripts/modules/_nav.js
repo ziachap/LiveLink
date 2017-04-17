@@ -12,8 +12,8 @@ var nav = {
 };
 
 $(function() {
-	nav.init();
+	//nav.init();
 	site.ajaxComplete(function () {
-		nav.init();
+		//nav.init();
 	});
 });

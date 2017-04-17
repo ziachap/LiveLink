@@ -64,7 +64,6 @@ var eventService = {
 			success: function (response) {
 				response = JSON.parse(response);
 				
-
 				eventService.bind(response);
 
 				if (response.Success) {
