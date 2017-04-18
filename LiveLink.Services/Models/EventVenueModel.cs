@@ -1,4 +1,6 @@
-﻿using LiveLink.Services.Processors;
+﻿using Gibe.DittoProcessors.Media.Models;
+using Gibe.DittoProcessors.Processors;
+using LiveLink.Services.Processors;
 using Our.Umbraco.Ditto;
 
 namespace LiveLink.Services.Models
@@ -15,5 +17,12 @@ namespace LiveLink.Services.Models
 		[UmbracoProperty("contentLongitude")]
 		[TextToDecimal]
 		public decimal Longitude { get; set; }
+
+		[UmbracoProperty("contentLogo")]
+		[ImagePickerOrDefaultImage]
+		public MediaImageModel Logo { get; set; }
+
+		[DittoIgnore]
+		public string LogoUrl => Logo?.Url;
 	}
 }

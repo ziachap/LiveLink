@@ -27,8 +27,12 @@ namespace LiveLink.Services.Models.ViewModels
 		[UmbracoProperty("url")]
 		public string Url { get; set; }
 
+		[UmbracoProperty("contentLogo")]
+		[ImagePickerOrDefaultImage]
+		public MediaImageModel Logo { get; set; }
+
 		[Children("event")]
-		[Model(typeof(EventViewModel))]
+		//[Model(typeof(EventViewModel))]
 		public IEnumerable<EventViewModel> Events { get; set; }
     }
 }

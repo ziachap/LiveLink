@@ -1,16 +1,61 @@
 ﻿
 .infowindow {
-	max-width: 314px;
-	max-height:300px;
-	overflow: hidden;
-	overflow-y: auto;
+	width: 340px;
+	/*max-height:340px;*/
+	background-color: rgba(255, 255, 255, 0.9);
+
+	-webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+
+	-webkit-transition: max-height 1s; 
+	-moz-transition: max-height 1s; 
+	-ms-transition: max-height 1s; 
+	-o-transition: max-height 1s; 
+	transition: max-height 1s;
+
+	&:after {
+		
+	  content : " ";
+	  width: 0; 
+	  height: 0; 
+	  border-left: 14px solid transparent;
+	  border-right: 14px solid transparent;
+	  border-top: 18px solid #fff;
+	  position:absolute;
+	  bottom: -18px;
+	  left:156px;
+	}
+
+	p {
+		font-size:larger;
+	}
 }
 
-.infowindow__container {
-	width: 300px;
-	padding-left: 12px;
+.infowindow__listing {
 }
 
 .infowindow__inner {
-	margin-right: 2px;
+	
 }
+
+#infowindow__carousel {
+	position: relative;
+
+	> .item {
+		display: none;
+		position: relative;
+	}
+}
+
+.infowindow__carousel-controls {
+	height: 170px;
+	width: 340px;
+	position: absolute;
+	top: 0;
+
+	.carousel-control.left, .carousel-control.right {
+		background-image: none
+	}
+}
+

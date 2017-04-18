@@ -24,7 +24,7 @@ namespace LiveLink.Services.Models.ViewModels
         public string Description { get; set; }
 
 		[UmbracoProperty("contentThumbnail")]
-		[ImagePicker]
+		[ImagePickerOrDefaultImage]
 		public MediaImageModel Thumbnail { get; set; }
 
 	    public string ThumbnailUrl => Thumbnail?.Url;

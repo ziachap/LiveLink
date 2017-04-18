@@ -1,6 +1,4 @@
-﻿
-
-var eventService = {
+﻿var eventService = {
 	infoWindowTemplate: null,
 
 	request: null,
@@ -23,12 +21,14 @@ var eventService = {
 
 		for (var i = 0; i < venueEventsResponse.length; i++) {
 			var venue = venueEventsResponse[i];
-			var firstEvent = venue.Events[0];
+
+			venue.Events[0].Active = true;
 
 			var infoWindowContent = eventService.infoWindowTemplate.render(venue);
 
 			var marker = new google.maps.Marker({
 				position: { lat: venue.Latitude, lng: venue.Longitude },
+				icon: venue.Logo.Url + "?width=30&height=30&mode=crop&s.roundcourners=100",
 				map: map.map,
 				infoWindowContent: infoWindowContent,
 				id: i
@@ -38,9 +38,29 @@ var eventService = {
 			
 			google.maps.event.addListener(marker, 'click', (function (marker, infoWindowContent) {
 				return function () {
-					console.log(marker);
+					map.infoWindow.close();
+
+
 					map.infoWindow.setContent(infoWindowContent);
-					map.infoWindow.open(map, marker);
+
+
+					map.infoWindow.addListener('domready', function () {
+
+						$('.carousel').carousel({
+						});
+
+						$('.carousel-control').off('click').on('click', function (e) {
+							$('.carousel').carousel($(this).attr('data-slide'));
+							return false;
+						});
+					});
+
+					map.infoWindow.open(map.map, marker);
+					console.log(map.infoWindow);
+					//map.map.panTo(map.infoWindow.getPosition())
+					//map.infoWindow.content = infoWindowContent;
+					//map.infoWindow.open(map.map, marker);
+					//;
 				};
 			})(marker, infoWindowContent));
 			
@@ -63,7 +83,6 @@ var eventService = {
 			//data: mapfilter.form.serialize(),
 			success: function (response) {
 				response = JSON.parse(response);
-				
 				eventService.bind(response);
 
 				if (response.Success) {

@@ -1,19 +1,64 @@
-﻿<div class="infowindow">
+﻿<div class="">
+	<div class="infowindow__inner">
+		<div id="infowindow__carousel" class="carousel" data-ride="carousel" data-interval="false">
+			<div class="carousel-inner" role="listbox">
 
-		<!-- Wrapper for slides -->
-		{{#Events}}
-			<div class="col-md-12">
-				{{#Thumbnail}}
-				<a href="{{.Url}}">
-					<img class="img-responsive" src="{{Thumbnail.Url}}?width=200&height=100&mode=crop" alt="">
-				</a>
-				{{/Thumbnail}}
-				<h3>
-					<a href="{{Url}}">{{Title}}</a>
-				</h3>
-				<p>{{StartTime}} - {{SummaryShort}}</p>
+				{{#Events}}
+				<div class="item{{#Active}} active{{/Active}}">
+					<div class="infowindow__listing">
+						
+						<a href="{{Url}}">
+							{{#Thumbnail}}
+							<img class="img-responsive" src="{{Thumbnail.Url}}?width=340&height=170&mode=crop" alt="">
+							{{/Thumbnail}}
+							{{^Thumbnail}}
+							<img class="img-responsive" src="/images/bg.jpg?width=340&height=170&mode=crop" alt="">
+							{{/Thumbnail}}
+						</a>
+
+						<div class="listing__content">
+							<h3>
+								<a href="{{Url}}">{{Title}}</a>
+							</h3>
+							<p>{{StartTime}} - {{SummaryShort}}</p>
+						</div>
+							
+					</div>
+				</div>
+				{{/Events}}
+					
+				<div class="infowindow__carousel-controls">
+					<a class="left carousel-control" data-target="#infowindow__carousel" role="button" data-slide="prev">
+						<span class="icon-prev"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" data-target="#infowindow__carousel" role="button" data-slide="next">
+						<span class="icon-next"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+				
 			</div>
+			
+			
+		</div>
+		<!-- Wrapper for slides
+		{{#Events}}
+		<div class="col-md-12">
+			{{#Thumbnail}}
+			<a href="{{.Url}}">
+				<img class="img-responsive" src="{{Thumbnail.Url}}?width=200&height=100&mode=crop" alt="">
+			</a>
+			{{/Thumbnail}}
+			<h3>
+				<a href="{{Url}}">{{Title}}</a>
+			</h3>
+			<p>{{StartTime}} - {{SummaryShort}}</p>
+		</div>
+		<hr />
 		{{/Events}}
-
+			-->
+	</div>
 </div>
+
 
