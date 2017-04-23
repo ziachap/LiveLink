@@ -19,6 +19,12 @@
     }
 }
 
+.listing__image {
+    max-height: 200px;
+	width: 100%;
+	overflow: hidden;
+}
+
 .listing__content {
     padding: 2px 15px;
     padding-bottom: 5px;
@@ -27,6 +33,6 @@
 
 .listing__venuelogo {
 	position: absolute;
-	top: -54px;
+	top: -56px;
 	right: 25px;
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using LiveLink.Services.EventSearchService;
+using LiveLink.Services.Models;
 using LiveLink.Services.Models.ViewModels;
 using Newtonsoft.Json;
 
@@ -23,7 +24,7 @@ namespace LiveLink.Areas.API
 
 			// TODO: Generic API Response type
 
-            return JsonConvert.SerializeObject(results);
+            return JsonConvert.SerializeObject(new ApiSuccessResponse(results));
         }
     }
 }

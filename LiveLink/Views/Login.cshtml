@@ -1,5 +1,10 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Login>
-@using ContentModels = Umbraco.Web.PublishedContentModels;
+﻿@model LiveLink.Services.Models.ViewModels.LoginViewModel
 @{
 	Layout = "Master.cshtml";
 }
+<form class="" method="post" action="/login">
+	<p>@Html.EditorFor(x => x.Form.Username)</p>
+	<p>@Html.EditorFor(x => x.Form.Password)</p>
+	<p>Remember me @Html.EditorFor(x => x.Form.RememberMe)</p>
+	<p><button class="form-button" type="submit">Submit</button></p>
+</form>

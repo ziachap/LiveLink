@@ -35,6 +35,8 @@ namespace LiveLink.Services.Models.ViewModels
         [UmbracoProperty("contentStartDateTime")]
         public DateTime StartTime { get; set; }
 
+	    public string FormattedStartTime => StartTime.ToLongDateString();
+
         [UmbracoProperty("contentEndDateTime")]
         public DateTime EndTime { get; set; }
 
@@ -44,5 +46,8 @@ namespace LiveLink.Services.Models.ViewModels
 		[Parent]
 		[Model(typeof(EventVenueModel))]
 		public EventVenueModel Venue { get; set; }
+
+		[UserIsWatching]
+		public bool Watching { get; set; }
     }
 }

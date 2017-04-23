@@ -5,8 +5,6 @@
 
 	infoWindow: null,
 
-	timer: null,
-
 	init: function () {
 		
 
@@ -20,9 +18,8 @@
 			});
 			//eventService.bind(events);
 
-			google.maps.event.addListener(map.map, 'bounds_changed', function () {
-				clearTimeout(map.timer);
-				//map.timer = setTimeout(eventService.search(), 300);
+			google.maps.event.addListener(map.map, 'idle', function () {
+				eventService.search();
 			});
 
 			google.maps.event.addListener(map.map, 'click', function () {

@@ -18,9 +18,16 @@
 
 						<div class="listing__content">
 							<h3>
-								<a href="{{Url}}">{{Title}}</a>
+								<a href="{{Url}}">{{Title}}</a> 
 							</h3>
-							<p>{{StartTime}} - {{SummaryShort}}</p>
+
+							<p>
+								<b>{{FormattedStartTime}}</b> - {{SummaryShort}}
+							</p>
+
+							<p>
+								<button class="btn btn-default js-watch{{#Watching}} active{{/Watching}}" data-id="{{Id}}">Watch <i class="fa fa-eye"></i></button>
+							</p>
 						</div>
 							
 					</div>

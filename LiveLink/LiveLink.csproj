@@ -448,6 +448,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
+    <Content Include="gulp\scripts\modules\_forms.js" />
+    <Content Include="gulp\scripts\modules\_notification.js" />
+    <Content Include="gulp\scripts\modules\_userservice.js" />
+    <Content Include="gulp\scripts\modules\_ajax.js" />
     <Content Include="gulp\scripts\modules\_eventservice.js" />
     <Content Include="gulp\scripts\modules\_infowindow.js" />
     <Content Include="gulp\scripts\modules\_mapstyle.js" />
@@ -456,6 +460,7 @@
     <Content Include="gulp\scripts\modules\_nav.js" />
     <Content Include="gulp\scripts\plugins\hogan.js" />
     <Content Include="gulp\scripts\site.js" />
+    <Content Include="gulp\scss\plugins\font-awesome.min.css" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -2114,6 +2119,10 @@
     <Content Include="Views\Partials\JSPlugins.cshtml" />
     <Content Include="Views\Partials\InfoWindow.mustache" />
     <Content Include="Views\BrowseTwo.cshtml" />
+    <Content Include="Views\FacebookPage.cshtml" />
+    <Content Include="Views\Login.cshtml" />
+    <Content Include="Views\Page.cshtml" />
+    <Content Include="Views\Partials\CSSPlugins.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2135,8 +2144,10 @@
     <Compile Include="Areas\API\Controllers\GetVenueEventsController.cs" />
     <Compile Include="Areas\API\Controllers\ImportFacebookEventsController.cs" />
     <Compile Include="Areas\API\Controllers\GetEventsController.cs" />
+    <Compile Include="Areas\API\Controllers\UserController.cs" />
     <Compile Include="Controllers\BrowseController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2149,6 +2160,7 @@
     <Folder Include="Areas\API\Views\GetVenueEvents\" />
     <Folder Include="Areas\API\Views\ImportFacebookEvents\" />
     <Folder Include="Areas\API\Views\Shared\" />
+    <Folder Include="Areas\API\Views\User\" />
     <Folder Include="gulp\scss\common\" />
   </ItemGroup>
   <ItemGroup>

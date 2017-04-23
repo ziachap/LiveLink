@@ -15,7 +15,7 @@
 		for (var i = 0; i < map.markers.length; i++) {
 			map.markers[i].setMap(null);
 		}
-		console.log(venueEventsResponse);
+		//console.log(venueEventsResponse);
 		map.markers = [];
 		map.infoWindows = [];
 
@@ -27,8 +27,9 @@
 			var infoWindowContent = eventService.infoWindowTemplate.render(venue);
 
 			var marker = new google.maps.Marker({
+				title: venue.Title,
 				position: { lat: venue.Latitude, lng: venue.Longitude },
-				icon: venue.Logo.Url + "?width=30&height=30&mode=crop&s.roundcourners=100",
+				icon: venue.Logo.Url + "?width=35&height=35&mode=crop&format=png&s.roundcorners=1000",
 				map: map.map,
 				infoWindowContent: infoWindowContent,
 				id: i
@@ -39,24 +40,13 @@
 			google.maps.event.addListener(marker, 'click', (function (marker, infoWindowContent) {
 				return function () {
 					map.infoWindow.close();
-
-
 					map.infoWindow.setContent(infoWindowContent);
-
-
 					map.infoWindow.addListener('domready', function () {
-
-						$('.carousel').carousel({
-						});
-
-						$('.carousel-control').off('click').on('click', function (e) {
-							$('.carousel').carousel($(this).attr('data-slide'));
-							return false;
-						});
+						infowindow.init();
 					});
-
 					map.infoWindow.open(map.map, marker);
-					console.log(map.infoWindow);
+					
+
 					//map.map.panTo(map.infoWindow.getPosition())
 					//map.infoWindow.content = infoWindowContent;
 					//map.infoWindow.open(map.map, marker);
@@ -65,44 +55,17 @@
 			})(marker, infoWindowContent));
 			
 		}
-		console.log(map.markers);
+		//console.log(map.markers);
 	},
 
 	search: function () {
-
-		//var loader = $(".js-loader");
-		if (eventService.request != null) {
-			eventService.request.abort();
-			eventService.request = null;
-		}
-		// show loader
-		//loader.show();
-		// ajax
-		eventService.request = $.ajax({
-			url: "/API/venue-events",
-			//data: mapfilter.form.serialize(),
-			success: function (response) {
-				response = JSON.parse(response);
-				eventService.bind(response);
-
-				if (response.Success) {
-
-				} else {
-					//alert("Sorry, there was an error");
-					//popups.confirm("Error", "Sorry, there was an error (no events found). Please try again.", "", true);
-				}
-				// remove loader
-				//loader.hide();
-			},
-			error: function (e) {
-				if (e.statusText != "abort") {
-					alert("Sorry, there was an AJAX error");
-					//popups.confirm("Error", "Sorry, there was an error (" + e.statusText.toLowerCase() + ").", "", true);
-				}
-				// remove loader
-				//loader.hide();
-			}
-		});
+		ajax.execute(
+			"/API/venue-events",
+			mapfilter.form,
+			function (response) {
+				//console.log(response.Data);
+				eventService.bind(response.Data);
+			});
 	}
 
 };

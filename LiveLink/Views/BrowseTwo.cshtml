@@ -12,11 +12,15 @@
 			<div class="row no-gutters">
 				<div class="col-md-12">
 					<div class="mapcontrols">
+						
 						<!-- Form Controls -->
 						<form class="js-map-controls" action="#">
 							<input type="text" name="EarliestDate" value="01/01/2017">
 							<input type="text" name="LatestDate" value="01/01/2018">
+							<button class="btn js-login">Login <i class="fa fa-key"></i></button>
+							<button class="btn js-logout">Logout <i class="fa fa-key"></i></button>
 						</form>
+
 					</div>
                     
 				</div>
@@ -48,9 +52,12 @@
 
 						<div class="col-md-12">
 							<div class="listing">
-								<a href="@e.Url">
-									<img class="img-responsive" src="@(!string.IsNullOrEmpty(e.ThumbnailUrl) ? e.ThumbnailUrl : "/images/bg.jpg")?width=1050&height=500&mode=crop" alt="">
-								</a>
+								<div class="listing__image">
+									<a href="@e.Url">
+										<img class="img-responsive" src="@(!string.IsNullOrEmpty(e.ThumbnailUrl) ? e.ThumbnailUrl : "/images/bg.jpg")?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
+									</a>
+								</div>
+								
 								<div class="listing__content">
 									<div class="listing__venuelogo">
 										<img class="img-circle" src="@(!string.IsNullOrEmpty(e.Venue.LogoUrl) ? e.Venue.LogoUrl : "/images/bg.jpg")?width=70&height=70&mode=crop" alt="">

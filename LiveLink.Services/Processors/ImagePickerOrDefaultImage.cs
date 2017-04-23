@@ -17,7 +17,7 @@ namespace LiveLink.Services.Processors
 			{
 				// TODO: Inject http context
 				// TODO: Cache default image width/height
-				var defaultImagePath = HttpContext.Current.Server.MapPath("/images/bg.jpg");
+				var defaultImagePath = HttpContext.Current.Server.MapPath("/images/bg.png");
 				Bitmap defaultImage = new Bitmap(Image.FromFile(defaultImagePath));
 				return new MediaImageModel()
 				{
