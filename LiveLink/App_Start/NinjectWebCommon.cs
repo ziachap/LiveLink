@@ -56,8 +56,9 @@ namespace LiveLink.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+				kernel.Bind<HttpContext>().ToMethod(c => HttpContext.Current);
 
-	            BindUmbracoServices(kernel);
+				BindUmbracoServices(kernel);
 
 				kernel.Bind<IUmbracoWrapper>().To<DefaultUmbracoWrapper>();
 				kernel.Bind<IMediaService>().To<MediaService>();

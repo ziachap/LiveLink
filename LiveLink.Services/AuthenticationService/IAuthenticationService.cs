@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Security;
 using LiveLink.Services.Models;
 using Newtonsoft.Json;
@@ -25,17 +26,19 @@ namespace LiveLink.Services.AuthenticationService
 	public class AuthenticationService : IAuthenticationService
 	{
 		private readonly IMemberService _memberService;
+		private readonly HttpContext _httpContext;
 
 		private MembershipHelper MembershipHelper() => new MembershipHelper(UmbracoContext.Current);
 
-		public AuthenticationService(IMemberService memberService)
+		public AuthenticationService(IMemberService memberService, HttpContext httpContext)
 		{
 			_memberService = memberService;
+			_httpContext = httpContext;
 		}
 
 		public void Logout()
 		{
-			// TODO: Clear session
+			_httpContext.Session.Clear();
 			FormsAuthentication.SignOut();
 		}
 

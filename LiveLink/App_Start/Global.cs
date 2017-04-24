@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using StackExchange.Profiling;
 using Umbraco.Web;
 
 namespace LiveLink
@@ -18,6 +19,19 @@ namespace LiveLink
 			base.Application_Start(sender, e);
 
 			AreaRegistration.RegisterAllAreas();
+		}
+
+		protected void Application_BeginRequest()
+		{
+			if (Request.IsLocal)
+			{
+				MiniProfiler.Start();
+			}
+		}
+
+		protected void Application_EndRequest()
+		{
+			MiniProfiler.Stop();
 		}
 	}
 }

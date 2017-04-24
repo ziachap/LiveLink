@@ -19,6 +19,8 @@ namespace LiveLink.Controllers
 		[HttpPost]
 		public ActionResult Index(LoginForm form)
 		{
+			// TODO: Use authentication service
+
 			if (Membership.ValidateUser(form.Username, form.Password))
 			{
 				FormsAuthentication.SetAuthCookie(form.Username, form.RememberMe);

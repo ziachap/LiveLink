@@ -17,16 +17,9 @@
 			success: function(response) {
 				response = JSON.parse(response);
 				callback(response);
-				/*
-				if (response.Success) {
 
-				} else {
-					//alert("Sorry, there was an error");
-					//popups.confirm("Error", "Sorry, there was an error (no events found). Please try again.", "", true);
-				}
 				// remove loader
 				loader.hide();
-				*/
 			},
 			error: function(e) {
 				if (e.statusText != "abort") {

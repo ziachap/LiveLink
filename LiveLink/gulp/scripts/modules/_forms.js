@@ -1,9 +1,17 @@
 ﻿forms = {
 	init: function () {
-		forms.initAuthentication();
+		forms.authentication();
+		forms.datepicker();
 	},
 
-	initAuthentication: function () {
+	datepicker: function() {
+		$(".datepicker:not(.datepicker-done)").each(function () {
+			$(this).datepicker();
+			$(this).addClass("datepicker-done");
+		});
+	},
+
+	authentication: function () {
 		
 		$(".js-login-form:not(.js-login-form-done)").each(function () {
 			var form = $(this);

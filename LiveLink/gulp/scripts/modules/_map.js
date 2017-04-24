@@ -6,7 +6,8 @@
 	infoWindow: null,
 
 	init: function () {
-		
+
+		mapfilter.init();
 
 		$(".map:not(.js-map-done)").each(function () {
 			var events = JSON.parse($("#events-json").html());
@@ -20,31 +21,41 @@
 
 			google.maps.event.addListener(map.map, 'idle', function () {
 				eventService.search();
+
+				
+
 			});
 
 			google.maps.event.addListener(map.map, 'click', function () {
 				map.infoWindow.close();
+				initInfoWindow();
 			});
 
 			$(this).addClass("js-map-done");
 
 			eventService.search();
 
-			map.infoWindow = new InfoBox({
-				//content: infoWindowContent,
-				alignBottom: true,
-				disableAutoPan: false,
-				maxWidth: 0,
-				pixelOffset: new google.maps.Size(-170, -50),
-				zIndex: null,
-				boxClass: "infowindow",
-				closeBoxURL: "",
-				infoBoxClearance: new google.maps.Size(20, 20),
-				isHidden: false,
-				pane: "floatPane",
-				enableEventPropagation: false
-			});
+			initInfoWindow();
+
+			function initInfoWindow() {
+				map.infoWindow = new InfoBox({
+					//content: infoWindowContent,
+					alignBottom: true,
+					disableAutoPan: true,
+					maxWidth: 0,
+					pixelOffset: new google.maps.Size(-170, -50),
+					zIndex: null,
+					boxClass: "infowindow",
+					closeBoxURL: "",
+					infoBoxClearance: new google.maps.Size(20, 20),
+					isHidden: false,
+					pane: "floatPane",
+					enableEventPropagation: false
+				});
+			}
 		});
+
+		
 
 
 		//map.infoWindow = new google.maps.InfoWindow();
