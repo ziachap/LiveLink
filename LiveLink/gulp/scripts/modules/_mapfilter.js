@@ -13,8 +13,12 @@
 				return false;
 			});
 
-			form.find('input').change(function () {
+			form.find("input[data-role='filter']").change(function () {
 				eventService.search();
+			});
+
+			form.find(".js-location").change(function() {
+				console.log("location change");
 			});
 			//console.log(mapfilter.form.serialize());
 		});

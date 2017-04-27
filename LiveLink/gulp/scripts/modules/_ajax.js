@@ -19,7 +19,7 @@
 				callback(response);
 
 				// remove loader
-				loader.hide();
+				//loader.hide();
 			},
 			error: function(e) {
 				if (e.statusText != "abort") {
