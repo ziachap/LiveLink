@@ -1,8 +1,22 @@
 ﻿
+
+body{
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;	
+}
+
 @import "mixins";
+
+@import "common/config";
 
 @import "layout/nav";
 @import "layout/page";
+@import "layout/loader";
 
-@import "modules/property";
-@import "modules/propertylanding";
+@import "modules/browse";
+@import "modules/map";
+@import "modules/infowindow";
+@import "modules/listing";
+@import "modules/colours";
+@import "modules/overlay";
+@import "modules/event";

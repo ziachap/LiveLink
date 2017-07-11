@@ -1,5 +1,78 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Event>
-@using ContentModels = Umbraco.Web.PublishedContentModels;
+﻿@inherits Our.Umbraco.Ditto.DittoView<LiveLink.Services.Models.ViewModels.EventViewModel>
 @{
-	Layout = null;
+	Layout = Request.IsAjaxRequest() ? null : "Master.cshtml";
+}
+<div class="container">
+	<div class="event">
+		
+		<div class="event__header">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="event__header-title">
+						@Model.View.Title
+					</div>
+					<div class="event__header-details">
+						<div class="event__header-date">
+							<i class="fa fa-calendar"></i> Date: <b>@Model.View.FormattedDateTime</b>
+						</div>
+						<div class="event__header-venue">
+							<i class="fa fa-home"></i> Venue:
+							<b><a href="#">@Model.View.Venue.Title</a></b>
+							<img class="img-circle" src="@Model.View.Venue.Logo.Url?width=20&height=20&mode=crop"/>
+						</div>
+						@if (!string.IsNullOrEmpty(@Model.View.TicketUri))
+						{
+							<div class="event__header-date">
+								<i class="fa fa-ticket"></i> Buy tickets: <a href="@Model.View.TicketUri" target="_blank">@Model.View.TicketUri.Truncate(40)</a>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="event__body">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="event__body-image">
+						<img src="@Model.View.ThumbnailUrl?width=800&mode=crop"/>
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div class="row">
+						<div class="col-md-12">
+							@Html.Raw(Model.View.Description)
+							<p></p>
+						</div>
+						<div class="col-md-12">
+							<div class="event__body-map js-event-map"
+							     data-lng="@Model.View.Venue.Longitude"
+							     data-lat="@Model.View.Venue.Latitude">
+							</div>
+						@*
+						<div class="event__body-map">
+							<img src="https://maps.googleapis.com/maps/api/staticmap?
+								 center=@(Model.View.Venue.Latitude),@(Model.View.Venue.Longitude)
+								 &zoom=14&size=800x320
+								&markers=color:red
+								 %7Clabel:@(Model.View.Venue.Title)
+								 %7C@(Model.View.Venue.Latitude),@(Model.View.Venue.Longitude)
+								 &key=AIzaSyAFMn4IZfdJTexYRh6MfL6fqNbukCIwj9I" />
+						</div>
+						*@
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+@section JSPlugins
+{
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFMn4IZfdJTexYRh6MfL6fqNbukCIwj9I">
+		
+	</script>
 }

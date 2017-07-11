@@ -1,3 +1,15 @@
+using LiveLink.Services.FacebookEventsService;
+using Gibe.UmbracoWrappers;
+using Gibe.DittoServices.ModelConverters;
+using LiveLink.Services.EventImportService;
+using LiveLink.Services.ExamineService;
+using LiveLink.Services.EventSearchService;
+using Umbraco.Core.Services;
+using Umbraco.Core;
+using LiveLink.Services.AuthenticationService;
+using IMediaService = Gibe.DittoProcessors.Media.IMediaService;
+using MediaService = Gibe.DittoProcessors.Media.MediaService;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(LiveLink.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(LiveLink.App_Start.NinjectWebCommon), "Stop")]
 
@@ -44,8 +56,25 @@ namespace LiveLink.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+				kernel.Bind<HttpContext>().ToMethod(c => HttpContext.Current);
 
-                RegisterServices(kernel);
+				BindUmbracoServices(kernel);
+
+				kernel.Bind<IUmbracoWrapper>().To<DefaultUmbracoWrapper>();
+				kernel.Bind<IMediaService>().To<MediaService>();
+				kernel.Bind<IModelConverter>().To<DittoModelConverter>();
+
+				kernel.Bind<IEventImportService>().To<EventImportService>();
+                kernel.Bind<IFacebookApiWrapper>().To<FacebookApiWrapper>();
+                kernel.Bind<IFacebookEventsService>().To<FacebookEventsService>();
+
+				kernel.Bind<IEventSearchService>().To<EventSearchService>();
+				kernel.Bind<IExamineService>().To<ExamineService>();
+				kernel.Bind<IExamineSearchProviderWrapper>().To<ExamineSearchProviderWrapper>();
+				kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
+
+
+				RegisterServices(kernel);
                 return kernel;
             }
             catch
@@ -54,6 +83,14 @@ namespace LiveLink.App_Start
                 throw;
             }
         }
+
+	    private static void BindUmbracoServices(StandardKernel kernel)
+	    {
+			kernel.Bind<Umbraco.Web.Security.MembershipHelper>().ToMethod(x => new Umbraco.Web.Security.MembershipHelper(Umbraco.Web.UmbracoContext.Current));
+			kernel.Bind<IMemberService>().ToMethod(x => ApplicationContext.Current.Services.MemberService);
+			kernel.Bind<IContentService>().ToMethod(x => ApplicationContext.Current.Services.ContentService);
+			kernel.Bind<Umbraco.Core.Services.IMediaService>().ToMethod(x => ApplicationContext.Current.Services.MediaService);
+		}
 
         /// <summary>
         /// Load your modules or register your services here!
