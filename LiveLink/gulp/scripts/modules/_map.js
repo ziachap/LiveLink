@@ -7,13 +7,14 @@
 
 	init: function () {
 
+		//eventMap.init();
 		mapfilter.init();
 
 		$(".map:not(.js-map-done)").each(function () {
 			var events = JSON.parse($("#events-json").html());
 			var form = $('#js-map-controls');
 			map.map = new google.maps.Map(this, {
-				zoom: 12,
+				zoom: 13,
 				center: { lat: 51.449517, lng: -2.575963 },
 				styles: mapstyle
 			});
@@ -21,9 +22,6 @@
 
 			google.maps.event.addListener(map.map, 'idle', function () {
 				eventService.search();
-
-				
-
 			});
 
 			google.maps.event.addListener(map.map, 'click', function () {
@@ -39,7 +37,6 @@
 
 			function initInfoWindow() {
 				map.infoWindow = new InfoBox({
-					//content: infoWindowContent,
 					alignBottom: true,
 					disableAutoPan: true,
 					maxWidth: 0,
@@ -54,13 +51,6 @@
 				});
 			}
 		});
-
-		
-
-
-		//map.infoWindow = new google.maps.InfoWindow();
-
-		
 	}
 };
 $(function () {

@@ -18,7 +18,7 @@
 
 						<div class="listing__content">
 							<h3>
-								<a href="{{Url}}">{{Title}}</a> 
+								<a class ="js-open-event" href="{{Url}}" data-id="{{Id}}">{{Title}}</a> 
 							</h3>
 
 							<p>
@@ -27,6 +27,7 @@
 
 							<p>
 								<button class="btn btn-default js-watch{{#Watching}} active{{/Watching}}" data-id="{{Id}}">Watch <i class="fa fa-eye"></i></button>
+								<button class="btn btn-default js-open-event" data-id="{{Id}}">Info <i class="fa fa-info"></i></button>
 							</p>
 						</div>
 							

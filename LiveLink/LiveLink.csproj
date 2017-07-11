@@ -455,6 +455,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
+    <Content Include="gulp\scripts\modules\_eventmap.js" />
+    <Content Include="gulp\scripts\modules\_overlay.js" />
     <Content Include="gulp\scripts\modules\_forms.js" />
     <Content Include="gulp\scripts\modules\_notification.js" />
     <Content Include="gulp\scripts\modules\_userservice.js" />
@@ -499,6 +501,9 @@
     <Content Include="config\applications.config" />
     <Content Include="config\404handlers.config" />
     <Content Include="gulp\scss\common\_config.scss" />
+    <Content Include="gulp\scss\modules\_overlay.scss" />
+    <Content Include="gulp\scss\modules\_event.scss" />
+    <Content Include="gulp\scss\layout\_loader.scss" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\smarterasp.net.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -2148,6 +2153,7 @@
     <Content Include="App_Code\ViewExtensions.cs" />
     <Compile Include="App_Start\Global.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Areas\API\Controllers\AjaxEventController.cs" />
     <Compile Include="Areas\API\APIAreaRegistration.cs" />
     <Compile Include="Areas\API\Controllers\GetVenueEventsController.cs" />
     <Compile Include="Areas\API\Controllers\ImportFacebookEventsController.cs" />
@@ -2170,6 +2176,7 @@
     <Folder Include="Areas\API\Views\ImportFacebookEvents\" />
     <Folder Include="Areas\API\Views\Shared\" />
     <Folder Include="Areas\API\Views\User\" />
+    <Folder Include="Views\AjaxEvent\" />
     <Folder Include="Views\MacroPartials\" />
   </ItemGroup>
   <ItemGroup>

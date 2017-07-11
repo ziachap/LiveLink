@@ -35,10 +35,18 @@ namespace LiveLink.Services.Models.ViewModels
         [UmbracoProperty("contentStartDateTime")]
         public DateTime StartTime { get; set; }
 
-	    public string FormattedStartTime => StartTime.ToLongDateString();
+	    public string FormattedStartTime 
+			=> string.Format("{0:dddd MMMM dd yyyy} at {0:h:mmtt}", StartTime);
 
-        [UmbracoProperty("contentEndDateTime")]
+		[UmbracoProperty("contentEndDateTime")]
         public DateTime EndTime { get; set; }
+
+		public string FormattedEndTime
+		   => string.Format("{0:dddd MMMM dd yyyy} at {0:h:mmtt}", EndTime);
+
+		public string FormattedDateTime => StartTime.AddHours(12) < EndTime 
+			? FormattedStartTime + " - " + FormattedEndTime
+			: FormattedStartTime + $" - {EndTime:h:mmtt}";
 
 		[UmbracoProperty("url")]
 		public string Url { get; set; }

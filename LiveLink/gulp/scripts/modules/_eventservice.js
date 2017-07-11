@@ -67,9 +67,24 @@
 			'',//mapfilter.form.serialize(),
 			function (response) {
 				//console.log(response.Data);
+				response = JSON.parse(response);
 				eventService.bind(response.Data);
 			});
-	}
+	},
+
+	render: function (id) {
+		overlay.showLoader();
+		ajax.execute(
+			"/API/event",
+			"id=" + id,
+			function (response) {
+				overlay.render(response, function () {
+					eventMap.init();
+				});
+				overlay.hideLoader();
+			});
+		overlay.show();
+	} 
 
 };
 

@@ -34,6 +34,16 @@
 				$(this).addClass("js-watch-done");
 			});
 
+			$(this).find(".js-open-event:not(.js-open-event-done)").each(function () {
+				var id = $(this).attr("data-id");
+				$(this).click(function () {
+					eventService.render(id);
+					return false;
+				});
+				$(this).addClass("js-open-event-done");
+			});
+
+
 			$(this).addClass("js-infowindow-done");
 		});
 	}

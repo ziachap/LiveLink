@@ -1,4 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Globalization;
+using System.Web.Mvc;
+using Gibe.DittoServices.ModelConverters;
+using Gibe.UmbracoWrappers;
+using LiveLink.Services.Models.ViewModels;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
 
@@ -6,13 +10,27 @@ namespace LiveLink.Controllers
 {
 	public class EventController : RenderMvcController
 	{
-	    public override ActionResult Index(RenderModel model)
-	    {
-	        
+		private readonly IModelConverter _modelConverter;
+		private readonly IUmbracoWrapper _umbracoWrapper;
 
-            //Do some stuff here, then return the base method
-            return base.Index(model);
+		public EventController(IModelConverter modelConverter, IUmbracoWrapper umbracoWrapper)
+		{
+			_modelConverter = modelConverter;
+			_umbracoWrapper = umbracoWrapper;
+		}
+
+		public override ActionResult Index(RenderModel model)
+		{
+			var viewModel = _modelConverter.ToModel<EventViewModel>(model.Content);
+			
+			return base.Index(model);
         }
 
-    }
+		public ActionResult AjaxIndex(int id)
+		{
+			var node = _umbracoWrapper.TypedContent(id);
+
+			return Index(new RenderModel(node, CultureInfo.CurrentCulture));
+		}
+	}
 }

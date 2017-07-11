@@ -15,7 +15,7 @@
 			url: url,
 			data: data,
 			success: function(response) {
-				response = JSON.parse(response);
+				
 				callback(response);
 
 				// remove loader

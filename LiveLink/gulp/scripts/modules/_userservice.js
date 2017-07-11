@@ -3,6 +3,7 @@
 
 	watch: function (id, button, callback) {
 		ajax.execute("/API/user/watch", "id=" + id, function (response) {
+			response = JSON.parse(response);
 			console.log(response);
 
 			if (callback != null) {
@@ -14,6 +15,7 @@
 	login: function (loginForm, callback) {
 		//var query = "username=" + username + "&password=" + password;
 		ajax.execute("/API/user/login", loginForm.serialize(), function (response) {
+			response = JSON.parse(response);
 			console.log(response);
 
 			if (response.Success) {
@@ -31,6 +33,7 @@
 
 	logout: function (callback) {
 		ajax.execute("/API/user/logout", '', function (response) {
+			response = JSON.parse(response);
 			console.log(response);
 
 			notification.show('<i class="fa fa-sign-out fa-fw"></i> You have been logged out', 'warning');

@@ -1,0 +1,46 @@
+﻿
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+	background-color: rgba(0,0,0,0.5);
+
+	&__inner {
+		/*
+		width: 80%;
+		margin-left: -40%;
+		position: fixed;
+		top: 70px; 
+	    */
+
+		margin-top: 70px;
+		display: inline-block;
+		min-height: 100px;
+		max-height: 90%;
+		background-color: #ffffff;
+		border-radius: 2px;
+		z-index: 11;
+		overflow-x: hidden;
+		overflow-y: auto;
+		text-align: left;
+
+		-webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+		-moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+		box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+
+		&-close {
+			width: 40px;
+			height: 40px;
+			position: absolute;
+			top: 8px;
+			right: 7px;
+			:hover {
+				cursor: pointer;
+			}
+			background-color: rgba(255,255,255,0.2);
+		}
+	}
+}
