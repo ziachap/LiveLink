@@ -79,7 +79,7 @@
 			"id=" + id,
 			function (response) {
 				overlay.render(response, function () {
-					eventMap.init();
+					eventOverlay.init();
 				});
 				overlay.hideLoader();
 			});

@@ -7,7 +7,7 @@
 
 	init: function () {
 
-		//eventMap.init();
+		//eventOverlay.init();
 		mapfilter.init();
 
 		$(".map:not(.js-map-done)").each(function () {

@@ -1,4 +1,4 @@
-﻿var eventMap = {
+﻿var eventOverlay = {
 
 	init: function() {
 		$('.js-event-map:not(.js-event-map-done)').each(function () {
@@ -26,13 +26,22 @@
 
 			$(this).addClass("js-event-map-done");
 		});
+
+		$('.js-event-show-more:not(.js-event-show-more-done)').each(function () {
+			$(this).readmore({
+				speed: 75,
+				moreLink: '<a href="#">Show more</a>',
+				lessLink: '<a href="#">Show less</a>'
+			});
+			$(this).addClass("js-event-show-more-done");
+		});
 	}
 
 };
 
 $(function () {
-	eventMap.init();
+	eventOverlay.init();
 	site.ajaxComplete(function () {
-		eventMap.init();
+		eventOverlay.init();
 	});
 });

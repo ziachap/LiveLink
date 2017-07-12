@@ -41,8 +41,9 @@
 				<div class="col-md-7">
 					<div class="row">
 						<div class="col-md-12">
-							@Html.Raw(Model.View.Description)
-							<p></p>
+							<div class="event__body-description js-event-show-more">
+								 @Html.Raw(Model.View.Description)
+							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="event__body-map js-event-map"
