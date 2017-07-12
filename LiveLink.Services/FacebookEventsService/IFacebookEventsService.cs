@@ -152,6 +152,11 @@ namespace LiveLink.Services.FacebookEventsService
 			};
         }
 
+	    private string ToHtml(string text)
+	    {
+		    return $"<p>{text}</p>".Replace("\n", "<br />");
+	    }
+
         private IPublishedContent Settings()
             => _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));
 

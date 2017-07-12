@@ -29,7 +29,7 @@
 
 		$('.js-event-show-more:not(.js-event-show-more-done)').each(function () {
 			$(this).readmore({
-				speed: 75,
+				speed: 500,
 				moreLink: '<a href="#">Show more</a>',
 				lessLink: '<a href="#">Show less</a>'
 			});

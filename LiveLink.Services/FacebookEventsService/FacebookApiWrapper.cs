@@ -31,7 +31,7 @@ namespace LiveLink.Services.FacebookEventsService
                 var jsonData = Service(authenticationData).Client
                     .DoAuthenticatedGetRequest("/" + identifier + $"/events?fields={string.Join(",", _fields)}&limit=10")
                     .GetBodyAsJsonObject().GetArray("data");
-                return AsFacebookEvents(jsonData);
+                return AsFacebookEvents(jsonData).ToList();
             }
             catch (Exception e)
             {

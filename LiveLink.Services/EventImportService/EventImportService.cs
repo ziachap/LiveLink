@@ -26,11 +26,13 @@ namespace LiveLink.Services.EventImportService
 
 		public void SaveEvents(IEnumerable<LiveLinkEvent> events)
 		{
+			var futureEvents = events.Where(x => x.StartDateTime > DateTime.Now).ToList();
+
 			var contentService = ContentService();
 
-			EventIdentifierNodeMap = CreateEventIdentifierNodeMap(events);
+			EventIdentifierNodeMap = CreateEventIdentifierNodeMap(futureEvents);
 
-			foreach (var liveLinkEvent in events)
+			foreach (var liveLinkEvent in futureEvents)
 			{
 				if (EventIdentifierNodeMap.ContainsKey(liveLinkEvent.FacebookEventIdentifier))
 				{
@@ -96,11 +98,10 @@ namespace LiveLink.Services.EventImportService
 
 			return existingEventMap;
 		}
-
-		// TODO: This might want to go in a dedicated service
+		
 		private string FormatAsHtml(string text)
 		{
-			var paragraphedText = "<p>" + string.Join("</p><p>", text.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries)) + "</p>";
+			var paragraphedText = "<p>" + text.Replace("\n", "<br />") + "</p>";
 
 			return paragraphedText;
 		}
