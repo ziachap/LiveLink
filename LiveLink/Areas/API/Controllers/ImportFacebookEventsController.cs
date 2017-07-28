@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using LiveLink.Services.EventImportService;
 using LiveLink.Services.FacebookEventsService;
+using Newtonsoft.Json;
 
 namespace LiveLink.Areas.API.Controllers
 {
@@ -21,7 +22,7 @@ namespace LiveLink.Areas.API.Controllers
 			var events = _facebookEventsService.GetEventsForVenues(limit);
 			_eventImportService.SaveEvents(events);
 
-			return "Success!";
+			return JsonConvert.SerializeObject(events);
         }
     }
 }
