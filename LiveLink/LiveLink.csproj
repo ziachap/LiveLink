@@ -2152,6 +2152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\ViewExtensions.cs" />
+    <Compile Include="App_Start\ExamineIndexer.cs" />
     <Compile Include="App_Start\Global.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Areas\API\Controllers\AjaxEventController.cs" />

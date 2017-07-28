@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
+using Examine;
+using Examine.LuceneEngine.Providers;
+using LiveLink.App_Start;
 using StackExchange.Profiling;
 using Umbraco.Web;
 
@@ -18,7 +21,11 @@ namespace LiveLink
 		{
 			base.Application_Start(sender, e);
 
+			var eventIndexer = (LuceneIndexer)ExamineManager.Instance.IndexProviderCollection["EventIndexer"];
+			eventIndexer.DocumentWriting += ExamineIndexer.EventIndexer_DocumentWriting;
+
 			AreaRegistration.RegisterAllAreas();
+
 		}
 
 		protected void Application_BeginRequest()

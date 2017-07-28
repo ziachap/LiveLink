@@ -64,7 +64,8 @@
 	search: function () {
 		ajax.execute(
 			"/API/venue-events",
-			'',//mapfilter.form.serialize(),
+			//'',
+			mapfilter.form.serialize(),
 			function (response) {
 				//console.log(response.Data);
 				response = JSON.parse(response);

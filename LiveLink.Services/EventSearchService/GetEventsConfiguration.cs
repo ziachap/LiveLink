@@ -6,5 +6,10 @@ namespace LiveLink.Services.EventSearchService
 	{
 		public DateTime? EarliestDate { get; set; }
 		public DateTime? LatestDate { get; set; }
+
+		public double BoundMinX { get; set; }
+		public double BoundMaxX { get; set; }
+		public double BoundMinY { get; set; }
+		public double BoundMaxY { get; set; }
 	}
 }

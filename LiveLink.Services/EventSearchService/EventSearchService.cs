@@ -5,6 +5,7 @@ using Examine.SearchCriteria;
 using Gibe.DittoServices.ModelConverters;
 using LiveLink.Services.ExamineService;
 using LiveLink.Services.Models.ViewModels;
+using LiveLink.Services.NumericIndexFormatter;
 using Umbraco.Core.Models;
 
 namespace LiveLink.Services.EventSearchService
@@ -14,13 +15,17 @@ namespace LiveLink.Services.EventSearchService
 		private readonly IExamineSearchProviderWrapper _examineSearchProviderWrapper;
 		private readonly IExamineService _examineService;
 		private readonly IModelConverter _modelConverter;
+		private readonly INumericIndexFormatter _numericIndexFormatter;
 
-		public EventSearchService(IExamineService examineService, IExamineSearchProviderWrapper examineSearchProviderWrapper,
-			IModelConverter modelConverter)
+		public EventSearchService(IExamineService examineService,
+			IExamineSearchProviderWrapper examineSearchProviderWrapper,
+			IModelConverter modelConverter, 
+			INumericIndexFormatter numericIndexFormatter)
 		{
 			_examineService = examineService;
 			_examineSearchProviderWrapper = examineSearchProviderWrapper;
 			_modelConverter = modelConverter;
+			_numericIndexFormatter = numericIndexFormatter;
 		}
 
 		public IEnumerable<EventViewModel> GetEvents(GetEventsConfiguration configuration)
@@ -57,6 +62,13 @@ namespace LiveLink.Services.EventSearchService
 				query = query.And().Range("contentStartDateTime", configuration.EarliestDate.Value, DateTime.MaxValue);
 			else if (configuration.LatestDate.HasValue)
 				query = query.And().Range("contentStartDateTime", DateTime.MinValue, configuration.LatestDate.Value);
+
+			query = query.And().Range("contentLongitude", 
+				_numericIndexFormatter.Format(configuration.BoundMinX),
+				_numericIndexFormatter.Format(configuration.BoundMaxX));
+			query = query.And().Range("contentLatitude",
+				_numericIndexFormatter.Format(configuration.BoundMinY),
+				_numericIndexFormatter.Format(configuration.BoundMaxY));
 
 			var results = _examineService.Search(searcher, query.Compile());
 

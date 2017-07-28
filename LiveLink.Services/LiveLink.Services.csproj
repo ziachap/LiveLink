@@ -165,6 +165,10 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Our.Umbraco.Ditto, Version=0.10.6091.32633, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Our.Umbraco.Ditto.0.10.0\lib\net45\Our.Umbraco.Ditto.dll</HintPath>
       <Private>True</Private>
@@ -328,6 +332,7 @@
     <Compile Include="Models\ViewModels\VenueViewModel.cs" />
     <Compile Include="Models\ViewModels\EventViewModel.cs" />
     <Compile Include="Models\ViewModels\MetaModel.cs" />
+    <Compile Include="NumericIndexFormatter\INumericIndexFormatter.cs" />
     <Compile Include="Processors\CanonicalUrlAttribute.cs" />
     <Compile Include="Processors\ImagePickerOrDefaultImage.cs" />
     <Compile Include="Processors\NavigationAttribute.cs" />

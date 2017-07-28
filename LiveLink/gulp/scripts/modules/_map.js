@@ -21,8 +21,22 @@
 			//eventService.bind(events);
 
 			google.maps.event.addListener(map.map, 'idle', function () {
+				updateBoundInputs();
 				eventService.search();
 			});
+
+			function updateBoundInputs() {
+				var bounds = map.map.getBounds();
+				var ne = bounds.getNorthEast();
+				var sw = bounds.getSouthWest();
+				var minX = sw.lng(), maxX = ne.lng();
+				var minY = sw.lat(), maxY = ne.lat();
+
+				mapfilter.form.find(".js-bounds-min-x").val(minX);
+				mapfilter.form.find(".js-bounds-max-x").val(maxX);
+				mapfilter.form.find(".js-bounds-min-y").val(minY);
+				mapfilter.form.find(".js-bounds-max-y").val(maxY);
+			};
 
 			google.maps.event.addListener(map.map, 'click', function () {
 				map.infoWindow.close();
