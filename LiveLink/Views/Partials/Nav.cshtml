@@ -23,6 +23,7 @@
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
+				@*
 				<!-- ADMINISTRATION - SUPERUSERS ONLY -->
 				<li>
 					<a href="/umbraco" target="_blank"><i class="fa fa-unlock-alt fa-fw"></i> Umbraco</a>
@@ -40,8 +41,8 @@
 						<li class="dropdown-header">Enter your username and password.</li>
 						<!-- DROPDOWN LOGIN FORM -->
 
-						<form class="js-login-form" method="post" >
-							@* TODO: CSRF token *@
+						<form class="js-login-form" method="post">
+							<!-- TODO: CSRF token -->
 							<br>
 							<div class="input-group margin-bottom-sm">
 								<span class="input-group-addon">
@@ -49,19 +50,19 @@
 								</span>
 								<input class="form-control text-box single-line" name="Username" type="text" value=""">
 							</div>
-							<br />
+							<br/>
 							<div class="input-group">
 								<span class="input-group-addon">
 									<i class="fa fa-key fa-fw"></i>
 								</span>
 								<input class="form-control text-box single-line password" name="Password" type="password" value="">
 							</div>
-							<br />
+							<br/>
 							<div class="input-group">
 								<span class="input-group-addon">
 									<i class="fa fa-key fa-fw"></i>
 								</span>
-								Remember Me 
+								Remember Me
 								<input class="" name="RememberMe" type="checkbox">
 							</div>
 
@@ -71,6 +72,7 @@
 						</form>
 					</div>
 				</ul>
+					*@
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

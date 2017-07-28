@@ -11,19 +11,18 @@
             
 			<div class="row no-gutters">
 				<div class="col-md-12">
-					<div class="mapcontrols">
-						<input class="js-location" type="text" value="">
+					<div class="browsecontrols">
+						
 
 						<!-- Form Controls -->
-						<form class="js-map-controls" action="#">
-							<input class="datepicker" data-role="filter" type="text" name="EarliestDate" value="01/01/2016">
-							<input class="datepicker" data-role="filter" type="text" name="LatestDate" value="01/01/2018">
+						<form class="js-map-controls" action="#" autocomplete="off">
+							<input class="js-location" type="text" value="" placeholder="Search Location..">
+							<input class="datepicker" data-role="filter" type="text" name="EarliestDate" value="01/01/2016" placeholder="From..">
+							<input class="datepicker" data-role="filter" type="text" name="LatestDate" value="01/01/2018" placeholder="Until..">
 							<input class="js-bounds-min-x" data-role="filter" type="hidden" name="BoundMinX" value="1234">
 							<input class="js-bounds-max-x" data-role="filter" type="hidden" name="BoundMaxX">
 							<input class="js-bounds-min-y" data-role="filter" type="hidden" name="BoundMinY">
 							<input class="js-bounds-max-y" data-role="filter" type="hidden" name="BoundMaxY">
-							<button class="btn js-login">Login <i class="fa fa-key"></i></button>
-							<button class="btn js-logout">Logout <i class="fa fa-key"></i></button>
 						</form>
 
 					</div>
@@ -72,7 +71,7 @@
 										<a href="@e.Url">@e.Title</a>
 										<small>@e.Venue.Title</small>
 									</h3>
-									<p><b>@e.StartTime.ToLongDateString()</b> - @e.SummaryShort</p>
+									<p><b>@e.FormattedStartDate</b> - @e.SummaryShort</p>
 								</div>
 
 							</div>

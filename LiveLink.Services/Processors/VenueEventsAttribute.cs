@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Gibe.DittoProcessors.Processors;
-using Gibe.DittoServices.ModelConverters;
-using Gibe.UmbracoWrappers;
 using LiveLink.Services.EventSearchService;
-using LiveLink.Services.Models.ViewModels;
 
 namespace LiveLink.Services.Processors
 {
@@ -18,7 +9,13 @@ namespace LiveLink.Services.Processors
 
 		public override object ProcessValue()
 		{
-			return EventSearchService().GetVenueEvents(new GetEventsConfiguration());
+			return EventSearchService().GetVenueEvents(new GetEventsConfiguration
+			{
+				BoundMaxX = 360,
+				BoundMinX = -360,
+				BoundMaxY = 360,
+				BoundMinY = -360
+			});
 		}
 	}
 }

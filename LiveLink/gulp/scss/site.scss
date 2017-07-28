@@ -2,7 +2,7 @@
 
 body{
 	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;	
+	-webkit-font-smoothing: antialiased;
 }
 
 @import "mixins";
@@ -14,6 +14,7 @@ body{
 @import "layout/loader";
 
 @import "modules/browse";
+@import "modules/browsecontrols";
 @import "modules/map";
 @import "modules/infowindow";
 @import "modules/listing";

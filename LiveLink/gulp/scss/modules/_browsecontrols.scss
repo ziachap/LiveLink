@@ -1,0 +1,37 @@
+﻿.browsecontrols {
+	background-color: #222;
+	width: 100%;
+	height: 100%;
+
+	&__inner {
+		padding-left: 30px;
+	}
+
+	input[type=text] {
+		margin: -2px;
+		padding: 14px 16px;
+		background-color: #444;
+
+		color: white;
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-size: 1em;
+
+		border: 0px solid #555;
+		border-right: 0px solid #222;
+
+		&:focus {
+			background-color: #555;
+		}
+	}
+
+	input:focus,
+	select:focus,
+	textarea:focus,
+	button:focus {
+		outline: none;
+	}
+
+	.ui-widget-content {
+		background-color: #505050;
+	}
+}

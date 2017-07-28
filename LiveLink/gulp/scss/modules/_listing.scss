@@ -1,33 +1,51 @@
 ﻿
 .listing__container {
-    padding: 12px;
-	height:	100%;
+	padding: 12px;
+	height: 100%;
 	overflow-y: auto;
+	background-color: #222;
+	color: white;
 }
 
 .listing {
-	
 	width: 100%;
-    -webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
-    -moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
-    box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
-    margin: 8px 0px;
-    opacity: 0.95;
+	-webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+	box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+	margin: 8px 0px;
+	opacity: 0.95;
 
-    &:hover {
-        opacity: 1;
-    }
+	background-color: #444;
+	color: white;
+
+	&:hover {
+		opacity: 1;
+	}
+
+	a, a:hover {
+		color: white;
+		text-decoration: none;
+
+	}
+
+	 a:hover {
+		 text-decoration: solid;
+	 }
+
+	 small {
+		color: #ccc;
+	 }
 }
 
 .listing__image {
-    max-height: 200px;
+	max-height: 200px;
 	width: 100%;
 	overflow: hidden;
 }
 
 .listing__content {
-    padding: 2px 15px;
-    padding-bottom: 5px;
+	padding: 2px 15px;
+	padding-bottom: 5px;
 	position: relative;
 }
 

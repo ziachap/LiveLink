@@ -504,6 +504,7 @@
     <Content Include="gulp\scss\modules\_overlay.scss" />
     <Content Include="gulp\scss\modules\_event.scss" />
     <Content Include="gulp\scss\layout\_loader.scss" />
+    <Content Include="gulp\scss\modules\_browsecontrols.scss" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\smarterasp.net.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -38,6 +38,9 @@ namespace LiveLink.Services.Models.ViewModels
 	    public string FormattedStartTime 
 			=> string.Format("{0:dddd MMMM dd yyyy} at {0:h:mmtt}", StartTime);
 
+		public string FormattedStartDate
+		   => string.Format("{0:dddd MMMM dd yyyy}", StartTime);
+
 		[UmbracoProperty("contentEndDateTime")]
         public DateTime EndTime { get; set; }
 
