@@ -309,6 +309,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationService\IAuthenticationService.cs" />
+    <Compile Include="ContentSearchService\IContentSearchService.cs" />
+    <Compile Include="ContentSearchService\Models\ContentSearchConfiguration.cs" />
+    <Compile Include="ContentSearchService\Models\ContentSearchResults.cs" />
+    <Compile Include="ContentSearchService\Models\EventContentSearchResult.cs" />
+    <Compile Include="ContentSearchService\Models\VenueContentSearchResult.cs" />
     <Compile Include="EventImportService\EventImportService.cs" />
     <Compile Include="EventImportService\IEventImportService.cs" />
     <Compile Include="EventSearchService\EventSearchService.cs" />
@@ -326,6 +331,7 @@
     <Compile Include="FacebookEventsService\IFacebookEventsService.cs" />
     <Compile Include="Models\LiveLinkEvent.cs" />
     <Compile Include="Models\NavigationNode.cs" />
+    <Compile Include="Models\OtherEventModel.cs" />
     <Compile Include="Models\ViewModels\BrowseViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\NavigationViewModel.cs" />
@@ -336,6 +342,7 @@
     <Compile Include="Processors\CanonicalUrlAttribute.cs" />
     <Compile Include="Processors\ImagePickerOrDefaultImage.cs" />
     <Compile Include="Processors\NavigationAttribute.cs" />
+    <Compile Include="Processors\OtherVenueEventsAttribute.cs" />
     <Compile Include="Processors\UserIsWatchingAttribute.cs" />
     <Compile Include="Processors\VenueEventsAttribute.cs" />
     <Compile Include="Processors\EventsAttribute.cs" />

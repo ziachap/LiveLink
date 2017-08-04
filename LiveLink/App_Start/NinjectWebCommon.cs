@@ -7,6 +7,7 @@ using LiveLink.Services.EventSearchService;
 using Umbraco.Core.Services;
 using Umbraco.Core;
 using LiveLink.Services.AuthenticationService;
+using LiveLink.Services.ContentSearchService;
 using LiveLink.Services.NumericIndexFormatter;
 using IMediaService = Gibe.DittoProcessors.Media.IMediaService;
 using MediaService = Gibe.DittoProcessors.Media.MediaService;
@@ -68,6 +69,7 @@ namespace LiveLink.App_Start
 				kernel.Bind<IEventImportService>().To<EventImportService>();
                 kernel.Bind<IFacebookApiWrapper>().To<FacebookApiWrapper>();
                 kernel.Bind<IFacebookEventsService>().To<FacebookEventsService>();
+                kernel.Bind<IContentSearchService>().To<ContentSearchService>();
 
 				kernel.Bind<IEventSearchService>().To<EventSearchService>();
 				kernel.Bind<IExamineService>().To<ExamineService>();

@@ -34,7 +34,8 @@
 					</div>
 				</div>
 				{{/Events}}
-					
+				
+				{{#HasMultipleEvents}}	
 				<div class="infowindow__carousel-controls">
 					<a class="left carousel-control" data-target="#infowindow__carousel" role="button" data-slide="prev">
 						<span class="icon-prev"></span>
@@ -45,7 +46,8 @@
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
-				
+				{{/HasMultipleEvents}}
+								
 			</div>
 			
 			

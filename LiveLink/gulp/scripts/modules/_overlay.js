@@ -9,9 +9,11 @@
 				});
 			});
 
-			$(this).click(function (e) {
-				//overlay.hide();
-				//e.stopPropagation();
+			$(this).find('overlay__inner').each(function() {
+				$(this).bind('clickoutside', function(event) {
+						console.log("outside overlay");
+						overlay.hide();
+					});
 			});
 
 			$(this).addClass("js-overlay-done");

@@ -1,0 +1,27 @@
+﻿<div class="browsecontrols__search-message">
+	<h4>{{Count}} results found for <b>{{Configuration.Text}}</b></h4>
+</div>
+{{#Results}}
+<a href="{{Link}}" target="_blank">
+	<div class="browsecontrols__search-result">
+		{{#Image}}
+		<div class="browsecontrols__search-result-image">
+			<img src="{{Url}}?width=90&height=150&mode=crop&scale=both" />
+		</div>
+		{{/Image}}
+		<div class="browsecontrols__search-result-content">
+			<h4>
+				{{#IsEvent}}
+				<i class="fa fa-feed"></i>
+				{{/IsEvent}}
+				{{#IsVenue}}
+				<i class="fa fa-building-o"></i>
+				{{/IsVenue}}
+				{{Title}}
+				<br />
+				<small><b>{{Subtitle}}</b>{{#Description}} - {{Description}}{{/Description}}</small>
+			</h4>
+		</div>
+	</div>
+</a>
+{{/Results}}

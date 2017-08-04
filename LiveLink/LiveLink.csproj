@@ -458,19 +458,29 @@
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
     <Content Include="gulp\scripts\modules\_eventmap.js" />
+    <Content Include="gulp\scripts\modules\_geolocator.js" />
+    <Content Include="gulp\scripts\modules\_search.js" />
     <Content Include="gulp\scripts\modules\_overlay.js" />
     <Content Include="gulp\scripts\modules\_forms.js" />
     <Content Include="gulp\scripts\modules\_notification.js" />
+    <Content Include="gulp\scripts\modules\_packery.js" />
     <Content Include="gulp\scripts\modules\_userservice.js" />
     <Content Include="gulp\scripts\modules\_ajax.js" />
     <Content Include="gulp\scripts\modules\_eventservice.js" />
     <Content Include="gulp\scripts\modules\_infowindow.js" />
     <Content Include="gulp\scripts\modules\_mapstyle.js" />
     <Content Include="gulp\scripts\modules\_map.js" />
-    <Content Include="gulp\scripts\modules\_mapfilter.js" />
+    <Content Include="gulp\scripts\modules\_browsecontrols.js" />
     <Content Include="gulp\scripts\modules\_nav.js" />
     <Content Include="gulp\scripts\plugins\hogan.js" />
+    <Content Include="gulp\scripts\plugins\jquery.ba-outside-events.js" />
+    <Content Include="gulp\scripts\plugins\noty.js" />
+    <Content Include="gulp\scripts\plugins\packery.pkgd.min.js" />
+    <Content Include="gulp\scripts\plugins\readmore.min.js" />
     <Content Include="gulp\scripts\site.js" />
+    <Content Include="gulp\scripts\modules\_tabs.js" />
+    <Content Include="images\bg.jpg" />
+    <Content Include="images\bg.png" />
     <Content Include="js\site.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -507,6 +517,9 @@
     <Content Include="gulp\scss\modules\_event.scss" />
     <Content Include="gulp\scss\layout\_loader.scss" />
     <Content Include="gulp\scss\modules\_browsecontrols.scss" />
+    <Content Include="gulp\scss\modules\_packed.scss" />
+    <Content Include="gulp\scss\modules\_datepicker.scss" />
+    <Content Include="gulp\scss\palette.scss" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\smarterasp.net.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -2143,6 +2156,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <Content Include="Views\Partials\Overlay.cshtml" />
+    <Content Include="Views\Partials\SearchResults.mustache" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2161,6 +2175,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Areas\API\Controllers\AjaxEventController.cs" />
     <Compile Include="Areas\API\APIAreaRegistration.cs" />
+    <Compile Include="Areas\API\Controllers\ContentSearchController.cs" />
     <Compile Include="Areas\API\Controllers\GetVenueEventsController.cs" />
     <Compile Include="Areas\API\Controllers\ImportFacebookEventsController.cs" />
     <Compile Include="Areas\API\Controllers\GetEventsController.cs" />
@@ -2177,6 +2192,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\API\Models\" />
+    <Folder Include="Areas\API\Views\ContentSearch\" />
     <Folder Include="Areas\API\Views\GetEvents\" />
     <Folder Include="Areas\API\Views\GetVenueEvents\" />
     <Folder Include="Areas\API\Views\ImportFacebookEvents\" />

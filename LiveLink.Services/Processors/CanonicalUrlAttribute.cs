@@ -1,4 +1,5 @@
 ﻿using Our.Umbraco.Ditto;
+using Umbraco.Web;
 
 namespace LiveLink.Services.Processors
 {
@@ -6,8 +7,7 @@ namespace LiveLink.Services.Processors
 	{
 		public override object ProcessValue()
 		{
-			// TODO: Make this absolute
-			return Context.Content.Url;
+			return Context.Content.UrlAbsolute();
 		}
 	}
 }

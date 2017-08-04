@@ -20,12 +20,12 @@ namespace LiveLink.Services.NumericIndexFormatter
 		{
 			var invertedNumber = Invert(number);
 
-			return ParitySymbol(number) + invertedNumber.ToString("0000000000000.0000000000000").Replace(".", "d");
+			return SignSymbol(number) + invertedNumber.ToString("0000000000000.0000000000000").Replace(".", "d");
 		}
 
 		private double Invert(double number) => IsNegative(number) ? MaxValue + number : number;
 
-		private string ParitySymbol(double number) => IsNegative(number) ? "n" : "p";
+		private string SignSymbol(double number) => IsNegative(number) ? "n" : "p";
 
 		private bool IsNegative(double number) => number < 0;
 	}

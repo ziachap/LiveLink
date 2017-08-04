@@ -1,11 +1,11 @@
-﻿var mapfilter = {
+﻿var browsecontrols = {
 
 	form: null,
 
 	init: function () {
-		$('.js-map-controls').each(function () {
+		$('.js-browse-controls:not(.js-browse-controls-done)').each(function () {
 			var form = $(this);
-			mapfilter.form = form;
+			browsecontrols.form = form;
 
 			form.bind('submit', function (e) {
 				e.preventDefault();
@@ -20,7 +20,9 @@
 			form.find(".js-location").change(function() {
 				console.log("location change");
 			});
-			//console.log(mapfilter.form.serialize());
+			//console.log(browsecontrols.form.serialize());
+
+			$(this).addClass('js-browse-controls-done');
 		});
 		
 	}
@@ -28,8 +30,8 @@
 
 
 $(function () {
-	mapfilter.init();
+	browsecontrols.init();
 	site.ajaxComplete(function () {
-		mapfilter.init();
+		browsecontrols.init();
 	});
 });

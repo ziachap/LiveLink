@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gibe.DittoProcessors.Media.Models;
 using Gibe.DittoProcessors.Processors;
 using LiveLink.Services.Processors;
@@ -36,16 +37,16 @@ namespace LiveLink.Services.Models.ViewModels
         public DateTime StartTime { get; set; }
 
 	    public string FormattedStartTime 
-			=> string.Format("{0:dddd MMMM dd yyyy} at {0:h:mmtt}", StartTime);
+			=> string.Format("{0:dddd dd MMMM yyyy} at {0:h:mmtt}", StartTime);
 
 		public string FormattedStartDate
-		   => string.Format("{0:dddd MMMM dd yyyy}", StartTime);
+		   => string.Format("{0:dddd dd MMMM yyyy}", StartTime);
 
 		[UmbracoProperty("contentEndDateTime")]
         public DateTime EndTime { get; set; }
 
 		public string FormattedEndTime
-		   => string.Format("{0:dddd MMMM dd yyyy} at {0:h:mmtt}", EndTime);
+		   => string.Format("{0:dddd dd MMMM yyyy} at {0:h:mmtt}", EndTime);
 
 		public string FormattedDateTime => StartTime.AddHours(12) < EndTime 
 			? FormattedStartTime + " - " + FormattedEndTime
@@ -60,5 +61,8 @@ namespace LiveLink.Services.Models.ViewModels
 
 		[UserIsWatching]
 		public bool Watching { get; set; }
+
+		[OtherVenueEvents(4)]
+		public IEnumerable<OtherEventModel> OtherEvents { get; set; }
     }
 }

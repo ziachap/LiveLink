@@ -65,7 +65,7 @@
 		ajax.execute(
 			"/API/venue-events",
 			//'',
-			mapfilter.form.serialize(),
+			browsecontrols.form.serialize(),
 			function (response) {
 				//console.log(response.Data);
 				response = JSON.parse(response);

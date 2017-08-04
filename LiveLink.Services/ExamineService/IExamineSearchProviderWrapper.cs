@@ -5,5 +5,6 @@ namespace LiveLink.Services.ExamineService
 	public interface IExamineSearchProviderWrapper
 	{
 		BaseSearchProvider EventSearcher();
+		BaseSearchProvider ContentSearcher();
 	}
 }

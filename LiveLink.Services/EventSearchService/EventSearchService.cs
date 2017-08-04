@@ -6,6 +6,7 @@ using Gibe.DittoServices.ModelConverters;
 using LiveLink.Services.ExamineService;
 using LiveLink.Services.Models.ViewModels;
 using LiveLink.Services.NumericIndexFormatter;
+using Umbraco.Core;
 using Umbraco.Core.Models;
 
 namespace LiveLink.Services.EventSearchService
@@ -57,11 +58,11 @@ namespace LiveLink.Services.EventSearchService
 			// TODO: Make IFilters and loop through them to build query
 
 			if (configuration.EarliestDate.HasValue && configuration.LatestDate.HasValue)
-				query = query.And().Range("contentStartDateTime", configuration.EarliestDate.Value, configuration.LatestDate.Value);
+				query = query.And().Range("contentStartDateTime", configuration.EarliestDate.Value.ToIsoString(), configuration.LatestDate.Value.ToIsoString());
 			else if (configuration.EarliestDate.HasValue)
-				query = query.And().Range("contentStartDateTime", configuration.EarliestDate.Value, DateTime.MaxValue);
+				query = query.And().Range("contentStartDateTime", configuration.EarliestDate.Value.ToIsoString(), DateTime.MaxValue.ToIsoString());
 			else if (configuration.LatestDate.HasValue)
-				query = query.And().Range("contentStartDateTime", DateTime.MinValue, configuration.LatestDate.Value);
+				query = query.And().Range("contentStartDateTime", DateTime.MinValue.ToIsoString(), configuration.LatestDate.Value.ToIsoString());
 
 			query = query.And().Range("contentLongitude", 
 				_numericIndexFormatter.Format(configuration.BoundMinX),
