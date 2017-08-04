@@ -28,6 +28,9 @@ namespace LiveLink.Areas.API
 
 			context.MapRoute("User", "API/user/{action}",
 				new { controller = "User" });
+
+			context.MapRoute("ContentSearch", "API/content-search",
+				new { controller = "ContentSearch", action = "Index", text = UrlParameter.Optional });
 		}
     }
 }

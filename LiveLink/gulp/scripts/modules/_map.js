@@ -6,13 +6,13 @@
 	infoWindow: null,
 
 	init: function () {
-
+		
 		//eventOverlay.init();
-		mapfilter.init();
+		browsecontrols.init();
 
 		$(".map:not(.js-map-done)").each(function () {
 			var events = JSON.parse($("#events-json").html());
-			var form = $('#js-map-controls');
+
 			map.map = new google.maps.Map(this, {
 				zoom: 13,
 				center: { lat: 51.449517, lng: -2.575963 },
@@ -32,10 +32,10 @@
 				var minX = sw.lng(), maxX = ne.lng();
 				var minY = sw.lat(), maxY = ne.lat();
 
-				mapfilter.form.find(".js-bounds-min-x").val(minX);
-				mapfilter.form.find(".js-bounds-max-x").val(maxX);
-				mapfilter.form.find(".js-bounds-min-y").val(minY);
-				mapfilter.form.find(".js-bounds-max-y").val(maxY);
+				browsecontrols.form.find(".js-bounds-min-x").val(minX);
+				browsecontrols.form.find(".js-bounds-max-x").val(maxX);
+				browsecontrols.form.find(".js-bounds-min-y").val(minY);
+				browsecontrols.form.find(".js-bounds-max-y").val(maxY);
 			};
 
 			google.maps.event.addListener(map.map, 'click', function () {
@@ -64,6 +64,9 @@
 					enableEventPropagation: false
 				});
 			}
+
+			geolocator.update();
+
 		});
 	}
 };

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Gibe.DittoProcessors.Media.Models;
 using Gibe.DittoProcessors.Processors;
 using LiveLink.Services.Processors;
@@ -34,5 +35,7 @@ namespace LiveLink.Services.Models.ViewModels
 		[Children("event")]
 		//[Model(typeof(EventViewModel))]
 		public IEnumerable<EventViewModel> Events { get; set; }
+
+	    public bool HasMultipleEvents => Events.Count() > 1;
     }
 }

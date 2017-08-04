@@ -9,25 +9,50 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">LIVELINK</a>
+			<a class="navbar-brand" href="/browse">LIVELINK</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				@foreach (var item in Model.View.Navigation.Children)
-				{
-					<li>
-						<a href="@item.Url">@item.Title</a>
-					</li>
-				}
-			</ul>
+				<li>
+					<!-- Form Controls -->
+					<div class="browsecontrols">
+						<form class="js-browse-controls" action="#" autocomplete="off">
+							<input onClick="this.setSelectionRange(0, this.value.length)" class="browsecontrols__search-input js-search-input" type="text" value="" placeholder="Search..">
+							<input class="datepicker" data-role="filter" type="text" name="EarliestDate" value="@DateTime.Now.ToString("MM/dd/yyyy")" placeholder="From..">
+							<input class="datepicker" data-role="filter" type="text" name="LatestDate" value="" placeholder="Until..">
+							<input class="js-bounds-min-x" data-role="filter" type="hidden" name="BoundMinX" value="1234">
+							<input class="js-bounds-max-x" data-role="filter" type="hidden" name="BoundMaxX">
+							<input class="js-bounds-min-y" data-role="filter" type="hidden" name="BoundMinY">
+							<input class="js-bounds-max-y" data-role="filter" type="hidden" name="BoundMaxY">
 
-			<ul class="nav navbar-nav navbar-right">
-				@*
+							<div class="browsecontrols__search js-search-results">
+							</div>
+						</form>
+					</div>
+				</li>
+			</ul>
+			
+			@*
+	<ul class="nav navbar-nav">
+		@foreach (var item in Model.View.Navigation.Children)
+		{
+			<li>
+				<a href="@item.Url">@item.Title</a>
+			</li>
+		}
+	</ul>
+			*@
+			<ul class="nav navbar-nav navbar-right js-tabs">
+				<li class="js-tab-item"><a class="tab js-tab" href="#map-view"><i class="fa fa-map"></i> Map</a></li>
+				<li class="js-tab-item"><a class="tab js-tab" href="#list-view"><i class="fa fa-list"></i> List</a></li>
 				<!-- ADMINISTRATION - SUPERUSERS ONLY -->
 				<li>
 					<a href="/umbraco" target="_blank"><i class="fa fa-unlock-alt fa-fw"></i> Umbraco</a>
 				</li>
+				
+				@*
+				
 
 				<!-- DROPDOWN MENU -->
 				<li class="dropdown">

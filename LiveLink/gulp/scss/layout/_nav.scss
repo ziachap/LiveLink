@@ -1,9 +1,15 @@
-﻿
+﻿@import 'palette';
+
 .nav-items {
 	float: right;
 }
 
+.navbar {
 
+	&-inverse{
+		background-color: $dark-0;
+	}
+}
 
 /* BASE NAV */
 ul.topnav {

@@ -41,6 +41,43 @@
 				width: 100%;
 			}
 		}
+
+		&-other-events{
+			margin-top: 20px;
+			background-color: #f6f6f6;
+			padding: 5px 15px;
+			line-height: 2em;
+
+			&-item {
+				background-color: #e6e6e6;
+				margin: 8px 0px;
+				position: relative;
+
+				&-image{
+					position: absolute;
+					left: 0;
+					top: 0;
+					height: 100%;
+					width: 90px;
+					background-color: #d6d6d6;
+					overflow: hidden;
+				}
+
+				&-content {
+					margin-left: 90px;
+					padding: 15px 10px;
+				}
+
+				&:hover {
+					background-color: #eee;
+				}
+			}
+
+			a, a:hover {
+				color: #333;
+				text-decoration: none;
+			}
+		}
 		
 		&-description{
 			margin-top: 20px;

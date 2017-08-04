@@ -2,17 +2,25 @@
 @using Newtonsoft.Json
 @inherits Our.Umbraco.Ditto.DittoView<LiveLink.Services.Models.ViewModels.BrowseViewModel>
 @{
-    Layout = "Master.cshtml";
+	Layout = "Master.cshtml";
 }
-    
+
 <div class="browse__container">
+	
 	<div class="row no-gutters full-height">
-		<div class="col-sm-8 col-md-8 full-height">
-            
+
+		<div class="col-sm-12 col-md-12 full-height">
+			
+			<div id="map-view" class="js-tab-content full-height active">
+				<!-- Map -->
+				<div class="map"></div>
+					
+
+				@*
 			<div class="row no-gutters">
 				<div class="col-md-12">
 					<div class="browsecontrols">
-						
+
 
 						<!-- Form Controls -->
 						<form class="js-map-controls" action="#" autocomplete="off">
@@ -26,84 +34,92 @@
 						</form>
 
 					</div>
-                    
+
 				</div>
 			</div>
+					*@
 
-			<!-- Map -->
-			<div class="map"></div>
 
-		</div>
-		
+			</div>
 
-		<div class="col-sm-4 col-md-4 full-height">
-			<div class="listing__container">
-				<!-- Page Header -->
-				<div class="row no-gutters">
-					<div class="col-lg-12">
-						<h1 class="page-header">
-							Browse
-							<small>lots of events</small>
-						</h1>
-					</div>
-				</div>
-				<!-- /.row -->
-				<!-- Projects Row -->
-
-				<div class="row no-gutters">
-					@foreach (var e in Model.View.Venues.SelectMany(x => x.Events))
-					{
-
+			<div id="list-view" class="js-tab-content">
+				
+				<div class="container">
+					<div class="row">
 						<div class="col-md-12">
-							<div class="listing">
-								<div class="listing__image">
-									<a href="@e.Url">
-										<img class="img-responsive" src="@(!string.IsNullOrEmpty(e.ThumbnailUrl) ? e.ThumbnailUrl : "/images/bg.jpg")?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
-									</a>
-								</div>
-								
-								<div class="listing__content">
-									<div class="listing__venuelogo">
-										<img class="img-circle" src="@(!string.IsNullOrEmpty(e.Venue.LogoUrl) ? e.Venue.LogoUrl : "/images/bg.jpg")?width=70&height=70&mode=crop" alt="">
+							<div class="listing__container">
+								@foreach (var venue in Model.View.Venues)
+								{
+									<h1>
+										<img class="img-circle" src="@venue.Logo.Url?width=55&height=55&mode=crop" />
+										@venue.Title
+									</h1>
+									<hr />
+									<div class="row packed__grid no-gutters">
+										@foreach (var e in venue.Events.OrderBy(x => x.StartTime).Take(6))
+										{
+											<div class="listing packed__grid-item">
+												<div class="listing__image">
+													<a href="@e.Url">
+														<img class="img-responsive" src="@(!string.IsNullOrEmpty(e.ThumbnailUrl) ? e.ThumbnailUrl : "/images/bg.jpg")?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
+													</a>
+												</div>
+
+												<div class="listing__content">
+													<div class="listing__venuelogo">
+														<img class="img-circle" src="@(!string.IsNullOrEmpty(e.Venue.LogoUrl) ? e.Venue.LogoUrl : "/images/bg.jpg")?width=60&height=60&mode=crop" alt="">
+													</div>
+
+													<h3>
+														<a href="@e.Url">@e.Title</a>
+													</h3>
+													<h5>
+														<b>@e.FormattedStartTime</b>
+														<br />
+														<small>@e.Venue.Title</small>
+													</h5>
+													<p>@e.SummaryShort</p>
+												</div>
+
+											</div>
+										}
 									</div>
-
-									<h3>
-										<a href="@e.Url">@e.Title</a>
-										<small>@e.Venue.Title</small>
-									</h3>
-									<p><b>@e.FormattedStartDate</b> - @e.SummaryShort</p>
-								</div>
-
+								}
 							</div>
+							
 						</div>
-
-					}
+					</div>
+					
 
 				</div>
-				<!-- /.row -->
 			</div>
-		</div>
-		
-		@Html.Partial("Overlay")
 
+		</div>
 	</div>
 
+
+
+
+
+	@Html.Partial("Overlay")
+
 </div>
-    
+
+</div>
+
 
 @section JSPlugins
 {
-    <script type="application/json" id="events-json">
-        @Html.Raw(JsonConvert.SerializeObject(Model.View.Venues))
-    </script>
+	<script type="application/json" id="events-json">
+		@Html.Raw(JsonConvert.SerializeObject(Model.View.Venues))
+	</script>
 
 	<script type="text/mustache" id="infoWindowTemplate">
-        @Html.RenderRawContent("~/Views/Partials/InfoWindow.mustache")
-    </script>
-	
-	<script
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFMn4IZfdJTexYRh6MfL6fqNbukCIwj9I">
+		@Html.RenderRawContent("~/Views/Partials/InfoWindow.mustache")
 	</script>
-	
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFMn4IZfdJTexYRh6MfL6fqNbukCIwj9I">
+	</script>
+
 	<script src="~/scripts/infobox.js"></script>
 }

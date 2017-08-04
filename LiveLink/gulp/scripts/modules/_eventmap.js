@@ -10,7 +10,7 @@
 
 			var map = new google.maps.Map(this,
 			{
-				zoom: 15,
+				zoom: 14,
 				center: { lat: lat, lng: lng }
 			});
 

@@ -7,5 +7,8 @@ namespace LiveLink.Services.ExamineService
 	{
 		public BaseSearchProvider EventSearcher() 
 			=> ExamineManager.Instance.SearchProviderCollection["EventSearcher"];
+
+		public BaseSearchProvider ContentSearcher()
+			=> ExamineManager.Instance.SearchProviderCollection["ContentSearcher"];
 	}
 }
