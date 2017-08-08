@@ -46,11 +46,7 @@
 					});
 					map.infoWindow.marker = marker;
 					map.infoWindow.open(map.map, marker);
-
 					//map.map.panTo(map.infoWindow.getPosition());
-					//map.infoWindow.content = infoWindowContent;
-					//map.infoWindow.open(map.map, marker);
-					//;
 				};
 			})(marker, infoWindowContent));
 		}
