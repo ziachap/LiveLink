@@ -32,8 +32,7 @@ namespace LiveLink.Services.Models.ViewModels
 		[ImagePickerOrDefaultImage]
 		public MediaImageModel Logo { get; set; }
 
-		[Children("event")]
-		//[Model(typeof(EventViewModel))]
+		//[Children("event")]
 		public IEnumerable<EventViewModel> Events { get; set; }
 
 	    public bool HasMultipleEvents => Events.Count() > 1;

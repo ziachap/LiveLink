@@ -1,49 +1,16 @@
 ﻿@using LiveLink.App_Code
 @using Newtonsoft.Json
-@inherits Our.Umbraco.Ditto.DittoView<LiveLink.Services.Models.ViewModels.BrowseViewModel>
+@inherits Our.Umbraco.Ditto.DittoView<LiveLink.Services.Models.ViewModels.FeedViewModel>
 @{
 	Layout = "Master.cshtml";
 }
-
 <div class="browse__container">
-	
-	<div class="row no-gutters full-height">
 
-		<div class="col-sm-12 col-md-12 full-height">
-			
-			<div id="map-view" class="js-tab-content full-height active">
-				<!-- Map -->
-				<div class="map"></div>
-					
-
-				@*
-			<div class="row no-gutters">
-				<div class="col-md-12">
-					<div class="browsecontrols">
-
-
-						<!-- Form Controls -->
-						<form class="js-map-controls" action="#" autocomplete="off">
-							<input class="js-location" type="text" value="" placeholder="Search Location..">
-							<input class="datepicker" data-role="filter" type="text" name="EarliestDate" value="01/01/2016" placeholder="From..">
-							<input class="datepicker" data-role="filter" type="text" name="LatestDate" value="01/01/2018" placeholder="Until..">
-							<input class="js-bounds-min-x" data-role="filter" type="hidden" name="BoundMinX" value="1234">
-							<input class="js-bounds-max-x" data-role="filter" type="hidden" name="BoundMaxX">
-							<input class="js-bounds-min-y" data-role="filter" type="hidden" name="BoundMinY">
-							<input class="js-bounds-max-y" data-role="filter" type="hidden" name="BoundMaxY">
-						</form>
-
-					</div>
-
-				</div>
-			</div>
-					*@
-
-
-			</div>
+	<div class="row no-gutters">
+		<div class="col-sm-12 col-md-12">
 
 			<div id="list-view" class="js-tab-content">
-				
+
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
@@ -64,12 +31,10 @@
 														<img class="img-responsive" src="@(!string.IsNullOrEmpty(e.ThumbnailUrl) ? e.ThumbnailUrl : "/images/bg.jpg")?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
 													</a>
 												</div>
-
 												<div class="listing__content">
 													<div class="listing__venuelogo">
 														<img class="img-circle" src="@(!string.IsNullOrEmpty(e.Venue.LogoUrl) ? e.Venue.LogoUrl : "/images/bg.jpg")?width=60&height=60&mode=crop" alt="">
 													</div>
-
 													<h3>
 														<a href="@e.Url">@e.Title</a>
 													</h3>
@@ -80,31 +45,22 @@
 													</h5>
 													<p>@e.SummaryShort</p>
 												</div>
-
 											</div>
 										}
-									</div>
+									</div>			
 								}
 							</div>
-							
+
 						</div>
 					</div>
-					
 
 				</div>
 			</div>
-
 		</div>
 	</div>
 
 
-
-
-
 	@Html.Partial("Overlay")
-
-</div>
-
 </div>
 
 
@@ -113,13 +69,7 @@
 	<script type="application/json" id="events-json">
 		@Html.Raw(JsonConvert.SerializeObject(Model.View.Venues))
 	</script>
-
-	<script type="text/mustache" id="infoWindowTemplate">
+	<script type="text/mustache" id="listingsTemplate">
 		@Html.RenderRawContent("~/Views/Partials/InfoWindow.mustache")
 	</script>
-
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFMn4IZfdJTexYRh6MfL6fqNbukCIwj9I">
-	</script>
-
-	<script src="~/scripts/infobox.js"></script>
 }

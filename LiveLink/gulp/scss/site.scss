@@ -5,6 +5,11 @@ body{
 	-webkit-font-smoothing: antialiased;
 }
 
+.master-container{
+	height: 100%;
+	width: 100%;
+}
+
 @import "mixins";
 
 @import "common/config";
@@ -13,7 +18,7 @@ body{
 @import "layout/page";
 @import "layout/loader";
 
-@import "modules/browse";
+@import "modules/feed";
 @import "modules/browsecontrols";
 @import "modules/map";
 @import "modules/infowindow";
