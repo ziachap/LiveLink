@@ -1,13 +1,20 @@
 ﻿
 
-body{
+body {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 }
 
-.master-container{
+.master-container {
 	height: 100%;
 	width: 100%;
+	padding-left: 0px;
+}
+
+@media(min-width:768px) {
+	.master-container {
+		padding-left: 200px;
+	}
 }
 
 @import "mixins";
