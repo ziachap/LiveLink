@@ -3,7 +3,7 @@ using LiveLink.Services.Processors;
 
 namespace LiveLink.Services.Models.ViewModels
 {
-	public class BrowseViewModel
+	public class FeedViewModel
 	{
 		[VenueEvents]
 		public IEnumerable<VenueViewModel> Venues { get; set; }

@@ -8,6 +8,7 @@ using Umbraco.Core;
 
 namespace LiveLink.Services.Models.ViewModels
 {
+	[DittoCache(CacheBy = DittoCacheBy.ContentId, CacheDuration = 60)]
     public class EventViewModel
     {
 		[UmbracoProperty("id")]

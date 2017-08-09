@@ -6,16 +6,20 @@
 }
 
 .listing {
+	/*
 	max-width: 320px;
 	width:  320px;
+
+	
+	background-color: #fafafa;
 	-webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
 	-moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
 	box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
+		
 	margin: 1px 10px;
+		*/
 	opacity: 0.95;
 	overflow: hidden;
-
-	background-color: #fafafa;
 
 	&:hover {
 		opacity: 1;

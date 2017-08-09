@@ -495,7 +495,7 @@
     <Content Include="gulp\scss\modules\_map.scss" />
     <Content Include="gulp\scss\modules\_listing.scss" />
     <Content Include="gulp\scss\modules\_infowindow.scss" />
-    <Content Include="gulp\scss\modules\_browse.scss" />
+    <Content Include="gulp\scss\modules\_feed.scss" />
     <Content Include="gulp\scss\modules\_colours.scss" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="Media\Web.config" />
@@ -2141,7 +2141,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Partials\JSPlugins.cshtml" />
     <Content Include="Views\Partials\InfoWindow.mustache" />
-    <Content Include="Views\BrowseTwo.cshtml" />
     <Content Include="Views\FacebookPage.cshtml" />
     <Content Include="Views\Login.cshtml" />
     <Content Include="Views\Page.cshtml" />
@@ -2158,6 +2157,8 @@
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <Content Include="Views\Partials\Overlay.cshtml" />
     <Content Include="Views\Partials\SearchResults.mustache" />
+    <Content Include="Views\Feed.cshtml" />
+    <Content Include="Views\Map.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

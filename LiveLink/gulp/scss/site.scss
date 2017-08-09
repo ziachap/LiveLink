@@ -1,8 +1,20 @@
 ﻿
 
-body{
+body {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
+}
+
+.master-container {
+	height: 100%;
+	width: 100%;
+	padding-left: 0px;
+}
+
+@media(min-width:768px) {
+	.master-container {
+		padding-left: 200px;
+	}
 }
 
 @import "mixins";
@@ -13,7 +25,7 @@ body{
 @import "layout/page";
 @import "layout/loader";
 
-@import "modules/browse";
+@import "modules/feed";
 @import "modules/browsecontrols";
 @import "modules/map";
 @import "modules/infowindow";

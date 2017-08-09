@@ -27,6 +27,8 @@
 			$(this).addClass("js-event-map-done");
 		});
 
+
+		// TODO: Move somewhere else
 		$('.js-event-show-more:not(.js-event-show-more-done)').each(function () {
 			$(this).readmore({
 				speed: 500,

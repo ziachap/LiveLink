@@ -30,10 +30,10 @@
 	&__search-input {
 		-webkit-transition: width .3s ease;
 		transition: width .3s ease;
-		width: 200px;
+		width: 260px;
 
 		&:focus {
-			width: 300px;
+			width: 360px;
 		}
 	}
 
@@ -112,6 +112,16 @@
 			&:hover{
 				background-color: $dark-3;
 			}
+		}
+	}
+}
+
+@media(max-width:768px) {
+	.browsecontrols {
+		input[type=text] {
+			width: 100%;
+			padding: 16px 16px;
+			margin: 1px 0;
 		}
 	}
 }

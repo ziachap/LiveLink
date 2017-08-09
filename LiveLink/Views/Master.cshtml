@@ -33,14 +33,15 @@
 </head>
 <body id="top">
     <!-- TAG MANAGER SCRIPTS / -->
-<!-- Navigation -->
+	<!-- Navigation -->
 	
 	@Html.Partial("Nav")
 	
-<!-- Page Content -->
-	@RenderBody()
+	<!-- Page Content -->
+	<div class="master-container">
+		@RenderBody()
+	</div>
 	
-
     <script>
 	    WebFontConfig = {
 		    google: { families: ['Roboto:300,400,500,700'] }
