@@ -7,5 +7,8 @@ namespace LiveLink.Services.Models.ViewModels
 	{
 		[VenueEvents]
 		public IEnumerable<VenueViewModel> Venues { get; set; }
+
+		[Countries]
+		public IEnumerable<CountryModel> Countries { get; set; }
 	}
 }

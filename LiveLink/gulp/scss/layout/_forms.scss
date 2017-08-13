@@ -1,0 +1,28 @@
+﻿.form-element {
+	margin: -2px;
+	padding: 16px 16px;
+	background-color: $dark-1;
+	color: #eee;
+
+	&.light {
+		background-color: #eee;
+		color: #444;
+		&:focus {
+			background-color: #eee;
+		}
+	}
+
+	font-family: 'Lato', sans-serif;
+	font-size: 1em;
+
+	border: 0px solid #555;
+	border-right: 0px solid $dark-0;
+
+	&:focus {
+		background-color: $dark-2;
+	}
+
+	&.long {
+		width:200px
+	}
+}

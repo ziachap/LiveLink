@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Examine.LuceneEngine;
 using Gibe.UmbracoWrappers;
-using LiveLink.Services.NumericIndexFormatter;
+using LiveLink.Services.IndexFormatters;
 using Lucene.Net.Documents;
 using umbraco.NodeFactory;
 
@@ -19,24 +19,33 @@ namespace LiveLink.App_Start
 
 			var id = int.Parse(e.Fields["id"]);
 
-			var formatter = new NumericIndexFormatter();
-			var parent = new Node(id).Parent;
+			var doubleFormatter = new DoubleIndexFormatter();
+			var intFormatter = new IntegerIndexFormatter();
 
-			var contentLongitude = parent.GetProperty("contentLongitude").Value;
+			var venue = new Node(id).Parent;
+			var contentLongitude = venue.GetProperty("contentLongitude").Value;
 			if (!string.IsNullOrEmpty(contentLongitude))
 			{
-				var contentLongitudeFormatted = formatter.Format(double.Parse(contentLongitude));
+				var contentLongitudeFormatted = doubleFormatter.Format(double.Parse(contentLongitude));
 					document.Add(new Field("contentLongitude", contentLongitudeFormatted,
 				Field.Store.YES, Field.Index.NOT_ANALYZED));
 			}
 
-			var contentLatitude = parent.GetProperty("contentLatitude").Value;
+			var contentLatitude = venue.GetProperty("contentLatitude").Value;
 			if (!string.IsNullOrEmpty(contentLongitude))
 			{
-				var contentLatitudeFormatted = formatter.Format(double.Parse(contentLatitude));
+				var contentLatitudeFormatted = doubleFormatter.Format(double.Parse(contentLatitude));
 				document.Add(new Field("contentLatitude", contentLatitudeFormatted,
-			Field.Store.YES, Field.Index.NOT_ANALYZED));
+					Field.Store.YES, Field.Index.NOT_ANALYZED));
 			}
+
+			var city = venue.Parent;
+			document.Add(new Field("city", intFormatter.Format(city.Id),
+				Field.Store.YES, Field.Index.NOT_ANALYZED));
+
+			var country = city.Parent;
+			document.Add(new Field("country", intFormatter.Format(country.Id),
+				Field.Store.YES, Field.Index.NOT_ANALYZED));
 		}
 	}
 }

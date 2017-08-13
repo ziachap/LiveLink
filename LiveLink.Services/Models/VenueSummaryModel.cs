@@ -5,7 +5,7 @@ using Our.Umbraco.Ditto;
 
 namespace LiveLink.Services.Models
 {
-	public class EventVenueModel
+	public class VenueSummaryModel
 	{
 		[UmbracoProperty("contentTitle")]
 		public string Title { get; set; }

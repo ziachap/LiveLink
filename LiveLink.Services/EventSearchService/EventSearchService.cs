@@ -4,8 +4,8 @@ using System.Linq;
 using Examine.SearchCriteria;
 using Gibe.DittoServices.ModelConverters;
 using LiveLink.Services.ExamineService;
+using LiveLink.Services.IndexFormatters;
 using LiveLink.Services.Models.ViewModels;
-using LiveLink.Services.NumericIndexFormatter;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
@@ -16,17 +16,20 @@ namespace LiveLink.Services.EventSearchService
 		private readonly IExamineSearchProviderWrapper _examineSearchProviderWrapper;
 		private readonly IExamineService _examineService;
 		private readonly IModelConverter _modelConverter;
-		private readonly INumericIndexFormatter _numericIndexFormatter;
+		private readonly IIndexFormatter<double> _doubleFormatter;
+		private readonly IIndexFormatter<int> _intFormatter;
 
 		public EventSearchService(IExamineService examineService,
 			IExamineSearchProviderWrapper examineSearchProviderWrapper,
-			IModelConverter modelConverter, 
-			INumericIndexFormatter numericIndexFormatter)
+			IModelConverter modelConverter,
+			IIndexFormatter<double> doubleFormatter,
+			IIndexFormatter<int> intFormatter)
 		{
 			_examineService = examineService;
 			_examineSearchProviderWrapper = examineSearchProviderWrapper;
 			_modelConverter = modelConverter;
-			_numericIndexFormatter = numericIndexFormatter;
+			_doubleFormatter = doubleFormatter;
+			_intFormatter = intFormatter;
 		}
 
 		public IEnumerable<EventViewModel> GetEvents(GetEventsConfiguration configuration)
@@ -64,12 +67,21 @@ namespace LiveLink.Services.EventSearchService
 			else if (configuration.LatestDate.HasValue)
 				query = query.And().Range("contentStartDateTime", DateTime.MinValue.ToIsoString(), configuration.LatestDate.Value.ToIsoString());
 
-			query = query.And().Range("contentLongitude", 
-				_numericIndexFormatter.Format(configuration.BoundMinX),
-				_numericIndexFormatter.Format(configuration.BoundMaxX));
-			query = query.And().Range("contentLatitude",
-				_numericIndexFormatter.Format(configuration.BoundMinY),
-				_numericIndexFormatter.Format(configuration.BoundMaxY));
+			if (configuration.HasBounds)
+			{
+				query = query.And().Range("contentLongitude",
+				   _doubleFormatter.Format(configuration.BoundMinX.Value),
+				   _doubleFormatter.Format(configuration.BoundMaxX.Value));
+				query = query.And().Range("contentLatitude",
+					_doubleFormatter.Format(configuration.BoundMinY.Value),
+					_doubleFormatter.Format(configuration.BoundMaxY.Value));
+			}
+
+			if (configuration.LocationId.HasValue)
+			{
+				query = query.And().GroupedOr(new[] { "country", "city" },
+					   _intFormatter.Format(configuration.LocationId.Value));
+			}
 
 			var results = _examineService.Search(searcher, query.Compile());
 

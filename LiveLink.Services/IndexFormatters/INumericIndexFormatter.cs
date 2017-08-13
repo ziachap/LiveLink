@@ -1,26 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace LiveLink.Services.NumericIndexFormatter
+namespace LiveLink.Services.IndexFormatters
 {
-	public interface INumericIndexFormatter
+	public interface IIndexFormatter<T>
 	{
-		string Format(double number);
+		string Format(T value);
 	}
 
-	public class NumericIndexFormatter : INumericIndexFormatter
+	public class IntegerIndexFormatter : IIndexFormatter<int>
+	{
+		// TODO: tests
+
+		private const int MaxValue = 99999999;
+
+		public string Format(int value)
+		{
+			var invertedNumber = Invert(value);
+
+			return SignSymbol(value) + invertedNumber.ToString("000000000");
+		}
+
+		private double Invert(int number) => IsNegative(number) ? MaxValue + number : number;
+
+		private string SignSymbol(int number) => IsNegative(number) ? "n" : "p";
+
+		private bool IsNegative(int number) => number < 0;
+	}
+
+	public class DoubleIndexFormatter : IIndexFormatter<double>
 	{
 		private const double MaxValue = 99999999;
 
-		public string Format(double number)
+		public string Format(double value)
 		{
-			var invertedNumber = Invert(number);
+			var invertedNumber = Invert(value);
 
-			return SignSymbol(number) + invertedNumber.ToString("0000000000000.0000000000000").Replace(".", "d");
+			return SignSymbol(value) + invertedNumber.ToString("0000000000000.0000000000000").Replace(".", "d");
 		}
 
 		private double Invert(double number) => IsNegative(number) ? MaxValue + number : number;
@@ -31,9 +46,9 @@ namespace LiveLink.Services.NumericIndexFormatter
 	}
 
 	[TestFixture]
-	internal class NumericIndexFormatterTests
+	internal class DoubleIndexFormatterTests
 	{
-		private INumericIndexFormatter Formatter() => new NumericIndexFormatter();
+		private IIndexFormatter<double> Formatter() => new DoubleIndexFormatter();
 
 		[Test]
 		public void Negatives_Are_Ordered_Correctly()

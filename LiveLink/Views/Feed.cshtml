@@ -5,82 +5,26 @@
 	Layout = "Master.cshtml";
 }
 <div class="feed__container">
-	
-	<div class="row no-gutters">
-		<div class="col-sm-12 col-md-12">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
 
-			<div id="list-view" class="js-tab-content">
+				<select class="form-element long light js-location-input">
+					@foreach (var country in Model.View.Countries)
+					{
+						<optgroup label="@country.Title">
+							@foreach (var city in country.Cities)
+							{
+								<option value="@city.Id">@city.Title</option>
+							}
+						</optgroup>
+					}
+				</select>
 
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="listing__container">
-								@foreach (var venue in Model.View.Venues.Reverse())
-								{
-									<h1>
-										<img class="img-circle" src="@venue.Logo.Url?width=55&height=55&mode=crop" />
-										@venue.Title
-									</h1>
-									<hr />
-									<div class="row">
-										@foreach (var e in venue.Events.OrderBy(x => x.StartTime).Take(3))
-										{
-											<div class="listing col-md-4">
-												<div class="listing__image">
-													<a href="@e.Url">
-														<img class="img-responsive" src="@(!string.IsNullOrEmpty(e.ThumbnailUrl) ? e.ThumbnailUrl : "/images/bg.jpg")?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
-													</a>
-												</div>
-												<div class="listing__content">
-													<div class="listing__venuelogo">
-														<img class="img-circle" src="@(!string.IsNullOrEmpty(e.Venue.LogoUrl) ? e.Venue.LogoUrl : "/images/bg.jpg")?width=60&height=60&mode=crop" alt="">
-													</div>
-													<h3>
-														<a href="@e.Url">@e.Title</a>
-													</h3>
-													<h5>
-														<b>@e.FormattedStartTime</b>
-														<br />
-														<small>@e.Venue.Title</small>
-													</h5>
-													<p>@e.SummaryShort</p>
-												</div>
-											</div>
-										}
-									</div>
-									<div class="row">
-										@foreach (var e in venue.Events.OrderBy(x => x.StartTime).Skip(3).Take(3))
-										{
-											<div class="col-md-4">
-												<div class="listing__image">
-													<a href="@e.Url">
-														<img class="img-responsive" src="@(!string.IsNullOrEmpty(e.ThumbnailUrl) ? e.ThumbnailUrl : "/images/bg.jpg")?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
-													</a>
-												</div>
-												<div class="listing__content">
-													<div class="listing__venuelogo">
-														<img class="img-circle" src="@(!string.IsNullOrEmpty(e.Venue.LogoUrl) ? e.Venue.LogoUrl : "/images/bg.jpg")?width=60&height=60&mode=crop" alt="">
-													</div>
-													<h3>
-														<a href="@e.Url">@e.Title</a>
-													</h3>
-													<h5>
-														<b>@e.FormattedStartTime</b>
-														<br />
-														<small>@e.Venue.Title</small>
-													</h5>
-													<p>@e.SummaryShort</p>
-												</div>
-											</div>
-										}
-									</div>
-								}
-							</div>
-
-						</div>
-					</div>
+				<div class="listing__container js-location-content">
 
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -95,7 +39,7 @@
 	<script type="application/json" id="events-json">
 		@Html.Raw(JsonConvert.SerializeObject(Model.View.Venues))
 	</script>
-	<script type="text/mustache" id="listingsTemplate">
-		@Html.RenderRawContent("~/Views/Partials/InfoWindow.mustache")
+	<script type="text/mustache" id="feedViewTemplate">
+		@Html.RenderRawContent("~/Views/Partials/FeedView.mustache")
 	</script>
 }

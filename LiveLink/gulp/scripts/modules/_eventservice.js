@@ -21,7 +21,8 @@
 
 		for (var i = 0; i < venueEventsResponse.length; i++) {
 			var venue = venueEventsResponse[i];
-
+			
+			// TODO
 			venue.Events[0].Active = true;
 
 			var infoWindowContent = eventService.infoWindowTemplate.render(venue);
@@ -59,7 +60,7 @@
 
 	search: function () {
 		ajax.execute(
-			"/API/venue-events",
+			urls.searchEvents,
 			//'',
 			browsecontrols.form.serialize(),
 			function (response) {

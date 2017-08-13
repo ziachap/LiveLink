@@ -5,11 +5,11 @@ using Newtonsoft.Json;
 
 namespace LiveLink.Areas.API.Controllers
 {
-    public class GetVenueEventsController : Controller
+    public class SearchEventsController : Controller
     {
 		private readonly IEventSearchService _eventSearchService;
 
-		public GetVenueEventsController(IEventSearchService eventSearchService)
+		public SearchEventsController(IEventSearchService eventSearchService)
 		{
 			_eventSearchService = eventSearchService;
 		}

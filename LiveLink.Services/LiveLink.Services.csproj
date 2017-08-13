@@ -320,7 +320,9 @@
     <Compile Include="ExamineService\ExamineSearchProviderWrapper.cs" />
     <Compile Include="ExamineService\ExamineService.cs" />
     <Compile Include="Models\ApiSuccessResponse.cs" />
-    <Compile Include="Models\EventVenueModel.cs" />
+    <Compile Include="Models\CityModel.cs" />
+    <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\VenueSummaryModel.cs" />
     <Compile Include="EventSearchService\GetEventsConfiguration.cs" />
     <Compile Include="EventSearchService\IEventSearchService.cs" />
     <Compile Include="ExamineService\IExamineSearchProviderWrapper.cs" />
@@ -339,7 +341,7 @@
     <Compile Include="Models\ViewModels\VenueViewModel.cs" />
     <Compile Include="Models\ViewModels\EventViewModel.cs" />
     <Compile Include="Models\ViewModels\MetaModel.cs" />
-    <Compile Include="NumericIndexFormatter\INumericIndexFormatter.cs" />
+    <Compile Include="IndexFormatters\INumericIndexFormatter.cs" />
     <Compile Include="Processors\CanonicalUrlAttribute.cs" />
     <Compile Include="Processors\ImagePickerOrDefaultImage.cs" />
     <Compile Include="Processors\NavigationAttribute.cs" />

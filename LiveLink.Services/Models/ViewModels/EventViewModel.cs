@@ -57,8 +57,8 @@ namespace LiveLink.Services.Models.ViewModels
 		public string Url { get; set; }
 
 		[Parent]
-		[Model(typeof(EventVenueModel))]
-		public EventVenueModel Venue { get; set; }
+		[Model(typeof(VenueSummaryModel))]
+		public VenueSummaryModel Venue { get; set; }
 
 		[UserIsWatching]
 		public bool Watching { get; set; }

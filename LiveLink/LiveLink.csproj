@@ -457,9 +457,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
+    <Content Include="gulp\scripts\modules\_urls.js" />
     <Content Include="gulp\scripts\modules\_eventmap.js" />
     <Content Include="gulp\scripts\modules\_listing.js" />
     <Content Include="gulp\scripts\modules\_geolocator.js" />
+    <Content Include="gulp\scripts\modules\_locationswitcher.js" />
     <Content Include="gulp\scripts\modules\_search.js" />
     <Content Include="gulp\scripts\modules\_overlay.js" />
     <Content Include="gulp\scripts\modules\_forms.js" />
@@ -521,6 +523,7 @@
     <Content Include="gulp\scss\modules\_packed.scss" />
     <Content Include="gulp\scss\modules\_datepicker.scss" />
     <Content Include="gulp\scss\palette.scss" />
+    <Content Include="gulp\scss\layout\_forms.scss" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\smarterasp.net.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -2159,6 +2162,7 @@
     <Content Include="Views\Partials\SearchResults.mustache" />
     <Content Include="Views\Feed.cshtml" />
     <Content Include="Views\Map.cshtml" />
+    <Content Include="Views\Partials\FeedView.mustache" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2178,7 +2182,7 @@
     <Compile Include="Areas\API\Controllers\AjaxEventController.cs" />
     <Compile Include="Areas\API\APIAreaRegistration.cs" />
     <Compile Include="Areas\API\Controllers\ContentSearchController.cs" />
-    <Compile Include="Areas\API\Controllers\GetVenueEventsController.cs" />
+    <Compile Include="Areas\API\Controllers\SearchEventsController.cs" />
     <Compile Include="Areas\API\Controllers\ImportFacebookEventsController.cs" />
     <Compile Include="Areas\API\Controllers\GetEventsController.cs" />
     <Compile Include="Areas\API\Controllers\UserController.cs" />
@@ -2196,8 +2200,9 @@
     <Folder Include="Areas\API\Models\" />
     <Folder Include="Areas\API\Views\ContentSearch\" />
     <Folder Include="Areas\API\Views\GetEvents\" />
-    <Folder Include="Areas\API\Views\GetVenueEvents\" />
+    <Folder Include="Areas\API\Views\GetLocationEvents\" />
     <Folder Include="Areas\API\Views\ImportFacebookEvents\" />
+    <Folder Include="Areas\API\Views\SearchEvents\" />
     <Folder Include="Areas\API\Views\Shared\" />
     <Folder Include="Areas\API\Views\User\" />
     <Folder Include="Views\AjaxEvent\" />

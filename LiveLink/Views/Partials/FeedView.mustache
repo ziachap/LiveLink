@@ -1,0 +1,32 @@
+﻿{{#Data}}
+<h1>
+	<img class="img-circle" src="{{Logo.Url}}?width=55&height=55&mode=crop" />
+	{{Title}}
+</h1>
+<hr />
+<div class="row">
+	{{#Events}}
+	<div class="listing col-md-4">
+		<div class="listing__image">
+			<a href="{{Url}}">
+				<img class="img-responsive" src="{{ThumbnailUrl}}?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
+			</a>
+		</div>
+		<div class="listing__content">
+			<div class="listing__venuelogo">
+				<img class="img-circle" src="{{ThumbnailUrl}}?width=60&height=60&mode=crop" alt="">
+			</div>
+			<h3>
+				<a href="{{Url}}">{{Title}}</a>
+			</h3>
+			<h5>
+				<b>{{FormattedStartTime}}</b>
+				<br />
+				<small>{{Venue.Title}}</small>
+			</h5>
+			<p>{{SummaryShort}}</p>
+		</div>
+	</div>
+	{{/Events}}
+</div>
+{{/Data}}

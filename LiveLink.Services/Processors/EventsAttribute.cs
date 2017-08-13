@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Gibe.DittoProcessors.Processors;
 using Gibe.DittoServices.ModelConverters;
 using Gibe.UmbracoWrappers;
+using LiveLink.Services.Models;
 using LiveLink.Services.Models.ViewModels;
+using Umbraco.Web;
 
 namespace LiveLink.Services.Processors
 {
@@ -31,9 +29,40 @@ namespace LiveLink.Services.Processors
 		public override object ProcessValue()
 		{
 			return _umbracoWrapper.AncestorOrSelf(Context.Content, 1)
-				.Children.First(x => x.DocumentTypeAlias.Equals("venues"))
-				.Children.SelectMany(x => x.Children)
-				.Select(x => _modelConverter.ToModel<EventViewModel>(x));
+				.Children.First(x => x.DocumentTypeAlias.Equals("locations"))
+				.Descendants()
+				.Where(x => x.DocumentTypeAlias == "venue")
+				.SelectMany(x => x.Children)
+				.Select(x => _modelConverter.ToModel<EventViewModel>(x))
+				.ToList();
+		}
+	}
+
+	public class CountriesAttribute : TestableDittoProcessorAttribute
+	{
+		private readonly IUmbracoWrapper _umbracoWrapper;
+		private readonly IModelConverter _modelConverter;
+
+		public CountriesAttribute()
+		{
+			_umbracoWrapper = DependencyResolver.Current.GetService<IUmbracoWrapper>();
+			_modelConverter = DependencyResolver.Current.GetService<IModelConverter>();
+		}
+
+		public CountriesAttribute(IUmbracoWrapper umbracoWrapper, IModelConverter modelConverter)
+		{
+			_umbracoWrapper = umbracoWrapper;
+			_modelConverter = modelConverter;
+		}
+
+		public override object ProcessValue()
+		{
+			return _umbracoWrapper.AncestorOrSelf(Context.Content, 1)
+				.Children.First(x => x.DocumentTypeAlias.Equals("locations"))
+				.Children()
+				.Where(x => x.Children.Any())
+				.Select(x => _modelConverter.ToModel<CountryModel>(x))
+				.ToList();
 		}
 	}
 }

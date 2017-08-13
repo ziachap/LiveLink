@@ -8,7 +8,7 @@ using Umbraco.Core.Services;
 using Umbraco.Core;
 using LiveLink.Services.AuthenticationService;
 using LiveLink.Services.ContentSearchService;
-using LiveLink.Services.NumericIndexFormatter;
+using LiveLink.Services.IndexFormatters;
 using IMediaService = Gibe.DittoProcessors.Media.IMediaService;
 using MediaService = Gibe.DittoProcessors.Media.MediaService;
 
@@ -76,7 +76,8 @@ namespace LiveLink.App_Start
 				kernel.Bind<IExamineSearchProviderWrapper>().To<ExamineSearchProviderWrapper>();
 				kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
 
-				kernel.Bind<INumericIndexFormatter>().To<NumericIndexFormatter>();
+				kernel.Bind<IIndexFormatter<double>>().To<DoubleIndexFormatter>();
+				kernel.Bind<IIndexFormatter<int>>().To<IntegerIndexFormatter>();
 
 
 				RegisterServices(kernel);

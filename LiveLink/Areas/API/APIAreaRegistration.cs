@@ -23,8 +23,8 @@ namespace LiveLink.Areas.API
 			context.MapRoute("GetEvents", "API/events",
 				new { controller = "GetEvents", action = "Index", id = UrlParameter.Optional });
 
-			context.MapRoute("GetVenueEvents", "API/venue-events",
-				new { controller = "GetVenueEvents", action = "Index", id = UrlParameter.Optional });
+			context.MapRoute("SearchEvents", "API/search-events",
+				new { controller = "SearchEvents", action = "Index"});
 
 			context.MapRoute("User", "API/user/{action}",
 				new { controller = "User" });
