@@ -60,7 +60,7 @@
 
 	search: function () {
 		ajax.execute(
-			urls.searchEvents,
+			urls.searchMapEvents,
 			//'',
 			browsecontrols.form.serialize(),
 			function (response) {

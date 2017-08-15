@@ -1,3 +1,5 @@
 ﻿var urls = {
-	searchEvents: "/API/search-events"
+	searchMapEvents: "/API/search-events/map",
+	searchFeedEvents: "/API/search-events/feed",
+
 };

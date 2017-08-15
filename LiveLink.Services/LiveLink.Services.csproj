@@ -319,6 +319,7 @@
     <Compile Include="EventSearchService\EventSearchService.cs" />
     <Compile Include="ExamineService\ExamineSearchProviderWrapper.cs" />
     <Compile Include="ExamineService\ExamineService.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Models\ApiSuccessResponse.cs" />
     <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\CountryModel.cs" />

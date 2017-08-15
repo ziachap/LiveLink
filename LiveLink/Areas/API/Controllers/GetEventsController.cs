@@ -20,11 +20,12 @@ namespace LiveLink.Areas.API
 	    // GET: API/GetEvents
         public object Index(GetEventsConfiguration configuration)
         {
-	        var results = _eventSearchService.GetEvents(configuration);
+	        //var results = _eventSearchService.GetEvents(configuration);
 
 			// TODO: Generic API Response type
 
-            return JsonConvert.SerializeObject(new ApiSuccessResponse(results));
+            //return JsonConvert.SerializeObject(new ApiSuccessResponse(results));
+	        return null;
         }
     }
 }

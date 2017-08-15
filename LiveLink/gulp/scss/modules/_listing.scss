@@ -6,18 +6,6 @@
 }
 
 .listing {
-	/*
-	max-width: 320px;
-	width:  320px;
-
-	
-	background-color: #fafafa;
-	-webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
-	-moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
-	box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.2);
-		
-	margin: 1px 10px;
-		*/
 	opacity: 0.95;
 	overflow: hidden;
 
@@ -33,22 +21,69 @@
 	 a:hover {
 		 text-decoration: solid;
 	 }
-}
 
-.listing__image {
-	max-height: 200px;
-	width: 100%;
-	overflow: hidden;
-}
+	.listing__venuelogo {
+		-webkit-box-shadow: 1px 1px 10px -1px rgba(0,0,0,0.5);
+		-moz-box-shadow: 1px 1px 10px -1px rgba(0,0,0,0.5);
+		box-shadow: 1px 1px 10px -1px rgba(0,0,0,0.5);
 
-.listing__content {
-	padding: 2px 15px;
-	padding-bottom: 5px;
-	position: relative;
-}
+		border: 0px solid;
+		border-radius: 100%;
+		position: absolute;
+		top: -50px;
+		right: 15px;
 
-.listing__venuelogo {
-	position: absolute;
-	top: -48px;
-	right: 15px;
+		&.subfeature {
+			top: -24px;
+			right: 10px;
+		}
+	}
+
+	.listing__image {
+		max-height: 200px;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.listing__content {
+		padding: 2px 15px;
+		padding-bottom: 5px;
+		position: relative
+	}
+	
+
+	&.subfeature {
+		.listing__venuelogo {
+			top: -24px;
+			right: 5px;
+
+		}
+
+		.listing__content {
+			padding: 2px 5px;
+		}
+	}
+
+	&.list {
+		position: relative;
+		margin-bottom: 10px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid #EEE;
+
+		min-height: 95px;
+
+		.listing__content {
+			margin-left: 90px;
+			padding: 2px 5px;
+		}
+
+		.listing__image {
+			position: absolute;
+			left: 0;
+			top: 2px;
+			height: 90px;
+			width: 80px;
+			overflow: visible;
+		}
+	}
 }

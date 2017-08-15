@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using LiveLink.Services.Models.ViewModels;
+using Umbraco.Core.Models;
 
 namespace LiveLink.Services.EventSearchService
 {
 	public interface IEventSearchService
 	{
-		IEnumerable<EventViewModel> GetEvents(GetEventsConfiguration configuration);
-		IEnumerable<VenueViewModel> GetVenueEvents(GetEventsConfiguration configuration);
+		IEnumerable<IPublishedContent> GetVenueEvents(GetEventsConfiguration configuration);
 	}
 }

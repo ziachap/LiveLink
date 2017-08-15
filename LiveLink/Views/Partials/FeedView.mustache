@@ -1,32 +1,84 @@
-﻿{{#Data}}
-<h1>
-	<img class="img-circle" src="{{Logo.Url}}?width=55&height=55&mode=crop" />
-	{{Title}}
-</h1>
-<hr />
+﻿
 <div class="row">
-	{{#Events}}
-	<div class="listing col-md-4">
-		<div class="listing__image">
-			<a href="{{Url}}">
-				<img class="img-responsive" src="{{ThumbnailUrl}}?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
-			</a>
-		</div>
-		<div class="listing__content">
-			<div class="listing__venuelogo">
-				<img class="img-circle" src="{{ThumbnailUrl}}?width=60&height=60&mode=crop" alt="">
+	<div class="col-md-12">
+
+		<h1>Events in {{LocationTitle}}</h1>
+		<hr />
+
+		<div class="row">
+			{{#FeaturedEvents}}
+			<div class="listing col-md-4">
+				<div class="listing__image">
+					<a href="{{Url}}">
+						<img class="img-responsive" src="{{ThumbnailUrl}}?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
+					</a>
+				</div>
+				<div class="listing__content">
+					<div class="listing__venuelogo">
+						<img class="img-circle" src="{{Venue.Logo.Url}}?width=60&height=60&mode=crop" alt="">
+					</div>
+					<h3>
+						<a href="{{Url}}">{{Title}}</a>
+					</h3>
+					<h5>
+						<b>{{FormattedStartTime}}</b>
+						<br />
+						<small>{{Venue.Title}}</small>
+					</h5>
+					<p>{{SummaryShort}}</p>
+				</div>
 			</div>
-			<h3>
-				<a href="{{Url}}">{{Title}}</a>
-			</h3>
-			<h5>
-				<b>{{FormattedStartTime}}</b>
-				<br />
-				<small>{{Venue.Title}}</small>
-			</h5>
-			<p>{{SummaryShort}}</p>
+			{{/FeaturedEvents}}
 		</div>
+
+		<div class="row">
+			{{#SubFeaturedEvents}}
+			<div class="listing subfeature col-md-2">
+				<div class="listing__image">
+					<a href="{{Url}}">
+						<img class="img-responsive" src="{{ThumbnailUrl}}?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
+					</a>
+				</div>
+				<div class="listing__content">
+					<div class="listing__venuelogo">
+						<img class="img-circle" src="{{Venue.Logo.Url}}?width=30&height=30&mode=crop" alt="">
+					</div>
+					<h5>
+						<a href="{{Url}}">{{Title}}</a>
+					</h5>
+					<h5>
+						<b>{{FormattedStartDate}}</b>
+						<br />
+						<small>{{Venue.Title}}</small>
+					</h5>
+				</div>
+			</div>
+			{{/SubFeaturedEvents}}
+		</div>
+
+		<hr />
+
+		<div class="row">
+			{{#Events}}
+			<div class="listing list clearfix col-md-6">
+				<div class="listing__image">
+					<a href="{{Url}}">
+						<img class="img-circle" src="{{ThumbnailUrl}}?width=80&height=80&mode=crop&scale=both" alt="">
+					</a>
+				</div>
+				<div class="listing__content">
+					<h4>
+						<a href="{{Url}}">{{Title}}</a>
+					</h4>
+					<h5>
+						<b>{{FormattedStartTime}}</b>
+						<br />
+						<small>{{Venue.Title}}</small>
+					</h5>
+				</div>
+			</div>
+			{{/Events}}
+		</div>
+
 	</div>
-	{{/Events}}
 </div>
-{{/Data}}

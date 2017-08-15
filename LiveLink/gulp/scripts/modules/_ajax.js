@@ -1,7 +1,7 @@
 ﻿var ajax = {
 	request: null,
 
-	execute: function (url, data, callback) {
+	execute: function (url, data, successCallback, completeCallback) {
 
 		//var loader = $(".js-loader");
 		if (ajax.request != null) {
@@ -16,7 +16,7 @@
 			data: data,
 			success: function(response) {
 				
-				callback(response);
+				successCallback(response);
 
 				// remove loader
 				//loader.hide();
@@ -29,6 +29,9 @@
 				}
 				// remove loader
 				//loader.hide();
+			},
+			complete: function(e) {
+				completeCallback();
 			}
 		});
 	}

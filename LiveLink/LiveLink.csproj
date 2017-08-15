@@ -457,6 +457,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
+    <Content Include="gulp\scripts\modules\_loader.js" />
     <Content Include="gulp\scripts\modules\_urls.js" />
     <Content Include="gulp\scripts\modules\_eventmap.js" />
     <Content Include="gulp\scripts\modules\_listing.js" />
