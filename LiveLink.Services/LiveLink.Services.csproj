@@ -258,6 +258,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Terratype, Version=1.0.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Terratype.1.0.13\lib\net45\Terratype.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\packages\UmbracoCms.Core.7.3.7\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
@@ -344,6 +348,8 @@
     <Compile Include="Models\ViewModels\MetaModel.cs" />
     <Compile Include="IndexFormatters\INumericIndexFormatter.cs" />
     <Compile Include="Processors\CanonicalUrlAttribute.cs" />
+    <Compile Include="Processors\CountriesAttribute.cs" />
+    <Compile Include="Processors\DebugAttribute.cs" />
     <Compile Include="Processors\ImagePickerOrDefaultImage.cs" />
     <Compile Include="Processors\NavigationAttribute.cs" />
     <Compile Include="Processors\OtherVenueEventsAttribute.cs" />
@@ -360,6 +366,8 @@
     <None Include="App_Plugins\Skybrud.Social\package.manifest" />
     <None Include="App_Plugins\Skybrud.Social\Social.less" />
     <None Include="App_Plugins\Skybrud.Social\Table.less" />
+    <None Include="App_Plugins\Terratype\package.manifest" />
+    <None Include="App_Plugins\Terratype\Views\grid.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -388,6 +396,16 @@
     <Content Include="App_Plugins\Skybrud.Social\Twitter\OAuth\Controllers.js" />
     <Content Include="App_Plugins\Skybrud.Social\Twitter\OAuth\PreValueEditor.html" />
     <Content Include="App_Plugins\Skybrud.Social\Twitter\OAuth\PropertyEditor.html" />
+    <Content Include="App_Plugins\Terratype\Css\label.standard.css" />
+    <Content Include="App_Plugins\Terratype\Images\Terratype.png" />
+    <Content Include="App_Plugins\Terratype\Lang\en-us.xml" />
+    <Content Include="App_Plugins\Terratype\readme.txt" />
+    <Content Include="App_Plugins\Terratype\Scripts\terratype.js" />
+    <Content Include="App_Plugins\Terratype\Views\config.html" />
+    <Content Include="App_Plugins\Terratype\Views\editor.html" />
+    <Content Include="App_Plugins\Terratype\Views\grid.html" />
+    <Content Include="App_Plugins\Terratype\Views\grid.overlay.html" />
+    <Content Include="App_Plugins\Terratype\Views\label.standard.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

@@ -22,7 +22,12 @@ namespace LiveLink.App_Start
 			var doubleFormatter = new DoubleIndexFormatter();
 			var intFormatter = new IntegerIndexFormatter();
 
-			var venue = new Node(id).Parent;
+			var evt = new Node(id);
+			var venue = evt.Parent;
+			
+			document.Add(new Field("venue", intFormatter.Format(venue.Id),
+				Field.Store.YES, Field.Index.NOT_ANALYZED));
+
 			var contentLongitude = venue.GetProperty("contentLongitude").Value;
 			if (!string.IsNullOrEmpty(contentLongitude))
 			{

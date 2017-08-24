@@ -2,68 +2,94 @@
 @using StackExchange.Profiling
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
 <html class="" lang="en" itemscope itemtype="http://schema.org/WebPage">
 <head>
-    @Html.Partial("Meta")
-    @RenderSection("./Meta", false)
+	@Html.Partial("Meta")
+	@RenderSection("./Meta", false)
 
 	<!-- CSS PLUGINS / -->
 	@Html.Partial("CSSPlugins")
-    @RenderSection("CSSPlugins", false)
-    <!-- CSS / -->
+	@RenderSection("CSSPlugins", false)
+	<!-- CSS / -->
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	        crossorigin="anonymous"></script>
+
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous" defer></script>
 	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+
+	<!--
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+	        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+			crossorigin="anonymous" defer></script>
+		-->
 	<!-- Site CSS -->
-    <link href="~/css/site.css" rel="stylesheet" type="text/css">
+	<link href="~/css/site.css" rel="stylesheet" type="text/css">
 	<link href="~/css/print.css" rel="stylesheet" type="text/css">
 
 	<!-- FAVICON -->
-    <link href="~/favicon.ico" rel="icon" type="image/x-icon" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<link href="~/favicon.ico" rel="icon" type="image/x-icon" />
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-    @*Html.Partial("IESupport")*@
+	@*Html.Partial("IESupport")*@
 
 </head>
+
 <body id="top">
-    <!-- TAG MANAGER SCRIPTS / -->
+<!-- TAG MANAGER SCRIPTS / -->
+
 	<!-- Navigation -->
-	
+
 	@Html.Partial("Nav")
 	
-	<!-- Page Content -->
+	
+	
+	
+
+
+
+<!-- Page Content -->
 	<div class="master-container">
 		@RenderBody()
 	</div>
+
+	@Html.Partial("Overlay")
 	
-    <script>
-	    WebFontConfig = {
-		    google: { families: ['Roboto:300,400,500,700'] }
-	    };
-	    (function(d) {
-		    var wf = d.createElement('script'), s = d.scripts[0];
-		    wf.src = '//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
-		    s.parentNode.insertBefore(wf, s);
-	    })(document);
-    </script>	
+	<script>
+		WebFontConfig = {
+			google: { families: ['Roboto:300,400,500,700'] }
+		};
+		(function (d) {
+			var wf = d.createElement('script'), s = d.scripts[0];
+			wf.src = '//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
+			s.parentNode.insertBefore(wf, s);
+		})(document);
+	</script>
 
 	<script type="text/mustache" id="searchResultsTemplate">
 		@Html.RenderRawContent("~/Views/Partials/SearchResults.mustache")
 	</script>
+	<script type="text/mustache" id="infoWindowTemplate">
+		@Html.RenderRawContent("~/Views/Partials/InfoWindow.mustache")
+	</script>
+	<script type="text/mustache" id="feedViewTemplate">
+		@Html.RenderRawContent("~/Views/Partials/FeedView.mustache")
+	</script>
+	
 
-	<!-- JS PLUGINS / -->
+<!-- JS PLUGINS / -->
 	@Html.Partial("JSPlugins")
-    @RenderSection("JSPlugins", false)
+	@RenderSection("JSPlugins", false)
 	<script src="~/js/site.js"></script>
-<!-- JS / -->
-	
+	<!-- JS / -->
+
 	@MiniProfiler.RenderIncludes()
-	
+
 </body>
 </html>

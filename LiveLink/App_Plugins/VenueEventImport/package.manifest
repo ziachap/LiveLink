@@ -1,0 +1,16 @@
+﻿{
+	propertyEditors: [
+        {
+            alias: "LiveLink.VenueEventsImporter",
+            name: "Venue Events Importer",
+            icon: "icon-code",
+            group: "API",
+            editor: {
+                view: "~/App_Plugins/VenueEventImport/venueEventImport.html"
+            }
+        }
+    ],
+	javascript: [
+		"~/App_Plugins/VenueEventImport/venueEventImport.controller.js"
+	]
+}

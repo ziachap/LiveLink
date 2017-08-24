@@ -6,6 +6,7 @@ using LiveLink.Services.Models;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
+using Umbraco.Web;
 
 namespace LiveLink.Services.EventImportService
 {
@@ -101,6 +102,8 @@ namespace LiveLink.Services.EventImportService
 		
 		private string FormatAsHtml(string text)
 		{
+			if (string.IsNullOrEmpty(text)) return text;
+
 			var paragraphedText = "<p>" + text.Replace("\n", "<br />") + "</p>";
 
 			return paragraphedText;
@@ -110,7 +113,8 @@ namespace LiveLink.Services.EventImportService
 			=> _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));
 
 		private IEnumerable<IPublishedContent> Venues()
-			=> Settings().Children.First(x => x.DocumentTypeAlias.Equals("venues")).Children;
+		   => Settings().Children.First(x => x.DocumentTypeAlias.Equals("locations"))
+		   .Descendants().Where(x => x.DocumentTypeAlias.Equals("venue"));
 
 	}
 }

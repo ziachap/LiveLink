@@ -78,6 +78,7 @@ namespace LiveLink.App_Start
 
 				kernel.Bind<IIndexFormatter<double>>().To<DoubleIndexFormatter>();
 				kernel.Bind<IIndexFormatter<int>>().To<IntegerIndexFormatter>();
+				kernel.Bind<IIndexFormatter<DateTime>>().To<DatetimeIndexFormatter>();
 
 
 				RegisterServices(kernel);

@@ -1,10 +1,21 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
+using Umbraco.Core;
 
 namespace LiveLink.Services.IndexFormatters
 {
 	public interface IIndexFormatter<T>
 	{
 		string Format(T value);
+	}
+
+	public class DatetimeIndexFormatter : IIndexFormatter<DateTime>
+	{
+		public string Format(DateTime value)
+		{
+			return value.ToIsoString();
+			//return value.Ticks.ToString("00000000000000000000000000");
+		}
 	}
 
 	public class IntegerIndexFormatter : IIndexFormatter<int>

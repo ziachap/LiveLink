@@ -1,39 +1,105 @@
 ﻿
-<div class="row">
-	<div class="col-md-12">
+<hr />
 
-		<h1>Events in {{LocationTitle}}</h1>
-		<hr />
+<div class="ui stackable grid">
 
-		<div class="row">
-			{{#FeaturedEvents}}
-			<div class="listing col-md-4">
-				<div class="listing__image">
-					<a href="{{Url}}">
-						<img class="img-responsive" src="{{ThumbnailUrl}}?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
+		{{#FeaturedEvents}}
+		<div class="doubling four wide column">
+			<div class="ui card">
+				<div class="image">
+					<img src="{{ThumbnailUrl}}?width=1050&height=500&mode=crop&scale=both">
+				</div>
+				<div class="content">
+					<a class="header" href="{{Url}}">{{Title}}</a>
+					<div class="meta">
+						<span class="date">{{FormattedStartTime}}</span>
+					</div>
+					<div class="description">
+						{{SummaryShort}}
+
+					</div>
+					<div class="tags">
+						{{#Tags}}
+							<a class="ui label">{{.}}</a>
+						{{/Tags}}
+					</div>
+				</div>
+				<div class="extra content">
+					<a>
+						<img class="ui avatar image" src="{{Venue.Logo.Url}}?width=60&height=60&mode=crop">
+						{{Venue.Title}}
 					</a>
 				</div>
-				<div class="listing__content">
-					<div class="listing__venuelogo">
-						<img class="img-circle" src="{{Venue.Logo.Url}}?width=60&height=60&mode=crop" alt="">
-					</div>
-					<h3>
-						<a href="{{Url}}">{{Title}}</a>
-					</h3>
-					<h5>
-						<b>{{FormattedStartTime}}</b>
-						<br />
-						<small>{{Venue.Title}}</small>
-					</h5>
-					<p>{{SummaryShort}}</p>
+			</div>
+		</div>
+		{{/FeaturedEvents}}
+
+	{{#SubFeaturedEvents}}
+	<div class="doubling four wide column">
+		<div class="ui fluid card">
+			<div class="image">
+				<img src="{{ThumbnailUrl}}?width=1050&height=500&mode=crop&scale=both">
+			</div>
+			<div class="content">
+				<a class="header" href="{{Url}}">{{Title}}</a>
+				<div class="meta">
+					<span class="date">{{FormattedStartTime}}</span>
+				</div>
+				<div class="description">
+					{{SummaryShort}}
+				</div>
+
+				<div class="tags">
+					{{#Tags}}
+					<a class="ui label">{{.}}</a>
+					{{/Tags}}
 				</div>
 			</div>
-			{{/FeaturedEvents}}
+			<div class="extra content">
+				<a>
+					<img class="ui avatar image" src="{{Venue.Logo.Url}}?width=60&height=60&mode=crop">
+					{{Venue.Title}}
+				</a>
+			</div>
 		</div>
+	</div>
+	{{/SubFeaturedEvents}}
 
+	{{#Events}}
+	<div class="doubling four wide column">
+		<div class="ui fluid card">
+			<div class="image">
+				<img src="{{ThumbnailUrl}}?width=1050&height=500&mode=crop&scale=both">
+			</div>
+			<div class="content">
+				<a class="header" href="{{Url}}">{{Title}}</a>
+				<div class="meta">
+					<span class="date">{{FormattedStartTime}}</span>
+				</div>
+
+				<div class="tags">
+					{{#Tags}}
+					<a class="ui label">{{.}}</a>
+					{{/Tags}}
+				</div>
+				
+			</div>
+			<div class="extra content">
+				<a>
+					<img class="ui avatar image" src="{{Venue.Logo.Url}}?width=60&height=60&mode=crop">
+					{{Venue.Title}}
+				</a>
+			</div>
+		</div>
+	</div>
+	{{/Events}}
+</div>
+<hr />
+
+	<div class="ui grid">
 		<div class="row">
 			{{#SubFeaturedEvents}}
-			<div class="listing subfeature col-md-2">
+			<div class="three wide column listing subfeature">
 				<div class="listing__image">
 					<a href="{{Url}}">
 						<img class="img-responsive" src="{{ThumbnailUrl}}?width=1050&height=500&mode=crop&scale=both" width="100%" alt="">
@@ -56,29 +122,28 @@
 			{{/SubFeaturedEvents}}
 		</div>
 
-		<hr />
+			<hr />
 
-		<div class="row">
-			{{#Events}}
-			<div class="listing list clearfix col-md-6">
-				<div class="listing__image">
-					<a href="{{Url}}">
-						<img class="img-circle" src="{{ThumbnailUrl}}?width=80&height=80&mode=crop&scale=both" alt="">
-					</a>
+			<div class="row">
+				{{#Events}}
+				<div class="listing list clearfix col-md-6">
+					<div class="listing__image">
+						<a href="{{Url}}">
+							<img class="img-circle" src="{{ThumbnailUrl}}?width=80&height=80&mode=crop&scale=both" alt="">
+						</a>
+					</div>
+					<div class="listing__content">
+						<h4>
+							<a href="{{Url}}">{{Title}}</a>
+						</h4>
+						<h5>
+							<b>{{FormattedStartTime}}</b>
+							<br />
+							<small>{{Venue.Title}}</small>
+						</h5>
+					</div>
 				</div>
-				<div class="listing__content">
-					<h4>
-						<a href="{{Url}}">{{Title}}</a>
-					</h4>
-					<h5>
-						<b>{{FormattedStartTime}}</b>
-						<br />
-						<small>{{Venue.Title}}</small>
-					</h5>
-				</div>
+				{{/Events}}
 			</div>
-			{{/Events}}
-		</div>
 
-	</div>
-</div>
+		</div>

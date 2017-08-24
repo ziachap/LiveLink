@@ -10,7 +10,7 @@
 		//eventOverlay.init();
 		browsecontrols.init();
 
-		$(".map:not(.js-map-done)").each(function () {
+		$(".js-map:not(.js-map-done)").each(function () {
 			map.map = new google.maps.Map(this, {
 				zoom: 13,
 				center: { lat: 51.449517, lng: -2.575963 },
@@ -76,7 +76,7 @@ $(function () {
 });
 
 $(document).ready(function () {
-	$('.carousel').carousel({
-		interval: 2000
-	});
+	//$('.carousel').carousel({
+	//	interval: 2000
+	//});
 });

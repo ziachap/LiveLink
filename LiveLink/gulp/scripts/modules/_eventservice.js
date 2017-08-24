@@ -5,6 +5,24 @@
 
 	init: function() {
 		eventService.infoWindowTemplate = Hogan.compile($('#infoWindowTemplate').html());
+
+		$(".js-event-card:not(.js-event-card-done)").each(function () {
+			
+			var id = $(this).attr('data-id');
+			
+			$(this).find(".js-open-event:not(.js-open-event-done)").each(function () {
+				
+				$(this).click(function () {
+					console.log(id);
+					eventService.render(id);
+					return false;
+				});
+				
+				$(this).addClass("js-open-event-done");
+			});
+
+			$(this).addClass(" js-event-card-done");
+		});
 	},
 
 	bind: function (venueEventsResponse) {

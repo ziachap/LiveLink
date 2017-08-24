@@ -1,53 +1,130 @@
-﻿@using LiveLink.App_Code
-@using Newtonsoft.Json
-@inherits Our.Umbraco.Ditto.DittoView<LiveLink.Services.Models.ViewModels.FeedViewModel>
+﻿@using Newtonsoft.Json
+@model  LiveLink.Services.Models.ViewModels.FeedViewModel
 @{
-	Layout = "Master.cshtml";
+	var isAjax = Request.IsAjaxRequest();
+	Layout = isAjax ? null : "Master.cshtml";
 }
-<div class="feed__container">
-	<div class="container">
+<div class="feed container js-feed-container">
+	
+
+	<div class="loader js-overlay-loader" style="display: none;">
+		<div class="rect1"></div>
+		<div class="rect2"></div>
+		<div class="rect3"></div>
+		<div class="rect4"></div>
+		<div class="rect5"></div>
+	</div>
+
+	<div class="ui grid js-location-content">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="wide column">
+				<form class="js-feed-controls" action="/feed" autocomplete="off">
 
-				<select class="form-element long light js-location-input">
-					@foreach (var country in Model.View.Countries)
-					{
-						<optgroup label="@country.Title">
-							@foreach (var city in country.Cities)
+					<select class="ui dropdown js-country-input" name="countryId">
+						@foreach (var country in Model.Countries)
+						{
+							<option class="@(country.Disabled ? "disabled" : string.Empty) item" 
+							        @(country.Selected ? "selected=selected" : string.Empty) 
+									value="@country.Id">@country.Title</option>
+						}
+					</select>
+
+					<select class="ui dropdown js-city-input" name="cityId" @(Model.Cities.Any() ? string.Empty : "disabled=disabled")>
+						<option class="item" value=" ">All cities</option>
+						@foreach (var city in Model.Cities)
+						{
+							<option class="@(city.Disabled ? "disabled" : string.Empty) item" 
+							        @(city.Selected ? "selected=selected" : string.Empty)
+									value="@city.Id">@city.Title</option>
+						}
+					</select>
+					
+					<select class="ui dropdown js-venue-input" name="venueId" @(Model.Venues.Any() ? string.Empty : "disabled=disabled")>
+						<option class="item" value=" ">All venues</option>
+						@foreach (var venue in Model.Venues)
+						{
+							<option class="@(venue.Disabled ? "disabled" : string.Empty) item"
+									@(venue.Selected ? "selected=selected" : string.Empty)
+									value="@venue.Id">
+								@venue.Title
+								</option>
+						}
+					</select>
+					
+					@*
+					<div class="ui selection dropdown js-venue-input @(Model.Venues.Any() ? string.Empty : "disabled")" data-selected="1377">
+						<input type="hidden" name="venueId">
+						<i class="dropdown icon"></i>
+						<div class="default text">Select venue</div>
+						<div class="menu">
+							<div class="selected item" data-value=" ">All venues</div>
+							@foreach (var venue in Model.Venues)
 							{
-								<option value="@city.Id">@city.Title</option>
+								<div class="@(venue.Disabled ? "disabled" : string.Empty) item"
+									 @(venue.Selected ? "selected=selected" : string.Empty)
+									 data-value="@venue.Id">@venue.Title</div>
 							}
-						</optgroup>
-					}
-				</select>
-				
-				<div class="loader js-overlay-loader">
-					<div class="rect1"></div>
-					<div class="rect2"></div>
-					<div class="rect3"></div>
-					<div class="rect4"></div>
-					<div class="rect5"></div>
-				</div>
+						</div>
+					</div>
+					*@
+				</form>
+			</div>
+		</div>
 
-				<div class="feed__container js-location-content">
+		<div class="row">
+			<div class="wide column">
+
+				<hr/>
+
+				<div class="ui stackable grid">
+
+					@foreach (var e in Model.Events)
+					{
+						<div class="doubling four wide column">
+							<div class="ui card js-event-card" data-id="@e.Id">
+								<div class="image">
+									<img src="@e.ThumbnailUrl?width=525&height=250&mode=crop&scale=both">
+								</div>
+								<div class="content">
+									<a class="header js-open-event" href="@e.Url">@e.Title</a>
+									<div class="meta">
+										<span class="date">@e.FormattedStartTime</span>
+									</div>
+									<div class="description">
+										@e.SummaryShort
+
+									</div>
+									<div class="tags">
+										@foreach (var tag in e.Tags)
+										{
+											<a class="ui label">@tag</a>
+										}
+									</div>
+								</div>
+								<div class="extra content">
+									<a>
+										<img class="ui avatar image" src="@e.Venue.LogoUrl?width=60&height=60&mode=crop">
+										@e.Venue.Title
+									</a>
+								</div>
+							</div>
+						</div>
+					}
+
 
 				</div>
 
 			</div>
+
 		</div>
+
 	</div>
 
-
-	@Html.Partial("Overlay")
 </div>
-
 
 @section JSPlugins
 {
-	<script type="application/json" id="events-json">
-		@Html.Raw(JsonConvert.SerializeObject(Model.View.Venues))
-	</script>
-	<script type="text/mustache" id="feedViewTemplate">
-		@Html.RenderRawContent("~/Views/Partials/FeedView.mustache")
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFMn4IZfdJTexYRh6MfL6fqNbukCIwj9I">
 	</script>
 }

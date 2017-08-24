@@ -1,5 +1,4 @@
 ﻿using Gibe.DittoProcessors.Media.Models;
-using Gibe.DittoProcessors.Processors;
 using LiveLink.Services.Processors;
 using Our.Umbraco.Ditto;
 

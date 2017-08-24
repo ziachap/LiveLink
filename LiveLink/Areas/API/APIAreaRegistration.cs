@@ -17,6 +17,12 @@ namespace LiveLink.Areas.API
             context.MapRoute("ImportFacebookEvents", "API/import-facebook-events",
                 new { controller = "ImportFacebookEvents", action = "Index", id = UrlParameter.Optional });
 
+			context.MapRoute("ImportFacebookVenueEvents", "API/import-facebook-venue-events",
+				new { controller = "ImportFacebookVenueEvents", action = "Index" });
+
+			context.MapRoute("CleanupEvents", "API/cleanup-events",
+				new { controller = "CleanupEvents", action = "Index" });
+			
 			context.MapRoute("AjaxEvent", "API/event",
 				new { controller = "AjaxEvent", action = "Index", id = UrlParameter.Optional });
 

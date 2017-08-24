@@ -1,10 +1,14 @@
 ﻿@import 'palette';
+@import 'common/config';
+
+.hide-on-mobile {
+	@media screen and (max-width: $mobileBreakpoint) {
+		display: none !important;
+	}
+}
 
 .browsecontrols {
 	position: relative;
-	background-color: $dark-0;
-	width: 100%;
-	height: 100%;
 
 	&__inner {
 		padding-left: 30px;
@@ -12,18 +16,24 @@
 
 	input[type=text] {
 		margin: -2px;
-		padding: 16px 16px;
-		background-color: $dark-1;
+		padding: 10px 16px;
+		background-color: $light-1;
 
-		color: #eee;
+		color: $light-text;
 		font-family: 'Lato', sans-serif;
 		font-size: 1em;
 
 		border: 0px solid #555;
-		border-right: 0px solid $dark-0;
+		border-right: 0px solid $light-0;
+
+		
+
+		@media screen and (max-width: $tabletBreakpoint) {
+			width: 150px;
+		}
 
 		&:focus {
-			background-color: $dark-2;
+			background-color: $light-2;
 		}
 	}
 
@@ -33,7 +43,9 @@
 		width: 260px;
 
 		&:focus {
-			width: 360px;
+			@media screen and (min-width: $tabletBreakpoint) {
+				width: 360px;
+			}
 		}
 	}
 
@@ -52,9 +64,13 @@
 		overflow-y: auto;
 		width: 420px;
 		z-index: 10;
-		background-color: $dark-0;
-		color: #e0e0e0;
+		background-color: $light-0;
+		color: $light-text;
 		display: none;
+
+		-webkit-box-shadow: 3px 3px 16px -5px rgba(0,0,0,0.25);
+		-moz-box-shadow: 3px 3px 16px -5px rgba(0,0,0,0.25);
+		box-shadow: 3px 3px 16px -5px rgba(0,0,0,0.25);
 
 		&.active {
 			display: block;
@@ -67,12 +83,12 @@
 
 		&-result {
 			margin: 8px 10px;
-			background-color: $dark-1;
+			background-color: $light-1;
 			position: relative;
 			width: 95%;
 
 			&:hover {
-				background-color: $dark-2;
+				background-color: $light-2;
 			}
 
 			&-image{
@@ -81,7 +97,7 @@
 				top: 0;
 				height: 100%;
 				width: 90px;
-				background-color: $dark-2;
+				background-color: $light-2;
 				overflow: hidden;
 			}
 
@@ -92,36 +108,27 @@
 		}
 
 		a, a:hover {
-			color: #e0e0e0;
+			color: $light-text-hover;
 			text-decoration: none;
 		}
 
 		&::-webkit-scrollbar {
 			width: 12px;
-			background-color: $dark-0;
+			background-color: $light-0;
 		}
 
 		&::-webkit-scrollbar-track {
-			background-color: $dark-1;
+			background-color: $light-1;
 		}
 
 		&::-webkit-scrollbar-thumb {
 			border-radius: 3px;
-			background-color: $dark-2;
+			background-color: $light-2;
 
 			&:hover{
-				background-color: $dark-3;
+				background-color: $light-3;
 			}
 		}
 	}
 }
 
-@media(max-width:768px) {
-	.browsecontrols {
-		input[type=text] {
-			width: 100%;
-			padding: 16px 16px;
-			margin: 1px 0;
-		}
-	}
-}

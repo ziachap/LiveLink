@@ -12,7 +12,11 @@ namespace LiveLink.Services.EventSearchService
 		public double? BoundMinY { get; set; }
 		public double? BoundMaxY { get; set; }
 
-		public int? LocationId { get; set; }
+		public int? CountryId { get; set; }
+		public int? CityId { get; set; }
+		public int? VenueId { get; set; }
+
+		public int? LocationId => VenueId ?? CityId ?? CountryId;
 
 		public bool HasBounds => BoundMinX.HasValue 
 			&& BoundMaxX.HasValue && BoundMinY.HasValue && BoundMaxY.HasValue;

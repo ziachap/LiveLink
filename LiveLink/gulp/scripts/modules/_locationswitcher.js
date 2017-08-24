@@ -1,44 +1,47 @@
 ﻿var locationswitcher = {
-	feedViewTemplate: null,
 
-	init: function() {
-		locationswitcher.feedViewTemplate = Hogan.compile($('#feedViewTemplate').html());
+	init: function () {
 
-		$(".js-location-input:not(.js-location-input-done)").each(function () {
-			var locationId = $(this).val();
-			locationswitcher.search(locationId);
+		$(".js-feed-controls:not(.js-feed-controls-done)").each(function () {
+			var form = $(this);
 
-			$(this).on('change', function () {
-				var locationId = $(this).val();
-				locationswitcher.search(locationId);
+			$(this).find('select,input').each(function () {
+
+				$(this).on('change', function () {
+					locationswitcher.search(form);
+				});
+
 			});
 
-			$(this).addClass("js-location-input-done");
+			$(this).addClass("js-feed-controls-done");
 		});
 	},
 
-	search: function (locationId) {
+	search: function (form) {
 		loader.show();
 		locationswitcher.hideContent();
+		updateQueryString(form.serialize());
 		ajax.execute(
-			urls.searchFeedEvents,
-			"locationid=" + locationId,
-			function(response) {
+			urls.feed,
+			form.serialize(),
+			function (response) {
 				// TODO: Check for success
-				response = JSON.parse(response);
-				console.log(response);
 
-				var content = locationswitcher.feedViewTemplate.render(response.Data);
 
-				$(".js-location-content").each(function() {
-					$(this).html(content);
+				$(".js-feed-container").each(function () {
+					$(this).replaceWith(response);
 				});
 
 			},
-			function() {
-				loader.hide();
+			function () {
 				locationswitcher.showContent();
+				loader.hide();
 			});
+
+		function updateQueryString(querystring) {
+			var url = window.location.href.split('?')[0];
+			history.pushState(null, null, url + "?" + querystring);
+		}
 	},
 
 	hideContent: function() {

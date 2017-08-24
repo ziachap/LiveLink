@@ -7,16 +7,13 @@
 
 <div class="map__container">
 	<!-- Map -->
-	<div class="map"></div>
+	<div class="js-map map__map"></div>
 </div>
 
 @Html.Partial("Overlay")
 
 @section JSPlugins
 {
-	<script type="text/mustache" id="infoWindowTemplate">
-		@Html.RenderRawContent("~/Views/Partials/InfoWindow.mustache")
-	</script>
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFMn4IZfdJTexYRh6MfL6fqNbukCIwj9I">
 	</script>

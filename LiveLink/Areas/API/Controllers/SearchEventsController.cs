@@ -30,7 +30,7 @@ namespace LiveLink.Areas.API.Controllers
 		public object MapEvents(GetEventsConfiguration configuration)
 		{
 			var results = _eventSearchService.GetVenueEvents(configuration);
-			var groupedResults = results.GroupBy(x => x.Parent.Id).Select(ToVenueViewModel);
+			var groupedResults = results.GroupBy(x => x.Parent.Id).Select(ToVenueViewModel).ToList();
 
 			// TODO: Generic API Response type
 			

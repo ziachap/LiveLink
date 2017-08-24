@@ -9,98 +9,102 @@ using Skybrud.Social.Facebook.Options.Events;
 using Skybrud.Social.Umbraco.Facebook.PropertyEditors.OAuth;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
+using Umbraco.Web;
 
 namespace LiveLink.Services.FacebookEventsService
 {
-    public interface IFacebookEventsService
-    {
-        IEnumerable<LiveLinkEvent> GetEventsForVenues(int? limit = 10);
-    }
+	public interface IFacebookEventsService
+	{
+		IEnumerable<LiveLinkEvent> GetEventsForVenues(int? limit = 10);
+		IEnumerable<LiveLinkEvent> GetEventsForVenue(IPublishedContent venueContent, int? limit);
+	}
 
-    public class FacebookEventsService : IFacebookEventsService
-    {
-        private readonly IFacebookApiWrapper _facebookApiWrapper;
-        private readonly IUmbracoWrapper _umbracoWrapper;
-        
+	public class FacebookEventsService : IFacebookEventsService
+	{
+		private readonly IFacebookApiWrapper _facebookApiWrapper;
+		private readonly IUmbracoWrapper _umbracoWrapper;
 
-        public FacebookEventsService(IFacebookApiWrapper facebookApiWrapper, IUmbracoWrapper umbracoWrapper)
-        {
-            _facebookApiWrapper = facebookApiWrapper;
-            _umbracoWrapper = umbracoWrapper;
-        }
 
-        public IEnumerable<LiveLinkEvent> GetEventsForVenues(int? limit = 10)
-        {
-            var authData = _umbracoWrapper.GetPropertyValue<FacebookOAuthData>(Settings(),
-                "settingsFacebookOAuth");
+		public FacebookEventsService(IFacebookApiWrapper facebookApiWrapper, IUmbracoWrapper umbracoWrapper)
+		{
+			_facebookApiWrapper = facebookApiWrapper;
+			_umbracoWrapper = umbracoWrapper;
+		}
 
-            var eventsOptions = new FacebookEventsOptions
-            {
-                Limit = limit
+		public IEnumerable<LiveLinkEvent> GetEventsForVenues(int? limit = 10)
+		{
+			var eventsOptions = new FacebookEventsOptions
+			{
+				Limit = limit
 			};
 
-            return Venues().SelectMany(x => GetEventsForVenue(x, authData, eventsOptions)).ToList();
-        }
+			return Venues().SelectMany(x => GetEventsForVenue(x, AuthData(), eventsOptions)).ToList();
+		}
 
-        public IEnumerable<LiveLinkEvent> GetEventsForVenue(IPublishedContent venue,
-            FacebookOAuthData authData, FacebookEventsOptions options)
-        {
-            var pageId = _umbracoWrapper.GetPropertyValue<string>(venue,
-                "developerFacebookPageIdentifier");
+		public IEnumerable<LiveLinkEvent> GetEventsForVenue(IPublishedContent venueContent, int? limit)
+		{
+			var eventsOptions = new FacebookEventsOptions
+			{
+				Limit = limit
+			};
 
-            var events = _facebookApiWrapper.GetEvents(authData, options, pageId);
+			return GetEventsForVenue(venueContent, AuthData(), eventsOptions);
+		}
 
-	        foreach (var e in events.ToList())
-	        {
-		        
-	        }
+		private IEnumerable<LiveLinkEvent> GetEventsForVenue(IPublishedContent venue,
+			FacebookOAuthData authData, FacebookEventsOptions options)
+		{
+			var pageId = _umbracoWrapper.GetPropertyValue<string>(venue,
+				"developerFacebookPageIdentifier");
 
-            return events.Select(x => ToLiveLinkEvent(x, venue.Id));
-        }
+			var events = _facebookApiWrapper.GetEvents(authData, options, pageId);
 
-	    private int? RetrieveAndSaveImage(string url, string filename)
-	    {
+			return events.Select(x => ToLiveLinkEvent(x, venue.Id));
+		}
+
+		private int? RetrieveAndSaveImage(string url, string filename)
+		{
 			// TODO: Gallery images
 			// TODO: Clean this shit up
 
-		    if (string.IsNullOrEmpty(url)) return null;
+			if (string.IsNullOrEmpty(url)) return null;
 
-			IMediaService ms = ApplicationContext.Current.Services.MediaService;
+			var ms = ApplicationContext.Current.Services.MediaService;
 
-			string fileName = filename;
-			bool folderExists = false;
-			int folderId = 1153; //Folder Id in Media Library
+			var fileName = filename;
+			var folderExists = false;
+			var folderId = 1153; //Folder Id in Media Library
 
 			var request = WebRequest.Create(url);
 			request.Timeout = 30000;
 
-			using (var response = (HttpWebResponse)request.GetResponse())
-			using (Stream stream = response.GetResponseStream())
+			using (var response = (HttpWebResponse) request.GetResponse())
+			using (var stream = response.GetResponseStream())
 			{
-				if (response.StatusCode == System.Net.HttpStatusCode.OK)
+				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					Stream streamCopy = new MemoryStream();
 
 					stream.CopyTo(streamCopy);
 
-					IEnumerable<IMedia> getAllChildItems = ms.GetChildren(folderId);
+					var getAllChildItems = ms.GetChildren(folderId);
+
 					#region "Either Add the File or Update the Existing one"
-					int assetID = 0;
+
+					var assetID = 0;
 					assetID = ms.GetChildren(folderId).Where(c => c.Name == fileName).Select(c => c.Id).FirstOrDefault();
 
-					string origFilename = "";
+					var origFilename = "";
 
-					Uri uri = new Uri(url);
+					var uri = new Uri(url);
 
-					origFilename = System.IO.Path.GetFileName(uri.LocalPath);
+					origFilename = Path.GetFileName(uri.LocalPath);
 
 
 					if (assetID > 0)
-					{
 						try
 						{
-							IMedia existingFile = ms.GetById(assetID);
+							var existingFile = ms.GetById(assetID);
 							existingFile.SetValue("umbracoFile", origFilename, streamCopy);
 							ms.Save(existingFile);
 							return existingFile.Id;
@@ -109,58 +113,53 @@ namespace LiveLink.Services.FacebookEventsService
 						{
 							throw new Exception("There was a problem updating Image - " + assetID);
 						}
-
-					}
-					else
+					try
 					{
-						try
-						{
-							IMedia mediaFile = ms.CreateMedia(fileName, folderId, "Image");
-							mediaFile.SetValue("umbracoFile", origFilename, streamCopy);
-							ms.Save(mediaFile);
-							return mediaFile.Id;
-
-						}
-						catch (Exception ex)
-						{
-
-							throw new Exception("There was a problem saving the image - " + fileName);
-						}
-
+						var mediaFile = ms.CreateMedia(fileName, folderId, "Image");
+						mediaFile.SetValue("umbracoFile", origFilename, streamCopy);
+						ms.Save(mediaFile);
+						return mediaFile.Id;
 					}
+					catch (Exception ex)
+					{
+						throw new Exception("There was a problem saving the image - " + fileName);
+					}
+
 					#endregion
-
 				}
-
 			}
 
-		    return null;
-	    }
+			return null;
+		}
 
-	    private LiveLinkEvent ToLiveLinkEvent(FacebookEvent facebookEvent, int venueNodeId)
-        {
-            return new LiveLinkEvent
-            {
-                Title = facebookEvent.Name,
-                Description = facebookEvent.Description,
-                StartDateTime = facebookEvent.StartDateTime,
-                EndDateTime = facebookEvent.EndDateTime,
-                VenueNodeId = venueNodeId,
-                FacebookEventIdentifier = facebookEvent.Id,
-                TicketUri = facebookEvent.TicketUri,
+		private LiveLinkEvent ToLiveLinkEvent(FacebookEvent facebookEvent, int venueNodeId)
+		{
+			return new LiveLinkEvent
+			{
+				Title = facebookEvent.Name,
+				Description = facebookEvent.Description,
+				StartDateTime = facebookEvent.StartDateTime,
+				EndDateTime = facebookEvent.EndDateTime,
+				VenueNodeId = venueNodeId,
+				FacebookEventIdentifier = facebookEvent.Id,
+				TicketUri = facebookEvent.TicketUri,
 				Thumbnail = RetrieveAndSaveImage(facebookEvent.CoverUrl, facebookEvent.Id)
 			};
-        }
+		}
 
-	    private string ToHtml(string text)
-	    {
-		    return $"<p>{text}</p>".Replace("\n", "<br />");
-	    }
+		private string ToHtml(string text)
+		{
+			return $"<p>{text}</p>".Replace("\n", "<br />");
+		}
 
-        private IPublishedContent Settings()
-            => _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));
+		private FacebookOAuthData AuthData()
+			=> _umbracoWrapper.GetPropertyValue<FacebookOAuthData>(Settings(), "settingsFacebookOAuth");
 
-        private IEnumerable<IPublishedContent> Venues()
-            => Settings().Children.First(x => x.DocumentTypeAlias.Equals("venues")).Children;
-    }
+		private IPublishedContent Settings()
+			=> _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));
+
+		private IEnumerable<IPublishedContent> Venues()
+			=> Settings().Children.First(x => x.DocumentTypeAlias.Equals("locations"))
+				.Descendants().Where(x => x.DocumentTypeAlias.Equals("venue"));
+	}
 }

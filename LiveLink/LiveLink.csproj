@@ -45,8 +45,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Archetype, Version=1.12.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Archetype.Binaries.1.12.2\lib\net40\Archetype.dll</HintPath>
+    <Reference Include="Archetype, Version=1.15.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Archetype.Binaries.1.15.1\lib\net40\Archetype.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -343,6 +343,14 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Terratype, Version=1.0.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Terratype.1.0.13\lib\net45\Terratype.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Terratype.GoogleMapsV3, Version=1.0.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Terratype.GoogleMapsV3.1.0.13\lib\net45\Terratype.GoogleMapsV3.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\packages\UmbracoCms.Core.7.5.13\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
@@ -393,6 +401,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Archetype\assets\logo_50.png" />
+    <Content Include="App_Plugins\Archetype\assets\twitter.png" />
+    <Content Include="App_Plugins\Archetype\css\archetype.css" />
+    <Content Include="App_Plugins\Archetype\js\archetype.js" />
+    <Content Include="App_Plugins\Archetype\langs\da-dk.js" />
+    <Content Include="App_Plugins\Archetype\langs\da.js" />
+    <Content Include="App_Plugins\Archetype\langs\de-de.js" />
+    <Content Include="App_Plugins\Archetype\langs\de.js" />
+    <Content Include="App_Plugins\Archetype\langs\en-gb.js" />
+    <Content Include="App_Plugins\Archetype\langs\en-us.js" />
+    <Content Include="App_Plugins\Archetype\langs\en.js" />
+    <Content Include="App_Plugins\Archetype\langs\es-es.js" />
+    <Content Include="App_Plugins\Archetype\langs\es.js" />
+    <Content Include="App_Plugins\Archetype\langs\fr-fr.js" />
+    <Content Include="App_Plugins\Archetype\langs\he-il.js" />
+    <Content Include="App_Plugins\Archetype\langs\it-it.js" />
+    <Content Include="App_Plugins\Archetype\langs\ja-jp.js" />
+    <Content Include="App_Plugins\Archetype\langs\ko-kr.js" />
+    <Content Include="App_Plugins\Archetype\langs\nb-no.js" />
+    <Content Include="App_Plugins\Archetype\langs\nl-nl.js" />
+    <Content Include="App_Plugins\Archetype\langs\pl-pl.js" />
+    <Content Include="App_Plugins\Archetype\langs\pt-br.js" />
+    <Content Include="App_Plugins\Archetype\langs\ru-ru.js" />
+    <Content Include="App_Plugins\Archetype\langs\sv-se.js" />
+    <Content Include="App_Plugins\Archetype\langs\zh-cn.js" />
+    <Content Include="App_Plugins\Archetype\views\archetype.config.developer.dialog.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.config.fieldset.dialog.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.config.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.config.stylescript.dialog.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.default.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.html" />
     <Content Include="App_Plugins\EventImport\eventImport.html" />
     <Content Include="App_Plugins\EventImport\eventImport.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
@@ -423,10 +462,40 @@
     <Content Include="App_Plugins\Skybrud.Social\Twitter\OAuth\Controllers.js" />
     <Content Include="App_Plugins\Skybrud.Social\Twitter\OAuth\PreValueEditor.html" />
     <Content Include="App_Plugins\Skybrud.Social\Twitter\OAuth\PropertyEditor.html" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Images\Example.png" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Images\Logo.png" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Images\m1.png" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Images\m2.png" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Images\m3.png" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Images\m4.png" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Images\m5.png" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Lang\en-us.xml" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\readme.txt" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Scripts\markerclusterer.js" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Scripts\markerclusterer.min.js" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Scripts\Terratype.GoogleMapsV3.js" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Scripts\Terratype.GoogleMapsV3.Renderer.js" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Views\config.appearance.html" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Views\config.definition.html" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Views\config.search.html" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Views\editor.appearance.html" />
+    <Content Include="App_Plugins\Terratype.GoogleMapsV3\Views\grid.appearance.html" />
+    <Content Include="App_Plugins\Terratype\Css\label.standard.css" />
+    <Content Include="App_Plugins\Terratype\Images\Terratype.png" />
+    <Content Include="App_Plugins\Terratype\Lang\en-us.xml" />
+    <Content Include="App_Plugins\Terratype\readme.txt" />
+    <Content Include="App_Plugins\Terratype\Scripts\terratype.js" />
+    <Content Include="App_Plugins\Terratype\Views\config.html" />
+    <Content Include="App_Plugins\Terratype\Views\editor.html" />
+    <Content Include="App_Plugins\Terratype\Views\grid.html" />
+    <Content Include="App_Plugins\Terratype\Views\grid.overlay.html" />
+    <Content Include="App_Plugins\Terratype\Views\label.standard.html" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.css" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.html" />
     <Content Include="App_Plugins\uSync\uSyncDashboardController.js" />
     <Content Include="App_Plugins\uSync\uSyncDashboardService.js" />
+    <Content Include="App_Plugins\VenueEventImport\venueEventImport.controller.js" />
+    <Content Include="App_Plugins\VenueEventImport\venueEventImport.html" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -453,11 +522,14 @@
     <Content Include="css\site.css" />
     <Content Include="CSS_Plugins\font-awesome.min.css" />
     <Content Include="CSS_Plugins\noty.css" />
+    <Content Include="CSS_Plugins\semantic.min.css" />
     <Content Include="default.aspx" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
     <Content Include="gulp\scripts\modules\_loader.js" />
+    <Content Include="gulp\scripts\modules\_setup.js" />
     <Content Include="gulp\scripts\modules\_urls.js" />
     <Content Include="gulp\scripts\modules\_eventmap.js" />
     <Content Include="gulp\scripts\modules\_listing.js" />
@@ -483,8 +555,56 @@
     <Content Include="gulp\scripts\plugins\readmore.min.js" />
     <Content Include="gulp\scripts\site.js" />
     <Content Include="gulp\scripts\modules\_tabs.js" />
+    <Content Include="gulp\scss\semantic\accordion.css" />
+    <Content Include="gulp\scss\semantic\ad.css" />
+    <Content Include="gulp\scss\semantic\breadcrumb.css" />
+    <Content Include="gulp\scss\semantic\button.css" />
+    <Content Include="gulp\scss\semantic\card.css" />
+    <Content Include="gulp\scss\semantic\checkbox.css" />
+    <Content Include="gulp\scss\semantic\comment.css" />
+    <Content Include="gulp\scss\semantic\container.css" />
+    <Content Include="gulp\scss\semantic\dimmer.css" />
+    <Content Include="gulp\scss\semantic\divider.css" />
+    <Content Include="gulp\scss\semantic\dropdown.css" />
+    <Content Include="gulp\scss\semantic\embed.css" />
+    <Content Include="gulp\scss\semantic\feed.css" />
+    <Content Include="gulp\scss\semantic\flag.css" />
+    <Content Include="gulp\scss\semantic\form.css" />
+    <Content Include="gulp\scss\semantic\grid.css" />
+    <Content Include="gulp\scss\semantic\header.css" />
+    <Content Include="gulp\scss\semantic\icon.css" />
+    <Content Include="gulp\scss\semantic\image.css" />
+    <Content Include="gulp\scss\semantic\input.css" />
+    <Content Include="gulp\scss\semantic\item.css" />
+    <Content Include="gulp\scss\semantic\label.css" />
+    <Content Include="gulp\scss\semantic\list.css" />
+    <Content Include="gulp\scss\semantic\loader.css" />
+    <Content Include="gulp\scss\semantic\menu.css" />
+    <Content Include="gulp\scss\semantic\message.css" />
+    <Content Include="gulp\scss\semantic\modal.css" />
+    <Content Include="gulp\scss\semantic\nag.css" />
+    <Content Include="gulp\scss\semantic\popup.css" />
+    <Content Include="gulp\scss\semantic\progress.css" />
+    <Content Include="gulp\scss\semantic\rail.css" />
+    <Content Include="gulp\scss\semantic\rating.css" />
+    <Content Include="gulp\scss\semantic\reset.css" />
+    <Content Include="gulp\scss\semantic\reveal.css" />
+    <Content Include="gulp\scss\semantic\search.css" />
+    <Content Include="gulp\scss\semantic\segment.css" />
+    <Content Include="gulp\scss\semantic\semantic.css" />
+    <Content Include="gulp\scss\semantic\shape.css" />
+    <Content Include="gulp\scss\semantic\sidebar.css" />
+    <Content Include="gulp\scss\semantic\site.css" />
+    <Content Include="gulp\scss\semantic\statistic.css" />
+    <Content Include="gulp\scss\semantic\step.css" />
+    <Content Include="gulp\scss\semantic\sticky.css" />
+    <Content Include="gulp\scss\semantic\tab.css" />
+    <Content Include="gulp\scss\semantic\table.css" />
+    <Content Include="gulp\scss\semantic\transition.css" />
+    <Content Include="gulp\scss\semantic\video.css" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\bg.png" />
+    <Content Include="images\logo.png" />
     <Content Include="js\site.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -525,7 +645,17 @@
     <Content Include="gulp\scss\modules\_datepicker.scss" />
     <Content Include="gulp\scss\palette.scss" />
     <Content Include="gulp\scss\layout\_forms.scss" />
+    <Content Include="gulp\scss\semanticextensions\card.scss" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="App_Plugins\VenueEventImport\package.manifest" />
+    <Content Include="App_Plugins\Terratype\Views\grid.cshtml" />
+    <Content Include="App_Plugins\Terratype\package.manifest" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\LiveLinkApp - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\smarterasp.net.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\infobox.js" />
@@ -533,6 +663,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\mustache.js" />
+    <Content Include="themes\default\assets\fonts\icons.svg" />
+    <Content Include="themes\default\assets\images\flags.png" />
     <Content Include="Umbraco\Actions\delete.aspx" />
     <Content Include="Umbraco\Actions\editContent.aspx" />
     <Content Include="Umbraco\Actions\preview.aspx" />
@@ -2017,6 +2149,11 @@
     <Content Include="Umbraco\assets\less\shadow.less" />
     <Content Include="Umbraco\assets\less\slider.less" />
     <Content Include="Umbraco\Install\Views\Index.cshtml" />
+    <Content Include="themes\default\assets\fonts\icons.eot" />
+    <Content Include="themes\default\assets\fonts\icons.otf" />
+    <Content Include="themes\default\assets\fonts\icons.ttf" />
+    <Content Include="themes\default\assets\fonts\icons.woff" />
+    <Content Include="themes\default\assets\fonts\icons.woff2" />
     <None Include="Umbraco\Install\Views\Web.config" />
     <Content Include="Umbraco\lib\angular-dynamic-locale\tmhDynamicLocale.min.js.map" />
     <Content Include="Umbraco\lib\bootstrap-tabdrop\README.md" />
@@ -2122,7 +2259,9 @@
     <Content Include="config\ExamineSettings.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="config\ExamineIndex.config" />
+    <Content Include="config\ExamineIndex.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="config\Dashboard.config" />
     <Content Include="Areas\API\Views\web.config" />
     <Content Include="Views\Browse.cshtml" />
@@ -2182,12 +2321,14 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Areas\API\Controllers\AjaxEventController.cs" />
     <Compile Include="Areas\API\APIAreaRegistration.cs" />
+    <Compile Include="Areas\API\Controllers\CleanupEventsController.cs" />
     <Compile Include="Areas\API\Controllers\ContentSearchController.cs" />
+    <Compile Include="Areas\API\Controllers\ImportFacebookVenueEventsController.cs" />
     <Compile Include="Areas\API\Controllers\SearchEventsController.cs" />
     <Compile Include="Areas\API\Controllers\ImportFacebookEventsController.cs" />
     <Compile Include="Areas\API\Controllers\GetEventsController.cs" />
     <Compile Include="Areas\API\Controllers\UserController.cs" />
-    <Compile Include="Controllers\BrowseController.cs" />
+    <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2206,6 +2347,7 @@
     <Folder Include="Areas\API\Views\SearchEvents\" />
     <Folder Include="Areas\API\Views\Shared\" />
     <Folder Include="Areas\API\Views\User\" />
+    <Folder Include="gulp\scripts\semantic\" />
     <Folder Include="Views\AjaxEvent\" />
     <Folder Include="Views\MacroPartials\" />
   </ItemGroup>

@@ -15,16 +15,19 @@ namespace LiveLink.Services.EventSearchService
 		private readonly IExamineService _examineService;
 		private readonly IIndexFormatter<double> _doubleFormatter;
 		private readonly IIndexFormatter<int> _intFormatter;
+		private readonly IIndexFormatter<DateTime> _dateTimeFormatter;
 
 		public EventSearchService(IExamineService examineService,
 			IExamineSearchProviderWrapper examineSearchProviderWrapper,
 			IIndexFormatter<double> doubleFormatter,
-			IIndexFormatter<int> intFormatter)
+			IIndexFormatter<int> intFormatter, 
+			IIndexFormatter<DateTime> dateTimeFormatter)
 		{
 			_examineService = examineService;
 			_examineSearchProviderWrapper = examineSearchProviderWrapper;
 			_doubleFormatter = doubleFormatter;
 			_intFormatter = intFormatter;
+			_dateTimeFormatter = dateTimeFormatter;
 		}
 		
 		public IEnumerable<IPublishedContent> GetVenueEvents(GetEventsConfiguration configuration)
@@ -36,13 +39,17 @@ namespace LiveLink.Services.EventSearchService
 			// TODO: Make IFilters and loop through them to build query
 
 			if (configuration.EarliestDate.HasValue && configuration.LatestDate.HasValue)
-				query = query.And().Range("contentStartDateTime", configuration.EarliestDate.Value.ToIsoString(), configuration.LatestDate.Value.ToIsoString());
+				query = query.And().Range("contentStartDateTime",
+					configuration.EarliestDate.Value, configuration.LatestDate.Value);
 			else if (configuration.EarliestDate.HasValue)
-				query = query.And().Range("contentStartDateTime", configuration.EarliestDate.Value.ToIsoString(), DateTime.MaxValue.ToIsoString());
+				query = query.And().Range("contentStartDateTime", 
+					configuration.EarliestDate.Value, DateTime.MaxValue);
 			else if (configuration.LatestDate.HasValue)
-				query = query.And().Range("contentStartDateTime", DateTime.Now.ToIsoString(), configuration.LatestDate.Value.ToIsoString());
+				query = query.And().Range("contentStartDateTime", 
+					DateTime.Now, configuration.LatestDate.Value);
 			else
-				query = query.And().Range("contentStartDateTime", DateTime.Now.ToIsoString(), DateTime.MaxValue.ToIsoString());
+				query = query.And().Range("contentStartDateTime",
+					DateTime.Now, DateTime.MaxValue);
 
 			if (configuration.HasBounds)
 			{
@@ -56,9 +63,11 @@ namespace LiveLink.Services.EventSearchService
 
 			if (configuration.LocationId.HasValue)
 			{
-				query = query.And().GroupedOr(new[] { "country", "city" },
+				query = query.And().GroupedOr(new[] { "country", "city", "venue" },
 					   _intFormatter.Format(configuration.LocationId.Value));
 			}
+
+			query = query.And().OrderBy("contentStartDateTime");
 
 			var results = _examineService.Search(searcher, query.Compile());
 

@@ -30,8 +30,10 @@
 				// remove loader
 				//loader.hide();
 			},
-			complete: function(e) {
-				completeCallback();
+			complete: function (e) {
+				if (completeCallback != undefined && completeCallback != null) {
+					completeCallback();
+				}
 			}
 		});
 	}
