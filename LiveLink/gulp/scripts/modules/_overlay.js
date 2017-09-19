@@ -3,17 +3,23 @@
 
 		$('.js-overlay:not(.js-overlay-done)').each(function () {
 
+			
+
 			$(this).find('.js-overlay-close').each(function () {
 				$(this).click(function () {
 					overlay.hide();
 				});
 			});
 
-			$(this).find('overlay__inner').each(function() {
-				$(this).bind('clickoutside', function(event) {
-						console.log("outside overlay");
-						overlay.hide();
-					});
+			$(this).find('.overlay__inner').each(function () {
+				$(this).click(function (event) {
+					event.stopPropagation();
+					return false;
+				});
+			});
+
+			$('html').click(function () {
+				overlay.hide();
 			});
 
 			$(this).addClass("js-overlay-done");
@@ -61,4 +67,8 @@ $(function () {
 	site.ajaxComplete(function () {
 		overlay.init();
 	});
+});
+
+$(function () {
+	
 });

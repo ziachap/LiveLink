@@ -549,7 +549,6 @@
     <Content Include="gulp\scripts\modules\_browsecontrols.js" />
     <Content Include="gulp\scripts\modules\_nav.js" />
     <Content Include="gulp\scripts\plugins\hogan.js" />
-    <Content Include="gulp\scripts\plugins\jquery.ba-outside-events.js" />
     <Content Include="gulp\scripts\plugins\noty.js" />
     <Content Include="gulp\scripts\plugins\packery.pkgd.min.js" />
     <Content Include="gulp\scripts\plugins\readmore.min.js" />
