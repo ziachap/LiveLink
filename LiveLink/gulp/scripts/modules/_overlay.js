@@ -3,23 +3,16 @@
 
 		$('.js-overlay:not(.js-overlay-done)').each(function () {
 
-			
-
 			$(this).find('.js-overlay-close').each(function () {
 				$(this).click(function () {
 					overlay.hide();
 				});
 			});
 
-			$(this).find('.overlay__inner').each(function () {
-				$(this).click(function (event) {
-					event.stopPropagation();
-					return false;
-				});
-			});
-
-			$('html').click(function () {
-				overlay.hide();
+			$(document).on('click', function (event) {
+				if (!$(event.target).closest('.overlay__inner').length) {
+					overlay.hide();
+				}
 			});
 
 			$(this).addClass("js-overlay-done");
