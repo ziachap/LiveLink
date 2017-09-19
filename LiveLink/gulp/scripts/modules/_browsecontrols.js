@@ -3,6 +3,7 @@
 	form: null,
 
 	init: function () {
+		/*
 		$('.js-browse-controls:not(.js-browse-controls-done)').each(function () {
 			var form = $(this);
 			browsecontrols.form = form;
@@ -24,7 +25,7 @@
 
 			$(this).addClass('js-browse-controls-done');
 		});
-		
+		*/
 	}
 };
 

@@ -69,7 +69,7 @@ namespace LiveLink.Services.EventSearchService
 
 			query = query.And().OrderBy("contentStartDateTime");
 
-			var results = _examineService.Search(searcher, query.Compile());
+			var results = _examineService.Search(searcher, query.Compile(), configuration.Page, configuration.ItemsPerPage);
 
 			return results.ToList();
 		}

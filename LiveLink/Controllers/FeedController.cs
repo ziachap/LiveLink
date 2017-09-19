@@ -34,6 +34,7 @@ namespace LiveLink.Controllers
 
 		public ActionResult Index(RenderModel model, GetEventsConfiguration configuration)
 		{
+			OverridePaging(configuration);
 			ValidateLocationSelection(configuration);
 
 			var viewModel = _modelConverter.ToModel<FeedViewModel>(model.Content);
@@ -50,6 +51,12 @@ namespace LiveLink.Controllers
 			viewModel.Events = _eventSearchService.GetVenueEvents(configuration).ToModel<EventViewModel>();
 
 			return View("~/Views/Feed.cshtml", viewModel);
+		}
+
+		private void OverridePaging(GetEventsConfiguration configuration)
+		{
+			configuration.Page = 1;
+			configuration.ItemsPerPage = 12;
 		}
 
 		private void ValidateLocationSelection(GetEventsConfiguration configuration)
@@ -99,32 +106,6 @@ namespace LiveLink.Controllers
 				.Children
 				.Where(x => x.Children.Any())
 				.Select(x => Option(x, selectedId))
-				.ToList();
-		}
-
-		private IEnumerable<LocationOption> Cities(GetEventsConfiguration configuration)
-		{
-			if (!configuration.CountryId.HasValue)
-			{
-				return Enumerable.Empty<LocationOption>();
-			}
-			return _umbracoWrapper.TypedContent(configuration.CountryId.Value)
-				.Children
-				.Where(x => x.Children.Any())
-				.Select(x => Option(x, configuration.CityId))
-				.ToList();
-		}
-
-		private IEnumerable<LocationOption> Venues(GetEventsConfiguration configuration)
-		{
-			if (!configuration.CityId.HasValue)
-			{
-				return Enumerable.Empty<LocationOption>();
-			}
-			return _umbracoWrapper.TypedContent(configuration.CityId.Value)
-				.Children
-				.Where(x => x.Children.Any())
-				.Select(x => Option(x, configuration.VenueId))
 				.ToList();
 		}
 		

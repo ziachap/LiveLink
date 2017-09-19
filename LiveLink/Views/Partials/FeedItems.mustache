@@ -1,0 +1,32 @@
+﻿{{#Data}}
+<div class="doubling four wide column">
+	<div class="ui card js-event-card" data-id="{{Id}}">
+		<div class="image">
+			<img src="{{ThumbnailUrl}}?width=525&height=250&mode=crop&scale=both">
+		</div>
+		<div class="content">
+			<a class="header js-open-event" href="{{Url}}">{{Title}}</a>
+			<div class="meta">
+				<span class="date">{{FormattedStartTime}}</span>
+			</div>
+			<div class="description">
+				{{{SummaryShort}}}
+
+			</div>
+			<div class="tags">
+				{{#Tags}}
+				<a class="ui label">{{.}}</a>
+				{{/Tags}}
+			</div>
+		</div>
+		{{#Venue}}
+		<div class="extra content">
+			<a>
+				<img class="ui avatar image" src="{{LogoUrl}}?width=60&height=60&mode=crop">
+				{{Title}}
+			</a>
+		</div>
+		{{/Venue}}
+	</div>
+</div>
+{{/Data}}

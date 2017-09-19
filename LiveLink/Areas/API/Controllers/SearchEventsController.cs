@@ -40,11 +40,11 @@ namespace LiveLink.Areas.API.Controllers
 		public object FeedEvents(GetEventsConfiguration configuration)
 		{
 			var results = _eventSearchService.GetVenueEvents(configuration);
-			var groupedResults = ToFeedViewModel(results, configuration);
+			var typedResults = results.ToModel<EventViewModel>();
 
 			// TODO: Generic API Response type
 
-			return JsonConvert.SerializeObject(new ApiSuccessResponse(groupedResults));
+			return JsonConvert.SerializeObject(new ApiSuccessResponse(typedResults));
 		}
 		
 		private VenueViewModel ToVenueViewModel(IEnumerable<IPublishedContent> events)

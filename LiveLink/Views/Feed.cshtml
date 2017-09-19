@@ -5,7 +5,7 @@
 	Layout = isAjax ? null : "Master.cshtml";
 }
 <div class="feed container js-feed-container">
-	
+
 
 	<div class="loader js-overlay-loader" style="display: none;">
 		<div class="rect1"></div>
@@ -23,9 +23,11 @@
 					<select class="ui dropdown js-country-input" name="countryId">
 						@foreach (var country in Model.Countries)
 						{
-							<option class="@(country.Disabled ? "disabled" : string.Empty) item" 
-							        @(country.Selected ? "selected=selected" : string.Empty) 
-									value="@country.Id">@country.Title</option>
+							<option class="@(country.Disabled ? "disabled" : string.Empty) item"
+									@(country.Selected ? "selected=selected" : string.Empty)
+									value="@country.Id">
+								@country.Title
+								</option>
 						}
 					</select>
 
@@ -33,12 +35,14 @@
 						<option class="item" value=" ">All cities</option>
 						@foreach (var city in Model.Cities)
 						{
-							<option class="@(city.Disabled ? "disabled" : string.Empty) item" 
-							        @(city.Selected ? "selected=selected" : string.Empty)
-									value="@city.Id">@city.Title</option>
+							<option class="@(city.Disabled ? "disabled" : string.Empty) item"
+									@(city.Selected ? "selected=selected" : string.Empty)
+									value="@city.Id">
+								@city.Title
+								</option>
 						}
 					</select>
-					
+
 					<select class="ui dropdown js-venue-input" name="venueId" @(Model.Venues.Any() ? string.Empty : "disabled=disabled")>
 						<option class="item" value=" ">All venues</option>
 						@foreach (var venue in Model.Venues)
@@ -47,25 +51,25 @@
 									@(venue.Selected ? "selected=selected" : string.Empty)
 									value="@venue.Id">
 								@venue.Title
-								</option>
+							</option>
 						}
 					</select>
-					
+
 					@*
-					<div class="ui selection dropdown js-venue-input @(Model.Venues.Any() ? string.Empty : "disabled")" data-selected="1377">
-						<input type="hidden" name="venueId">
-						<i class="dropdown icon"></i>
-						<div class="default text">Select venue</div>
-						<div class="menu">
-							<div class="selected item" data-value=" ">All venues</div>
-							@foreach (var venue in Model.Venues)
-							{
-								<div class="@(venue.Disabled ? "disabled" : string.Empty) item"
-									 @(venue.Selected ? "selected=selected" : string.Empty)
-									 data-value="@venue.Id">@venue.Title</div>
-							}
+						<div class="ui selection dropdown js-venue-input @(Model.Venues.Any() ? string.Empty : "disabled")" data-selected="1377">
+							<input type="hidden" name="venueId">
+							<i class="dropdown icon"></i>
+							<div class="default text">Select venue</div>
+							<div class="menu">
+								<div class="selected item" data-value=" ">All venues</div>
+								@foreach (var venue in Model.Venues)
+								{
+									<div class="@(venue.Disabled ? "disabled" : string.Empty) item"
+										 @(venue.Selected ? "selected=selected" : string.Empty)
+										 data-value="@venue.Id">@venue.Title</div>
+								}
+							</div>
 						</div>
-					</div>
 					*@
 				</form>
 			</div>
@@ -74,9 +78,9 @@
 		<div class="row">
 			<div class="wide column">
 
-				<hr/>
+				<hr />
 
-				<div class="ui stackable grid">
+				<div class="ui stackable grid js-feed-items">
 
 					@foreach (var e in Model.Events)
 					{
@@ -113,7 +117,18 @@
 
 
 				</div>
-
+				
+				@* TODO: Again, this is not a good way of deciding if there are more results left*@
+				@if (Model.Events.Count() >= 12)
+				{
+					<div class="ui one column centered grid">
+						<div class="doubling three wide column">
+							<button class="medium ui button js-feed-see-more">
+								See more events
+							</button>
+						</div>
+					</div>
+				}
 			</div>
 
 		</div>

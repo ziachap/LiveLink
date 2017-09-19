@@ -534,7 +534,7 @@
     <Content Include="gulp\scripts\modules\_eventmap.js" />
     <Content Include="gulp\scripts\modules\_listing.js" />
     <Content Include="gulp\scripts\modules\_geolocator.js" />
-    <Content Include="gulp\scripts\modules\_locationswitcher.js" />
+    <Content Include="gulp\scripts\modules\_feed.js" />
     <Content Include="gulp\scripts\modules\_search.js" />
     <Content Include="gulp\scripts\modules\_overlay.js" />
     <Content Include="gulp\scripts\modules\_forms.js" />
@@ -2303,6 +2303,7 @@
     <Content Include="Views\Feed.cshtml" />
     <Content Include="Views\Map.cshtml" />
     <Content Include="Views\Partials\FeedView.mustache" />
+    <Content Include="Views\Partials\FeedItems.mustache" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -16,6 +16,9 @@ namespace LiveLink.Services.EventSearchService
 		public int? CityId { get; set; }
 		public int? VenueId { get; set; }
 
+		public int? ItemsPerPage { get; set; }
+		public int? Page { get; set; }
+
 		public int? LocationId => VenueId ?? CityId ?? CountryId;
 
 		public bool HasBounds => BoundMinX.HasValue 
