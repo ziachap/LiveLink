@@ -37,7 +37,11 @@ namespace LiveLink.Controllers
 			OverridePaging(configuration);
 			ValidateLocationSelection(configuration);
 
-			var viewModel = _modelConverter.ToModel<FeedViewModel>(model.Content);
+			// TODO: Make this work
+			var selectedLocationNode = configuration.LocationId.HasValue 
+				? _umbracoWrapper.TypedContent(configuration.LocationId.Value)
+				: model.Content;
+			var viewModel = _modelConverter.ToModel<FeedViewModel>(selectedLocationNode);
 			
 			viewModel.Countries = Countries(model.Content, configuration);
 

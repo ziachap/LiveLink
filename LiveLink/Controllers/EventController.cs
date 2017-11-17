@@ -22,9 +22,9 @@ namespace LiveLink.Controllers
 		public override ActionResult Index(RenderModel model)
 		{
 			var viewModel = _modelConverter.ToModel<EventViewModel>(model.Content);
-			
+
 			return base.Index(model);
-        }
+		}
 
 		public ActionResult AjaxIndex(int id)
 		{

@@ -2331,6 +2331,7 @@
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\VenueController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

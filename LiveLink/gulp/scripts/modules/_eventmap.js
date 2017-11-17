@@ -5,9 +5,6 @@
 			var lng = parseFloat($(this).attr("data-lng"));
 			var lat = parseFloat($(this).attr("data-lat"));
 
-			console.log(lng);
-			console.log(lat);
-
 			var map = new google.maps.Map(this,
 			{
 				zoom: 14,

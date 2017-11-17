@@ -360,6 +360,8 @@
     <Compile Include="Processors\ModelAttribute.cs" />
     <Compile Include="Processors\TextToDecimalAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagService\ISmartTagService.cs" />
+    <Compile Include="TagService\SmartTagService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

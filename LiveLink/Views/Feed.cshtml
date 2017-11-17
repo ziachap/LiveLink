@@ -1,13 +1,12 @@
-﻿@using Newtonsoft.Json
-@model  LiveLink.Services.Models.ViewModels.FeedViewModel
+﻿@model  LiveLink.Services.Models.ViewModels.FeedViewModel
 @{
 	var isAjax = Request.IsAjaxRequest();
 	Layout = isAjax ? null : "Master.cshtml";
 }
+
 <div class="feed container js-feed-container">
-
-
-	<div class="loader js-overlay-loader" style="display: none;">
+	
+	<div class="loader js-feed-loader" style="display: none;">
 		<div class="rect1"></div>
 		<div class="rect2"></div>
 		<div class="rect3"></div>
@@ -15,125 +14,137 @@
 		<div class="rect5"></div>
 	</div>
 
-	<div class="ui grid js-location-content">
-		<div class="row">
-			<div class="wide column">
-				<form class="js-feed-controls" action="/feed" autocomplete="off">
-
-					<select class="ui dropdown js-country-input" name="countryId">
-						@foreach (var country in Model.Countries)
-						{
-							<option class="@(country.Disabled ? "disabled" : string.Empty) item"
-									@(country.Selected ? "selected=selected" : string.Empty)
-									value="@country.Id">
-								@country.Title
-								</option>
-						}
-					</select>
-
-					<select class="ui dropdown js-city-input" name="cityId" @(Model.Cities.Any() ? string.Empty : "disabled=disabled")>
-						<option class="item" value=" ">All cities</option>
-						@foreach (var city in Model.Cities)
-						{
-							<option class="@(city.Disabled ? "disabled" : string.Empty) item"
-									@(city.Selected ? "selected=selected" : string.Empty)
-									value="@city.Id">
-								@city.Title
-								</option>
-						}
-					</select>
-
-					<select class="ui dropdown js-venue-input" name="venueId" @(Model.Venues.Any() ? string.Empty : "disabled=disabled")>
-						<option class="item" value=" ">All venues</option>
-						@foreach (var venue in Model.Venues)
-						{
-							<option class="@(venue.Disabled ? "disabled" : string.Empty) item"
-									@(venue.Selected ? "selected=selected" : string.Empty)
-									value="@venue.Id">
-								@venue.Title
-							</option>
-						}
-					</select>
-
-					@*
-						<div class="ui selection dropdown js-venue-input @(Model.Venues.Any() ? string.Empty : "disabled")" data-selected="1377">
-							<input type="hidden" name="venueId">
-							<i class="dropdown icon"></i>
-							<div class="default text">Select venue</div>
-							<div class="menu">
-								<div class="selected item" data-value=" ">All venues</div>
-								@foreach (var venue in Model.Venues)
-								{
-									<div class="@(venue.Disabled ? "disabled" : string.Empty) item"
-										 @(venue.Selected ? "selected=selected" : string.Empty)
-										 data-value="@venue.Id">@venue.Title</div>
-								}
-							</div>
-						</div>
-					*@
-				</form>
+	@*
+		<div class="ui selection dropdown js-venue-input @(Model.Venues.Any() ? string.Empty : "disabled")" data-selected="1377">
+			<input type="hidden" name="venueId">
+			<i class="dropdown icon"></i>
+			<div class="default text">Select venue</div>
+			<div class="menu">
+				<div class="selected item" data-value=" ">All venues</div>
+				@foreach (var venue in Model.Venues)
+				{
+					<div class="@(venue.Disabled ? "disabled" : string.Empty) item"
+						 @(venue.Selected ? "selected=selected" : string.Empty)
+						 data-value="@venue.Id">@venue.Title</div>
+				}
 			</div>
 		</div>
+	*@
 
-		<div class="row">
-			<div class="wide column">
+	<div class="js-location-content">
 
-				<hr />
+		<form class="js-feed-controls" action="/feed" autocomplete="off">
+			<div class="ui form">
+				<div class="fields">
+					<div class="three wide field">
+						<select class="ui fluid dropdown js-country-input" name="countryId">
+							@foreach (var country in Model.Countries)
+							{
+								<option class="@(country.Disabled ? "disabled" : string.Empty) item"
+										@(country.Selected ? "selected=selected" : string.Empty)
+										value="@country.Id">
+									@country.Title
+								</option>
+							}
+						</select>
+					</div>
+					<div class="three wide field">
+						<select class="ui fluid dropdown js-city-input" name="cityId" @(Model.Cities.Any() ? string.Empty : "disabled=disabled")>
+							<option class="item" value=" ">All cities</option>
+							@foreach (var city in Model.Cities)
+							{
+								<option class="@(city.Disabled ? "disabled" : string.Empty) item"
+										@(city.Selected ? "selected=selected" : string.Empty)
+										value="@city.Id">
+									@city.Title
+								</option>
+							}
+						</select>
+					</div>
+					<div class="three wide field">
+						<select class="ui fluid dropdown js-venue-input" name="venueId" @(Model.Venues.Any() ? string.Empty : "disabled=disabled")>
+							<option class="item" value=" ">All venues</option>
+							@foreach (var venue in Model.Venues)
+							{
+								<option class="@(venue.Disabled ? "disabled" : string.Empty) item"
+										@(venue.Selected ? "selected=selected" : string.Empty)
+										value="@venue.Id">
+									@venue.Title
+								</option>
+							}
+						</select>
+					</div>
+				</div>
+			</div>
+		</form>
 
-				<div class="ui stackable grid js-feed-items">
+		<div class="ui">
+			<h1>@Model.UppercaseTitle</h1>
+			<p>@Model.Description</p>
+		</div>
 
-					@foreach (var e in Model.Events)
+		<hr />
+
+		<div class="ui grid ">
+			<div class="row">
+				<div class="wide center aligned column">
+
+					<div class="ui center aligned grid js-feed-items">
+
+						@foreach (var e in Model.Events)
+						{
+							<div class="ten wide mobile eight wide tablet four wide computer left aligned column">
+								<div class="ui card js-event-card" data-id="@e.Id">
+									<div class="image">
+										<img src="@e.ThumbnailUrl?width=525&height=250&mode=crop&scale=both">
+									</div>
+									<div class="content">
+										<a class="header js-open-event" href="@e.Url">@e.Title</a>
+										<div class="meta">
+											<span class="date">@e.FormattedStartTime</span>
+										</div>
+										<div class="description">
+											@e.SummaryShort
+
+										</div>
+										<div class="tags">
+											@foreach (var tag in e.Tags)
+											{
+												<div class="ui label">@tag</div>
+											}
+										</div>
+									</div>
+									<div class="extra content">
+										<a href="@e.Venue.Url">
+											<img class="ui avatar image" src="@e.Venue.LogoUrl?width=60&height=60&mode=crop">
+											@e.Venue.Title
+										</a>
+									</div>
+								</div>
+							</div>
+						}
+
+
+					</div>
+
+					@* TODO: Again, this is not a good way of deciding if there are more results left*@
+					@if (Model.Events.Count() >= 12)
 					{
-						<div class="doubling four wide column">
-							<div class="ui card js-event-card" data-id="@e.Id">
-								<div class="image">
-									<img src="@e.ThumbnailUrl?width=525&height=250&mode=crop&scale=both">
-								</div>
-								<div class="content">
-									<a class="header js-open-event" href="@e.Url">@e.Title</a>
-									<div class="meta">
-										<span class="date">@e.FormattedStartTime</span>
-									</div>
-									<div class="description">
-										@e.SummaryShort
-
-									</div>
-									<div class="tags">
-										@foreach (var tag in e.Tags)
-										{
-											<a class="ui label">@tag</a>
-										}
-									</div>
-								</div>
-								<div class="extra content">
-									<a>
-										<img class="ui avatar image" src="@e.Venue.LogoUrl?width=60&height=60&mode=crop">
-										@e.Venue.Title
-									</a>
-								</div>
+						<div class="ui one column centered grid">
+							<div class="doubling three wide column">
+								<button class="medium ui button js-feed-see-more">
+									See more events
+								</button>
 							</div>
 						</div>
 					}
-
-
 				</div>
-				
-				@* TODO: Again, this is not a good way of deciding if there are more results left*@
-				@if (Model.Events.Count() >= 12)
-				{
-					<div class="ui one column centered grid">
-						<div class="doubling three wide column">
-							<button class="medium ui button js-feed-see-more">
-								See more events
-							</button>
-						</div>
-					</div>
-				}
+
 			</div>
 
 		</div>
-
 	</div>
+
 
 </div>
 

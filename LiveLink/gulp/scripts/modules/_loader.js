@@ -1,11 +1,17 @@
 ﻿var loader = {
-	show: function () {
-		$('.js-overlay-loader').each(function () {
+	show: function (elementClass) {
+		if (elementClass == null) {
+			elementClass = '.js-overlay-loader';
+		}
+		$(elementClass).each(function () {
 			$(this).show();
 		});
 	},
-	hide: function () {
-		$('.js-overlay-loader').each(function () {
+	hide: function (elementClass) {
+		if (elementClass == null) {
+			elementClass = '.js-overlay-loader';
+		}
+		$(elementClass).each(function () {
 			$(this).hide();
 		});
 	}

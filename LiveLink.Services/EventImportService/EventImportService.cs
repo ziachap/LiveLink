@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Gibe.UmbracoWrappers;
 using LiveLink.Services.Models;
+using LiveLink.Services.TagService;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -13,16 +14,18 @@ namespace LiveLink.Services.EventImportService
 	public class EventImportService : IEventImportService
 	{
 		private readonly IUmbracoWrapper _umbracoWrapper;
+		private readonly ISmartTagService _smartTagService;
 
 		private IContentService ContentService() 
 			=> ApplicationContext.Current.Services.ContentService;
 
 		// TODO: This is facebook related and should probably go somewhere else
-		private IDictionary<string, int> EventIdentifierNodeMap;
+		private IDictionary<string, int> _eventIdentifierNodeMap;
 
-		public EventImportService(IUmbracoWrapper umbracoWrapper)
+		public EventImportService(IUmbracoWrapper umbracoWrapper, ISmartTagService smartTagService)
 		{
 			_umbracoWrapper = umbracoWrapper;
+			_smartTagService = smartTagService;
 		}
 
 		public void SaveEvents(IEnumerable<LiveLinkEvent> events)
@@ -31,13 +34,13 @@ namespace LiveLink.Services.EventImportService
 
 			var contentService = ContentService();
 
-			EventIdentifierNodeMap = CreateEventIdentifierNodeMap(futureEvents);
+			_eventIdentifierNodeMap = CreateEventIdentifierNodeMap(futureEvents);
 
 			foreach (var liveLinkEvent in futureEvents)
 			{
-				if (EventIdentifierNodeMap.ContainsKey(liveLinkEvent.FacebookEventIdentifier))
+				if (_eventIdentifierNodeMap.ContainsKey(liveLinkEvent.FacebookEventIdentifier))
 				{
-					var eventContent = contentService.GetById(EventIdentifierNodeMap[liveLinkEvent.FacebookEventIdentifier]);
+					var eventContent = contentService.GetById(_eventIdentifierNodeMap[liveLinkEvent.FacebookEventIdentifier]);
 					UpdateAndSaveEvent(contentService, eventContent, liveLinkEvent);
 				}
 				else
@@ -58,6 +61,7 @@ namespace LiveLink.Services.EventImportService
 			eventContent.SetValue("contentEndDateTime", liveLinkEvent.EndDateTime);
 			eventContent.SetValue("contentTicketURI", liveLinkEvent.TicketUri);
 			eventContent.SetValue("contentThumbnail", liveLinkEvent.Thumbnail);
+			eventContent.SetValue("contentTags", ExtractTags(liveLinkEvent.Description));
 			eventContent.SetValue("developerFacebookEventIdentifier", liveLinkEvent.FacebookEventIdentifier);
 
 			eventContent.SetValue("metaTitle", liveLinkEvent.Title);
@@ -79,7 +83,10 @@ namespace LiveLink.Services.EventImportService
 			{
 				if (events.Any(x => existingEvent.Item1.Equals(x.FacebookEventIdentifier)))
 				{
-					dictionary.Add(existingEvent.Item1, existingEvent.Item2);
+					if (!dictionary.ContainsKey(existingEvent.Item1))
+					{
+						dictionary.Add(existingEvent.Item1, existingEvent.Item2);
+					}
 				}
 			}
 
@@ -108,6 +115,8 @@ namespace LiveLink.Services.EventImportService
 
 			return paragraphedText;
 		}
+
+		private string ExtractTags(string text) => string.Join(",", _smartTagService.ExtractTags(text));
 
 		private IPublishedContent Settings()
 			=> _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));

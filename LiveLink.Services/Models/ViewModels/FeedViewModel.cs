@@ -17,6 +17,14 @@ namespace LiveLink.Services.Models.ViewModels
 		{
 		}
 
+		[UmbracoProperty("contentTitle")]
+		public string Title { get; set; }
+
+		public string UppercaseTitle => Title?.ToUpper();
+
+		[UmbracoProperty("contentDescription")]
+		public string Description { get; set; }
+
 		[DittoIgnore]
 		public IEnumerable<EventViewModel> Events { get; set; }
 

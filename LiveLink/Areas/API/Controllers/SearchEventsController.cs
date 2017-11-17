@@ -53,7 +53,7 @@ namespace LiveLink.Areas.API.Controllers
 			venue.Events = _modelConverter.ToModel<EventViewModel>(events);
 			return venue;
 		}
-
+		/*
 	    private FeedViewModel ToFeedViewModel(IEnumerable<IPublishedContent> events, GetEventsConfiguration configuration)
 		{
 			const int featuredEventsCount = 3;
@@ -68,9 +68,9 @@ namespace LiveLink.Areas.API.Controllers
 			viewModel.Events = typedEvents.Skip(featuredEventsCount + subFeaturedEvents);
 
 			return viewModel;
-		}
+		}*/
 	}
-
+	/*
 	public class FeedViewModel
 	{
 		[UmbracoProperty("contentTitle")]
@@ -84,5 +84,5 @@ namespace LiveLink.Areas.API.Controllers
 
 		[DittoIgnore]
 		public IEnumerable<EventViewModel> Events { get; set; }
-	}
+	}*/
 }

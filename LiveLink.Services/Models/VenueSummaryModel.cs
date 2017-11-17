@@ -9,6 +9,9 @@ namespace LiveLink.Services.Models
 		[UmbracoProperty("contentTitle")]
 		public string Title { get; set; }
 
+		[UmbracoProperty("url")]
+		public string Url { get; set; }
+
 		[UmbracoProperty("contentLatitude")]
 		[TextToDecimal]
 		public decimal Latitude { get; set; }

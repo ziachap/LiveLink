@@ -18,7 +18,7 @@
 						</div>
 						<div class="event__header-venue">
 							<i class="fa fa-home"></i> Venue:
-							<b><a href="#">@Model.View.Venue.Title</a></b>
+							<b><a href="@Model.View.Venue.Url">@Model.View.Venue.Title</a></b>
 							<img class="img-circle" src="@Model.View.Venue.Logo.Url?width=20&height=20&mode=crop" />
 						</div>
 						@if (!string.IsNullOrEmpty(@Model.View.TicketUri))
@@ -48,25 +48,29 @@
 							<div class="col-md-12">
 								<div class="event__body-other-events">
 									<h3>Other events at @Model.View.Venue.Title</h3>
-									@foreach (var e in Model.View.OtherEvents)
-									{
-										<a href="@e.Url" @(isAjax ? "data-overlay=true" : string.Empty)>
-											<div class="event__body-other-events-item">
-												<div class="event__body-other-events-item-image">
-													<img class="img-circle" src="@e.ThumbnailUrl?width=80&height=80&mode=crop&scale=both" />
+									<div class="ui divided items">
+										@foreach (var e in Model.View.OtherEvents)
+										{
+											<div class="item">
+												<div class="ui tiny circular image">
+													<a href="@e.Url">
+														<img src="@e.ThumbnailUrl?width=80&height=80&mode=crop&scale=both">
+													</a>
+													
 												</div>
-												<div class="event__body-other-events-item-content">
-													<h4></h4>
+												<div class="middle aligned content">
 													<h4>
-														<i class="fa fa-feed"></i>
-														@e.Title
-														<br />
+														<a href="@e.Url">
+															<i class="fa fa-feed"></i>
+															@e.Title
+														</a>
+														<br/>
 														<small><b>@e.FormattedStartTime</b></small>
 													</h4>
 												</div>
 											</div>
-										</a>
-									}
+										}
+									</div>
 								</div>
 							</div>
 						}
@@ -78,6 +82,14 @@
 						<div class="col-md-12">
 							<div class="event__body-description js-event-show-more">
 								@Html.Raw(Model.View.Description)
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="event__body-description">
+								@foreach (var tag in Model.View.Tags)
+								{
+									<div class="ui large label">@tag</div>
+								}
 							</div>
 						</div>
 						<div class="col-md-12">

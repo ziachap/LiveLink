@@ -58,7 +58,7 @@
 	},
 
 	search: function (form, navForm) {
-		loader.show();
+		loader.show('.js-feed-loader');
 		feed.hideContent();
 		updateQueryString(form.serialize());
 		ajax.execute(
@@ -73,7 +73,7 @@
 			},
 			function () {
 				feed.showContent();
-				loader.hide();
+				loader.hide('.js-feed-loader');
 			});
 
 		function updateQueryString(querystring) {
@@ -83,6 +83,7 @@
 	},
 
 	searchItems: function (form, navForm, page) {
+		loader.hide('.js-feed-see-more');
 		ajax.execute(
 			urls.searchFeedEvents,
 			createQueryString(form, navForm, page),
@@ -104,7 +105,7 @@
 			},
 			function () {
 				feed.showContent();
-				loader.hide();
+				loader.show('.js-feed-see-more');
 			});
 
 		function createQueryString(form, navForm, page) {

@@ -5,6 +5,12 @@
 
 	init: function() {
 		search.searchResultsTemplate = Hogan.compile($('#searchResultsTemplate').html());
+
+		$(document).on('click', function (event) {
+			if (!$(event.target).closest('.js-search-results').length && !$(event.target).closest('.js-search-input').length) {
+				search.close();
+			}
+		});
 		
 		$(".js-search-input:not(.js-search-input-done)").each(function () {
 			var input = $(this);
