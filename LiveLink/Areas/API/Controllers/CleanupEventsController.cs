@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Examine;
 using Gibe.UmbracoWrappers;
+using LiveLink.Services.DuplicatesService;
 using LiveLink.Services.EventSearchService;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -14,14 +16,16 @@ namespace LiveLink.Areas.API
 		private readonly IEventSearchService _eventSearchService;
 		private readonly IContentService _contentService;
 		private readonly IMediaService _mediaService;
+		private readonly IDuplicatesService _duplicatesService;
 
 		public CleanupEventsController(IEventSearchService eventSearchService,
 			IContentService contentService, 
-			IMediaService mediaService)
+			IMediaService mediaService, IDuplicatesService duplicatesService)
 		{
 			_eventSearchService = eventSearchService;
 			_contentService = contentService;
 			_mediaService = mediaService;
+			_duplicatesService = duplicatesService;
 		}
 
 		// GET: API/CleanupEvents
@@ -40,6 +44,10 @@ namespace LiveLink.Areas.API
 				_contentService.Delete(content);
 			}
 
+			_duplicatesService.RemoveDuplicates();
+
+			ExamineManager.Instance.RebuildIndex();
+
 			// TODO: Generic API Response type
 
 			//return JsonConvert.SerializeObject(new ApiSuccessResponse(results));
@@ -48,9 +56,15 @@ namespace LiveLink.Areas.API
 
 		private void RemoveEventMedia(IContent content)
 		{
-			var mediaId = content.GetValue<int>("contentThumbnail");
-			var media = _mediaService.GetById(mediaId);
-			_mediaService.Delete(media);
+			var mediaId = content.GetValue<int?>("contentThumbnail");
+			if (mediaId.HasValue)
+			{
+				var media = _mediaService.GetById(mediaId.Value);
+				if (media != null)
+				{
+					_mediaService.Delete(media);
+				}
+			}
 		}
 	}
 }

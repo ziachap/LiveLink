@@ -40,13 +40,13 @@ namespace LiveLink.Services.EventSearchService
 
 			if (configuration.EarliestDate.HasValue && configuration.LatestDate.HasValue)
 				query = query.And().Range("contentStartDateTime",
-					configuration.EarliestDate.Value, configuration.LatestDate.Value);
+					configuration.EarliestDate.Value, configuration.LatestDate.Value.Date.AddDays(1));
 			else if (configuration.EarliestDate.HasValue)
 				query = query.And().Range("contentStartDateTime", 
 					configuration.EarliestDate.Value, DateTime.MaxValue);
 			else if (configuration.LatestDate.HasValue)
 				query = query.And().Range("contentStartDateTime", 
-					DateTime.Now, configuration.LatestDate.Value);
+					DateTime.Now, configuration.LatestDate.Value.Date.AddDays(1));
 			else
 				query = query.And().Range("contentStartDateTime",
 					DateTime.Now, DateTime.MaxValue);

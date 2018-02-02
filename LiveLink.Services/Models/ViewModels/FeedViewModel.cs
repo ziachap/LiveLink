@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using Gibe.DittoProcessors.Media.Models;
+using Gibe.DittoProcessors.Processors;
 using LiveLink.Services.Processors;
 using Our.Umbraco.Ditto;
 using Umbraco.Core.Models;
@@ -24,6 +26,10 @@ namespace LiveLink.Services.Models.ViewModels
 
 		[UmbracoProperty("contentDescription")]
 		public string Description { get; set; }
+		
+		[UmbracoProperty("contentBanner")]
+		[ImagePicker]
+		public MediaImageModel Banner { get; set; }
 
 		[DittoIgnore]
 		public IEnumerable<EventViewModel> Events { get; set; }

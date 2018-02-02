@@ -97,7 +97,7 @@
 				});
 
 				// TODO: this is not a good way of deciding if there are any more results left
-				if (response.Data.length < feed.itemsPerPage) {
+				if (response.Data.length < feed.itemsPerPage || response.Data.length === 0) {
 					$(".js-feed-see-more").hide();
 				}
 
@@ -105,7 +105,7 @@
 			},
 			function () {
 				feed.showContent();
-				loader.show('.js-feed-see-more');
+				//loader.show('.js-feed-see-more');
 			});
 
 		function createQueryString(form, navForm, page) {

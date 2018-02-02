@@ -41,8 +41,8 @@
 							@foreach (var country in Model.Countries)
 							{
 								<option class="@(country.Disabled ? "disabled" : string.Empty) item"
-										@(country.Selected ? "selected=selected" : string.Empty)
-										value="@country.Id">
+								        @(country.Selected ? "selected=selected" : string.Empty)
+								        value="@country.Id">
 									@country.Title
 								</option>
 							}
@@ -54,8 +54,8 @@
 							@foreach (var city in Model.Cities)
 							{
 								<option class="@(city.Disabled ? "disabled" : string.Empty) item"
-										@(city.Selected ? "selected=selected" : string.Empty)
-										value="@city.Id">
+								        @(city.Selected ? "selected=selected" : string.Empty)
+								        value="@city.Id">
 									@city.Title
 								</option>
 							}
@@ -67,8 +67,8 @@
 							@foreach (var venue in Model.Venues)
 							{
 								<option class="@(venue.Disabled ? "disabled" : string.Empty) item"
-										@(venue.Selected ? "selected=selected" : string.Empty)
-										value="@venue.Id">
+								        @(venue.Selected ? "selected=selected" : string.Empty)
+								        value="@venue.Id">
 									@venue.Title
 								</option>
 							}
@@ -77,11 +77,27 @@
 				</div>
 			</div>
 		</form>
-
-		<div class="ui">
+		
+		<!-- Banner -->
+		@if (Model.Banner != null)
+		{
+			<div class="feed__header">
+				<div class="feed__header-image">
+					<img class="ui fluid image" src="@Model.Banner.Url?width=1200&height=300&mode=crop&scale=both&anchor=bottomcenter">
+				</div>
+				<div class="feed__header-content">
+					<div class="ui">
+						<h1>@Model.UppercaseTitle</h1>
+						<p>@Model.Description</p>
+					</div>
+				</div>
+			</div>
+		}
+		else
+		{
 			<h1>@Model.UppercaseTitle</h1>
 			<p>@Model.Description</p>
-		</div>
+		}
 
 		<hr />
 
@@ -123,7 +139,11 @@
 								</div>
 							</div>
 						}
-
+						
+						@if (!Model.Events.Any())
+						{
+							<p>There are currently no events for this location.</p>
+						}
 
 					</div>
 
