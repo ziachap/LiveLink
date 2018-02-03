@@ -51,7 +51,7 @@ namespace LiveLink.Areas.API
 			// TODO: Generic API Response type
 
 			//return JsonConvert.SerializeObject(new ApiSuccessResponse(results));
-			return results.Select(x => x.Name);
+			return results.Count();
 		}
 
 		private void RemoveEventMedia(IContent content)

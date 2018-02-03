@@ -12,7 +12,7 @@ namespace LiveLink.Services.DuplicatesService
 		private readonly IEventSearchService _eventSearchService;
 		private readonly ITextComparisonService _textComparisonService;
 
-		private const double TextSimilarityThreshold = 0.95;
+		private const double TextSimilarityThreshold = 0.85;
 
 		public DuplicatesService(IContentService contentService, IEventSearchService eventSearchService,
 			ITextComparisonService textComparisonService)
@@ -28,7 +28,7 @@ namespace LiveLink.Services.DuplicatesService
 			
 			for (var i = 0; i < allEvents.Count; i++)
 			{
-				for (var j = i + 1; i < allEvents.Count; i++)
+				for (var j = i + 1; j < allEvents.Count; j++)
 				{
 					if (AreEqual(allEvents[i], allEvents[j]))
 					{
@@ -51,9 +51,14 @@ namespace LiveLink.Services.DuplicatesService
 		private IPublishedContent Oldest(IPublishedContent a, IPublishedContent b) => a.UpdateDate < b.UpdateDate ? a : b;
 
 		private bool AreEqual(IPublishedContent a, IPublishedContent b)
-			=> _textComparisonService.PercentageSimilarity(ContentTitle(a), ContentTitle(b)) > TextSimilarityThreshold;
+			=> _textComparisonService.PercentageSimilarity(FormattedText(a), FormattedText(b)) > TextSimilarityThreshold;
 
-		private string ContentTitle(IPublishedContent content)
+		private static string FormattedText(IPublishedContent content)
+			=> ContentTitle(content)
+			.ToLower()
+			.Replace("&", "and");
+
+		private static string ContentTitle(IPublishedContent content)
 			=> content.GetPropertyValue<string>("contentTitle");
 	}
 }
