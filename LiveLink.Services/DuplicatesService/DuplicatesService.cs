@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using LiveLink.Services.EventSearchService;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -51,7 +52,8 @@ namespace LiveLink.Services.DuplicatesService
 		private IPublishedContent Oldest(IPublishedContent a, IPublishedContent b) => a.UpdateDate < b.UpdateDate ? a : b;
 
 		private bool AreEqual(IPublishedContent a, IPublishedContent b)
-			=> _textComparisonService.PercentageSimilarity(FormattedText(a), FormattedText(b)) > TextSimilarityThreshold;
+			=> _textComparisonService.PercentageSimilarity(FormattedText(a), FormattedText(b)) > TextSimilarityThreshold
+			&& ContentStartDateTime(a).Date == ContentStartDateTime(b).Date;
 
 		private static string FormattedText(IPublishedContent content)
 			=> ContentTitle(content)
@@ -60,5 +62,8 @@ namespace LiveLink.Services.DuplicatesService
 
 		private static string ContentTitle(IPublishedContent content)
 			=> content.GetPropertyValue<string>("contentTitle");
+
+		private static DateTime ContentStartDateTime(IPublishedContent content)
+			=> content.GetPropertyValue<DateTime>("contentStartDateTime");
 	}
 }
