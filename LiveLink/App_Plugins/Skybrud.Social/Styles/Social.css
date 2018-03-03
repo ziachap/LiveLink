@@ -189,13 +189,30 @@
 .SocialDialog .table.scopes .col-checkbox {
   width: 25px;
   text-align: center;
+  vertical-align: middle;
 }
 .SocialDialog .table.scopes .col-name {
   width: 100%;
 }
-.SocialDialog .table.scopes label,
+.SocialDialog .table.scopes table tbody > tr label {
+  display: block;
+}
+.SocialDialog .table.scopes table tbody > tr.selected {
+  background-color: #e7f2fd;
+}
+.SocialDialog .table.scopes td {
+  padding: 0;
+}
 .SocialDialog .table.scopes input[type=checkbox] {
+  margin-right: 8px;
+  float: left;
+}
+.SocialDialog .table.scopes label {
   margin: 0;
+  padding: 8px;
+}
+.SocialDialog .table.scopes label div {
+  padding-left: 24px;
 }
 .SocialDialog > div {
   position: relative;
@@ -223,7 +240,7 @@
 }
 .SocialDialog .table > table > thead th {
   text-align: left;
-  border-bottom: 2px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
 }
 .SocialDialog .table > table > tbody td.page {
   width: 100%;

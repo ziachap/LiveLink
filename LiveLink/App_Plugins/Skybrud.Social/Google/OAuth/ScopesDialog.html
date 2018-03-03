@@ -13,14 +13,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="scope in group.scopes">
-                            <td class="col-checkbox">
-                                <input type="checkbox" id="{{scope.id}}" ng-model="scope.checked" ng-change="update();" />
-                            </td>
-                            <td class="col-name">
-                                <label for="{{scope.id}}">
-                                    <strong>{{scope.name}}</strong>
-                                    <small ng-show="scope.description">{{scope.description}}</small>
+                        <tr ng-repeat="scope in group.scopes" ng-class="{'selected': scope.checked}">
+                            <td>
+                                <label>
+                                    <input type="checkbox" ng-model="scope.checked" ng-change="update();" />
+                                    <div>
+                                        <strong>{{scope.name}}</strong>
+                                        <small ng-show="scope.description">{{scope.description}}</small>
+                                    </div>
                                 </label>
                             </td>
                         </tr>
@@ -30,6 +30,7 @@
         </div>
     </div>
     <div class="SocialDialogFooter">
+        <a class="btn btn-default" href="#" prevent-default ng-click="close();">Cancel</a>
         <a class="btn btn-success" ng-click="confirm();">Confirm ({{count}})</a>
     </div>
 </div>

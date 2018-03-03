@@ -67,7 +67,6 @@ namespace LiveLink.Services.Models.ViewModels
 		public IEnumerable<OtherEventModel> OtherEvents { get; set; }
 
 		[UmbracoProperty("contentTags")]
-		[Tags]
 		public IEnumerable<string> Tags { get; set; }
 	}
 }
