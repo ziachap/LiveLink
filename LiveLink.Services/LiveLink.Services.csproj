@@ -338,6 +338,7 @@
     <Compile Include="ContentSearchService\Models\ContentSearchResults.cs" />
     <Compile Include="ContentSearchService\Models\EventContentSearchResult.cs" />
     <Compile Include="ContentSearchService\Models\VenueContentSearchResult.cs" />
+    <Compile Include="DateTimeProvider\IDateTimeProvider.cs" />
     <Compile Include="DuplicatesService\DuplicatesService.cs" />
     <Compile Include="DuplicatesService\IDuplicatesService.cs" />
     <Compile Include="DuplicatesService\ITextComparisonService.cs" />

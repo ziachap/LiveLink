@@ -9,25 +9,30 @@ var gulp = require('gulp'),
 
 gulp.task('css', function () {
 	return gulp.src([
-		'!./gulp/scss/amp/**/*.scss',
-		'!./gulp/scss/rte.scss',
-		'./gulp/scss/**/*.scss'
-	])
-	.pipe(sass({ outputStyle: 'compressed' }))
-	.pipe(gulp.dest('./css'))
-	.pipe(filter('**/*.css'))
+			'!./gulp/scss/amp/**/*.scss',
+			'!./gulp/scss/rte.scss',
+			'./gulp/scss/**/*.scss'
+		])
+		.pipe(sass({ outputStyle: 'compressed' }))
+		.pipe(gulp.dest('./css'))
+		.pipe(filter('**/*.css'))
+		.pipe(rev())
+		.pipe(revdel())
+		.pipe(gulp.dest('./css'))
+        .pipe(rev.manifest())
+		.pipe(gulp.dest('./css'));
 });
 
 gulp.task('rte', function () {
 	return gulp.src('./gulp/scss/rte.scss')
-	.pipe(sass({ outputStyle: 'compressed' }))
-	.pipe(gulp.dest('./css'));
+		.pipe(sass({ outputStyle: 'compressed' }))
+		.pipe(gulp.dest('./css'));
 });
 
 gulp.task('amp', function () {
 	return gulp.src('./gulp/scss/amp/**/*.scss')
-	.pipe(sass({ outputStyle: 'compressed' }))
-	.pipe(gulp.dest('./css/amp/'));
+		.pipe(sass({ outputStyle: 'compressed' }))
+		.pipe(gulp.dest('./css/amp/'));
 });
 
 gulp.task('js', function () {
@@ -40,7 +45,12 @@ gulp.task('js', function () {
 	.pipe(concat('site.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest('./js'))
-	.pipe(filter('**/*.js'));
+	.pipe(filter('**/*.js'))
+	.pipe(rev())
+	.pipe(revdel())
+	.pipe(gulp.dest('./js'))
+    .pipe(rev.manifest())
+	.pipe(gulp.dest('./js'));
 });
 
 gulp.task('build', ['css', 'rte', 'amp', 'js']);

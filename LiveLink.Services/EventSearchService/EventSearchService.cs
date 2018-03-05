@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Examine.SearchCriteria;
+using LiveLink.Services.DateTimeProvider;
 using LiveLink.Services.ExamineService;
 using LiveLink.Services.IndexFormatters;
 using Umbraco.Core;
@@ -16,18 +17,21 @@ namespace LiveLink.Services.EventSearchService
 		private readonly IIndexFormatter<double> _doubleFormatter;
 		private readonly IIndexFormatter<int> _intFormatter;
 		private readonly IIndexFormatter<DateTime> _dateTimeFormatter;
+		private readonly IDateTimeProvider _dateTimeProvider;
 
 		public EventSearchService(IExamineService examineService,
 			IExamineSearchProviderWrapper examineSearchProviderWrapper,
 			IIndexFormatter<double> doubleFormatter,
 			IIndexFormatter<int> intFormatter, 
-			IIndexFormatter<DateTime> dateTimeFormatter)
+			IIndexFormatter<DateTime> dateTimeFormatter,
+			IDateTimeProvider dateTimeProvider)
 		{
 			_examineService = examineService;
 			_examineSearchProviderWrapper = examineSearchProviderWrapper;
 			_doubleFormatter = doubleFormatter;
 			_intFormatter = intFormatter;
 			_dateTimeFormatter = dateTimeFormatter;
+			_dateTimeProvider = dateTimeProvider;
 		}
 		
 		public IEnumerable<IPublishedContent> GetVenueEvents(GetEventsConfiguration configuration)
@@ -45,11 +49,11 @@ namespace LiveLink.Services.EventSearchService
 				query = query.And().Range("contentStartDateTime", 
 					configuration.EarliestDate.Value, DateTime.MaxValue);
 			else if (configuration.LatestDate.HasValue)
-				query = query.And().Range("contentStartDateTime", 
-					DateTime.Now, configuration.LatestDate.Value.Date.AddDays(1));
+				query = query.And().Range("contentStartDateTime",
+					_dateTimeProvider.Now(), configuration.LatestDate.Value.Date.AddDays(1));
 			else
 				query = query.And().Range("contentStartDateTime",
-					DateTime.Now, DateTime.MaxValue);
+					_dateTimeProvider.Now(), DateTime.MaxValue);
 
 			if (configuration.HasBounds)
 			{

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Gibe.UmbracoWrappers;
+using LiveLink.Services.DateTimeProvider;
 using LiveLink.Services.Models;
 using LiveLink.Services.TagService;
 using Umbraco.Core;
@@ -15,6 +16,7 @@ namespace LiveLink.Services.EventImportService
 	{
 		private readonly IUmbracoWrapper _umbracoWrapper;
 		private readonly ISmartTagService _smartTagService;
+		private readonly IDateTimeProvider _dateTimeProvider;
 
 		private IContentService ContentService() 
 			=> ApplicationContext.Current.Services.ContentService;
@@ -22,15 +24,18 @@ namespace LiveLink.Services.EventImportService
 		// TODO: This is facebook related and should probably go somewhere else
 		private IDictionary<string, int> _eventIdentifierNodeMap;
 
-		public EventImportService(IUmbracoWrapper umbracoWrapper, ISmartTagService smartTagService)
+		public EventImportService(IUmbracoWrapper umbracoWrapper,
+			ISmartTagService smartTagService,
+			IDateTimeProvider dateTimeProvider)
 		{
 			_umbracoWrapper = umbracoWrapper;
 			_smartTagService = smartTagService;
+			_dateTimeProvider = dateTimeProvider;
 		}
 
 		public void SaveEvents(IEnumerable<LiveLinkEvent> events)
 		{
-			var futureEvents = events.Where(x => x.StartDateTime > DateTime.Now).ToList();
+			var futureEvents = events.Where(x => x.StartDateTime > _dateTimeProvider.Now()).ToList();
 
 			var contentService = ContentService();
 

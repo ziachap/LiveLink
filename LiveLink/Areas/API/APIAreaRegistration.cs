@@ -22,7 +22,10 @@ namespace LiveLink.Areas.API
 
 			context.MapRoute("CleanupEvents", "API/cleanup-events",
 				new { controller = "CleanupEvents", action = "Index" });
-			
+
+			context.MapRoute("CleanupEventsDebug", "API/cleanup-events-debug",
+				new { controller = "CleanupEvents", action = "Debug" });
+
 			context.MapRoute("AjaxEvent", "API/event",
 				new { controller = "AjaxEvent", action = "Index", id = UrlParameter.Optional });
 

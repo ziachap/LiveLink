@@ -30,8 +30,8 @@
 			crossorigin="anonymous" defer></script>
 		-->
 	<!-- Site CSS -->
-	<link href="~/css/site.css" rel="stylesheet" type="text/css">
-	<link href="~/css/print.css" rel="stylesheet" type="text/css">
+	<link href="@Url.Asset("/css/site.css")" rel="stylesheet" type="text/css">
+	<link href="@Url.Asset("/css/print.css")" rel="stylesheet" type="text/css">
 
 	<!-- FAVICON -->
 	<link href="~/favicon.ico" rel="icon" type="image/x-icon" />
@@ -42,19 +42,13 @@
 </head>
 
 <body id="top">
-<!-- TAG MANAGER SCRIPTS / -->
+	<!-- TAG MANAGER SCRIPTS / -->
 
 	<!-- Navigation -->
 
 	@Html.Partial("Nav")
 	
-	
-	
-	
-
-
-
-<!-- Page Content -->
+	<!-- Page Content -->
 	<div class="master-container">
 		@RenderBody()
 	</div>
@@ -83,10 +77,10 @@
 	</script>
 	
 
-<!-- JS PLUGINS / -->
+	<!-- JS PLUGINS / -->
 	@Html.Partial("JSPlugins")
 	@RenderSection("JSPlugins", false)
-	<script src="~/js/site.js"></script>
+	<script src="@Url.Asset("/js/site.js")"></script>
 	<!-- JS / -->
 
 	@MiniProfiler.RenderIncludes()

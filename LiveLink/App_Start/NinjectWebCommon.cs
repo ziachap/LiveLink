@@ -1,6 +1,8 @@
 using LiveLink.Services.FacebookEventsService;
 using Gibe.UmbracoWrappers;
 using Gibe.DittoServices.ModelConverters;
+using log4net;
+using LiveLink.CacheBusting;
 using LiveLink.Services.EventImportService;
 using LiveLink.Services.ExamineService;
 using LiveLink.Services.EventSearchService;
@@ -8,6 +10,7 @@ using Umbraco.Core.Services;
 using Umbraco.Core;
 using LiveLink.Services.AuthenticationService;
 using LiveLink.Services.ContentSearchService;
+using LiveLink.Services.DateTimeProvider;
 using LiveLink.Services.DuplicatesService;
 using LiveLink.Services.IndexFormatters;
 using LiveLink.Services.TagService;
@@ -19,15 +22,15 @@ using MediaService = Gibe.DittoProcessors.Media.MediaService;
 
 namespace LiveLink.App_Start
 {
-    using System;
-    using System.Web;
+	using System;
+	using System.Web;
 
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+	using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
-    using Ninject;
-    using Ninject.Web.Common;
+	using Ninject;
+	using Ninject.Web.Common;
 
-    public static class NinjectWebCommon 
+	public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
@@ -61,6 +64,8 @@ namespace LiveLink.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 				kernel.Bind<HttpContext>().ToMethod(c => HttpContext.Current);
+				kernel.Load<DefaultNinjectBindingsModule>();
+				kernel.Bind<ILog>().ToMethod(ctx => LogManager.GetLogger(ctx.Request.ParentRequest.Service.Name));
 
 				BindUmbracoServices(kernel);
 
@@ -80,6 +85,7 @@ namespace LiveLink.App_Start
 				kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
 				kernel.Bind<IDuplicatesService>().To<DuplicatesService>();
 				kernel.Bind<ITextComparisonService>().To<TextComparisonService>();
+				kernel.Bind<IDateTimeProvider>().To<UtcDateTimeProvider>();
 
 				kernel.Bind<IIndexFormatter<double>>().To<DoubleIndexFormatter>();
 				kernel.Bind<IIndexFormatter<int>>().To<IntegerIndexFormatter>();

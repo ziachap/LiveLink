@@ -528,8 +528,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="css\print.css" />
-    <Content Include="css\site.css" />
+    <Content Include="css\print-4ed1829892.css" />
+    <Content Include="css\site-4c723b2cb3.css" />
     <Content Include="CSS_Plugins\font-awesome.min.css" />
     <Content Include="CSS_Plugins\noty.css" />
     <Content Include="CSS_Plugins\semantic.min.css" />
@@ -614,7 +614,7 @@
     <Content Include="images\bg.jpg" />
     <Content Include="images\bg.png" />
     <Content Include="images\logo.png" />
-    <Content Include="js\site.js" />
+    <Content Include="js\site-5d9b292868.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -667,6 +667,8 @@
     <Content Include="App_Plugins\Skybrud.Social\Styles\_table.less" />
     <Content Include="App_Plugins\Skybrud.Social\Styles\Social.less" />
     <Content Include="App_Plugins\Skybrud.Social\package.manifest" />
+    <Content Include="css\rev-manifest.json" />
+    <Content Include="js\rev-manifest.json" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\LiveLinkApp - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\smarterasp.net.pubxml" />
@@ -2422,6 +2424,10 @@
     <Folder Include="Views\MacroPartials\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LiveLink.CacheBusting\LiveLink.CacheBusting.csproj">
+      <Project>{4a730d93-7e04-417a-99ca-23be16a5c220}</Project>
+      <Name>LiveLink.CacheBusting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LiveLink.Services\LiveLink.Services.csproj">
       <Project>{4beb5242-af00-4a11-b4bf-faf458c58a63}</Project>
       <Name>LiveLink.Services</Name>
