@@ -102,6 +102,7 @@ namespace LiveLink.Services.FacebookEventsService
 
 
 					if (assetID > 0)
+					{
 						try
 						{
 							var existingFile = ms.GetById(assetID);
@@ -109,10 +110,12 @@ namespace LiveLink.Services.FacebookEventsService
 							ms.Save(existingFile);
 							return existingFile.Id;
 						}
-						catch
+						catch (Exception ex)
 						{
-							throw new Exception("There was a problem updating Image - " + assetID);
+							throw new Exception("There was a problem updating Image - " + assetID, ex);
 						}
+					}
+						
 					try
 					{
 						var mediaFile = ms.CreateMedia(fileName, folderId, "Image");
@@ -122,7 +125,7 @@ namespace LiveLink.Services.FacebookEventsService
 					}
 					catch (Exception ex)
 					{
-						throw new Exception("There was a problem saving the image - " + fileName);
+						throw new Exception("There was a problem saving the image - " + fileName, ex);
 					}
 
 					#endregion
