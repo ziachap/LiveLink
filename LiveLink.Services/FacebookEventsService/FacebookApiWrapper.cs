@@ -55,7 +55,7 @@ namespace LiveLink.Services.FacebookEventsService
         {
 	        var cover = GetValueOrDefault(properties, "cover") as Dictionary<string, object>;
 
-			// TODO: Can pull venues from this
+			// TODO: Can pull venues from this, for promoter pages
 			//var place = GetValueOrDefault(properties, "place") as Dictionary<string, object>;
 			
 			return new FacebookEvent

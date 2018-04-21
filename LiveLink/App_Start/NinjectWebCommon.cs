@@ -74,6 +74,7 @@ namespace LiveLink.App_Start
 				kernel.Bind<IModelConverter>().To<DittoModelConverter>();
 
 				kernel.Bind<IEventImportService>().To<EventImportService>();
+				kernel.Bind<IUmbracoImageRetriever>().To<UmbracoImageRetriever>();
 				kernel.Bind<ISmartTagService>().To<SmartTagService>();
                 kernel.Bind<IFacebookApiWrapper>().To<FacebookApiWrapper>();
                 kernel.Bind<IFacebookEventsService>().To<FacebookEventsService>();

@@ -345,6 +345,8 @@
     <Compile Include="DuplicatesService\TextComparisonService.cs" />
     <Compile Include="EventImportService\EventImportService.cs" />
     <Compile Include="EventImportService\IEventImportService.cs" />
+    <Compile Include="EventImportService\IUmbracoImageRetriever.cs" />
+    <Compile Include="EventImportService\UmbracoImageRetriever.cs" />
     <Compile Include="EventSearchService\EventSearchService.cs" />
     <Compile Include="ExamineService\ExamineSearchProviderWrapper.cs" />
     <Compile Include="ExamineService\ExamineService.cs" />

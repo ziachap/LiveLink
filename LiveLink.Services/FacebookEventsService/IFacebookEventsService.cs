@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using Gibe.UmbracoWrappers;
+using log4net;
+using LiveLink.Services.EventImportService;
 using LiveLink.Services.Models;
 using Skybrud.Social.Facebook.Options.Events;
 using Skybrud.Social.Umbraco.Facebook.PropertyEditors.OAuth;
-using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -23,12 +22,16 @@ namespace LiveLink.Services.FacebookEventsService
 	{
 		private readonly IFacebookApiWrapper _facebookApiWrapper;
 		private readonly IUmbracoWrapper _umbracoWrapper;
+		private readonly ILog _log;
+		private readonly IUmbracoImageRetriever _umbracoImageRetriever;
 
 
-		public FacebookEventsService(IFacebookApiWrapper facebookApiWrapper, IUmbracoWrapper umbracoWrapper)
+		public FacebookEventsService(IFacebookApiWrapper facebookApiWrapper, IUmbracoWrapper umbracoWrapper, ILog log, IUmbracoImageRetriever umbracoImageRetriever)
 		{
 			_facebookApiWrapper = facebookApiWrapper;
 			_umbracoWrapper = umbracoWrapper;
+			_log = log;
+			_umbracoImageRetriever = umbracoImageRetriever;
 		}
 
 		public IEnumerable<LiveLinkEvent> GetEventsForVenues(int? limit = 10)
@@ -59,100 +62,35 @@ namespace LiveLink.Services.FacebookEventsService
 
 			var events = _facebookApiWrapper.GetEvents(authData, options, pageId);
 
-			return events.Select(x => ToLiveLinkEvent(x, venue.Id));
+			return AsLiveLinkEvents(events, venue.Id);
 		}
 
-		private int? RetrieveAndSaveImage(string url, string filename)
+		private IEnumerable<LiveLinkEvent> AsLiveLinkEvents(IEnumerable<FacebookEvent> facebookEvents, int venueNodeId)
 		{
-			// TODO: Gallery images
-			// TODO: Clean this shit up
-
-			if (string.IsNullOrEmpty(url)) return null;
-
-			var ms = ApplicationContext.Current.Services.MediaService;
-
-			var fileName = filename;
-			var folderExists = false;
-			var folderId = 1153; //Folder Id in Media Library
-
-			var request = WebRequest.Create(url);
-			request.Timeout = 30000;
-
-			using (var response = (HttpWebResponse) request.GetResponse())
-			using (var stream = response.GetResponseStream())
+			foreach (var facebookEvent in facebookEvents)
 			{
-				if (response.StatusCode == HttpStatusCode.OK)
+				LiveLinkEvent liveLinkEvent = null;
+				try
 				{
-					Stream streamCopy = new MemoryStream();
-
-					stream.CopyTo(streamCopy);
-
-					var getAllChildItems = ms.GetChildren(folderId);
-
-					#region "Either Add the File or Update the Existing one"
-
-					var assetID = 0;
-					assetID = ms.GetChildren(folderId).Where(c => c.Name == fileName).Select(c => c.Id).FirstOrDefault();
-
-					var origFilename = "";
-
-					var uri = new Uri(url);
-
-					origFilename = Path.GetFileName(uri.LocalPath);
-
-
-					if (assetID > 0)
+					liveLinkEvent = new LiveLinkEvent
 					{
-						try
-						{
-							var existingFile = ms.GetById(assetID);
-							existingFile.SetValue("umbracoFile", origFilename, streamCopy);
-							ms.Save(existingFile);
-							return existingFile.Id;
-						}
-						catch (Exception ex)
-						{
-							throw new Exception("There was a problem updating Image - " + assetID, ex);
-						}
-					}
-						
-					try
-					{
-						var mediaFile = ms.CreateMedia(fileName, folderId, "Image");
-						mediaFile.SetValue("umbracoFile", origFilename, streamCopy);
-						ms.Save(mediaFile);
-						return mediaFile.Id;
-					}
-					catch (Exception ex)
-					{
-						throw new Exception("There was a problem saving the image - " + fileName, ex);
-					}
-
-					#endregion
+						Title = facebookEvent.Name,
+						Description = facebookEvent.Description,
+						StartDateTime = facebookEvent.StartDateTime,
+						EndDateTime = facebookEvent.EndDateTime,
+						VenueNodeId = venueNodeId,
+						FacebookEventIdentifier = facebookEvent.Id,
+						TicketUri = facebookEvent.TicketUri,
+						Thumbnail = _umbracoImageRetriever.RetrieveAndSaveImage(facebookEvent.CoverUrl, facebookEvent.Id)
+					};
 				}
+				catch (Exception ex)
+				{
+					_log.Error("Could not convert Facebook event to LiveLink event", ex);
+				}
+
+				if (liveLinkEvent != null) yield return liveLinkEvent;
 			}
-
-			return null;
-		}
-
-		private LiveLinkEvent ToLiveLinkEvent(FacebookEvent facebookEvent, int venueNodeId)
-		{
-			return new LiveLinkEvent
-			{
-				Title = facebookEvent.Name,
-				Description = facebookEvent.Description,
-				StartDateTime = facebookEvent.StartDateTime,
-				EndDateTime = facebookEvent.EndDateTime,
-				VenueNodeId = venueNodeId,
-				FacebookEventIdentifier = facebookEvent.Id,
-				TicketUri = facebookEvent.TicketUri,
-				Thumbnail = RetrieveAndSaveImage(facebookEvent.CoverUrl, facebookEvent.Id)
-			};
-		}
-
-		private string ToHtml(string text)
-		{
-			return $"<p>{text}</p>".Replace("\n", "<br />");
 		}
 
 		private FacebookOAuthData AuthData()
