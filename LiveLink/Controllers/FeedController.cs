@@ -34,11 +34,12 @@ namespace LiveLink.Controllers
 
 		public ActionResult Index(RenderModel model, GetEventsConfiguration configuration)
 		{
+            // TODO: These two methods might be worth moving into MVC attributes
 			OverridePaging(configuration);
 			ValidateLocationSelection(configuration);
 
-			// TODO: Make this work
-			var selectedLocationNode = configuration.LocationId.HasValue 
+		    // TODO: A lot of this code could be refactored out into a service
+            var selectedLocationNode = configuration.LocationId.HasValue 
 				? _umbracoWrapper.TypedContent(configuration.LocationId.Value)
 				: model.Content;
 			var viewModel = _modelConverter.ToModel<FeedViewModel>(selectedLocationNode);
@@ -63,7 +64,9 @@ namespace LiveLink.Controllers
 			configuration.ItemsPerPage = 12;
 		}
 
-		private void ValidateLocationSelection(GetEventsConfiguration configuration)
+
+	    // TODO: Is there a sensible way to reuse the logic in here?
+        private void ValidateLocationSelection(GetEventsConfiguration configuration)
 		{
 			if (!configuration.CountryId.HasValue)
 			{

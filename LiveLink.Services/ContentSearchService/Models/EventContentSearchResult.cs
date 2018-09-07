@@ -14,7 +14,7 @@ namespace LiveLink.Services.ContentSearchService.Models
 		[UmbracoProperty("contentStartDateTime")]
 		public DateTime StartDate { get; set; }
 
-		// TODO
+		// TODO - Haven't worked out what the subtitle is going to be yet
 		public string Subtitle => StartDate.ToShortDateString();
 
 		[UmbracoProperty("contentSummary")]

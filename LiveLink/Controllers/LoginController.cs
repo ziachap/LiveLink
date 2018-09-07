@@ -6,6 +6,7 @@ using Umbraco.Web.Mvc;
 
 namespace LiveLink.Controllers
 {
+    // Not currently in use
 	public class LoginController : RenderMvcController
 	{
 		[HttpGet]
@@ -20,7 +21,6 @@ namespace LiveLink.Controllers
 		public ActionResult Index(LoginForm form)
 		{
 			// TODO: Use authentication service
-
 			if (Membership.ValidateUser(form.Username, form.Password))
 			{
 				FormsAuthentication.SetAuthCookie(form.Username, form.RememberMe);

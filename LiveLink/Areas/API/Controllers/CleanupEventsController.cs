@@ -103,8 +103,7 @@ namespace LiveLink.Areas.API
 
 			ExamineManager.Instance.RebuildIndex();
 
-			// TODO: Generic API Response type
-
+			// TODO: Make some generic API Response type
 			//return JsonConvert.SerializeObject(new ApiSuccessResponse(results));
 			return results.Count();
 		}

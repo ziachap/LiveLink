@@ -21,7 +21,8 @@ namespace LiveLink.Controllers
 
 		public override ActionResult Index(RenderModel model)
 		{
-			var viewModel = _modelConverter.ToModel<EventViewModel>(model.Content);
+            // Currently using DittoViews so this is disabled for now
+			//var viewModel = _modelConverter.ToModel<EventViewModel>(model.Content);
 
 			return base.Index(model);
 		}

@@ -26,6 +26,7 @@ namespace LiveLink.Services.FacebookEventsService
         public IEnumerable<FacebookEvent> GetEvents(FacebookOAuthData authenticationData,
             FacebookEventsOptions eventsConfiguration, string identifier)
         {
+            // This is a bit messy
             try
             {
                 var jsonData = Service(authenticationData).Client
@@ -55,7 +56,7 @@ namespace LiveLink.Services.FacebookEventsService
         {
 	        var cover = GetValueOrDefault(properties, "cover") as Dictionary<string, object>;
 
-			// TODO: Can pull venues from this, for promoter pages
+			// TODO: Can pull venues from this eventually, for promoter pages
 			//var place = GetValueOrDefault(properties, "place") as Dictionary<string, object>;
 			
 			return new FacebookEvent

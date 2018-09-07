@@ -6,7 +6,7 @@ namespace LiveLink.Services.TagService
 {
 	public class SmartTagService : ISmartTagService
 	{
-		// TODO: Don't make this hardcoded
+		// TODO: This really needs to go in a config or db
 		private readonly IEnumerable<TagCriteria> _tags = new[]
 		{
 			new TagCriteria("Drum & Bass", new[]

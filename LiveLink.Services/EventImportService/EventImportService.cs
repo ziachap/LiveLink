@@ -12,123 +12,127 @@ using Umbraco.Web;
 
 namespace LiveLink.Services.EventImportService
 {
-	public class EventImportService : IEventImportService
-	{
-		private readonly IUmbracoWrapper _umbracoWrapper;
-		private readonly ISmartTagService _smartTagService;
-		private readonly IDateTimeProvider _dateTimeProvider;
+    public class EventImportService : IEventImportService
+    {
+        private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly ISmartTagService _smartTagService;
+        private readonly IUmbracoWrapper _umbracoWrapper;
 
-		private IContentService ContentService() 
-			=> ApplicationContext.Current.Services.ContentService;
+        // TODO: This is facebook related and shouldn't be in this class
+        private IDictionary<string, int> _eventIdentifierNodeMap;
 
-		// TODO: This is facebook related and should probably go somewhere else
-		private IDictionary<string, int> _eventIdentifierNodeMap;
+        public EventImportService(IUmbracoWrapper umbracoWrapper,
+            ISmartTagService smartTagService,
+            IDateTimeProvider dateTimeProvider)
+        {
+            _umbracoWrapper = umbracoWrapper;
+            _smartTagService = smartTagService;
+            _dateTimeProvider = dateTimeProvider;
+        }
 
-		public EventImportService(IUmbracoWrapper umbracoWrapper,
-			ISmartTagService smartTagService,
-			IDateTimeProvider dateTimeProvider)
-		{
-			_umbracoWrapper = umbracoWrapper;
-			_smartTagService = smartTagService;
-			_dateTimeProvider = dateTimeProvider;
-		}
+        public void SaveEvents(IEnumerable<LiveLinkEvent> events)
+        {
+            var futureEvents = events.Where(x => x.StartDateTime > _dateTimeProvider.Now()).ToList();
 
-		public void SaveEvents(IEnumerable<LiveLinkEvent> events)
-		{
-			var futureEvents = events.Where(x => x.StartDateTime > _dateTimeProvider.Now()).ToList();
+            var contentService = ContentService();
 
-			var contentService = ContentService();
+            _eventIdentifierNodeMap = CreateEventIdentifierNodeMap(futureEvents);
 
-			_eventIdentifierNodeMap = CreateEventIdentifierNodeMap(futureEvents);
+            foreach (var liveLinkEvent in futureEvents)
+                if (_eventIdentifierNodeMap.ContainsKey(liveLinkEvent.FacebookEventIdentifier))
+                {
+                    var eventContent =
+                        contentService.GetById(_eventIdentifierNodeMap[liveLinkEvent.FacebookEventIdentifier]);
+                    UpdateAndSaveEvent(contentService, eventContent, liveLinkEvent);
+                }
+                else
+                {
+                    var venueContent = contentService.GetById(liveLinkEvent.VenueNodeId);
+                    var eventContent =
+                        contentService.CreateContentWithIdentity(liveLinkEvent.Title, venueContent.Id, "event");
+                    UpdateAndSaveEvent(contentService, eventContent, liveLinkEvent);
+                }
+        }
 
-			foreach (var liveLinkEvent in futureEvents)
-			{
-				if (_eventIdentifierNodeMap.ContainsKey(liveLinkEvent.FacebookEventIdentifier))
-				{
-					var eventContent = contentService.GetById(_eventIdentifierNodeMap[liveLinkEvent.FacebookEventIdentifier]);
-					UpdateAndSaveEvent(contentService, eventContent, liveLinkEvent);
-				}
-				else
-				{
-					var venueContent = contentService.GetById(liveLinkEvent.VenueNodeId);
-					var eventContent = contentService.CreateContentWithIdentity(liveLinkEvent.Title, venueContent.Id, "event");
-					UpdateAndSaveEvent(contentService, eventContent, liveLinkEvent);
-				}
-			}
-		}
-        
-		private void UpdateAndSaveEvent(IContentService contentService, IContent eventContent, LiveLinkEvent liveLinkEvent)
-		{
-			eventContent.SetValue("contentTitle", liveLinkEvent.Title);
-			eventContent.SetValue("contentSummary", liveLinkEvent.Description);
-			eventContent.SetValue("contentDescription", FormatAsHtml(liveLinkEvent.Description));
-			eventContent.SetValue("contentStartDateTime", liveLinkEvent.StartDateTime);
-			eventContent.SetValue("contentEndDateTime", liveLinkEvent.EndDateTime);
-			eventContent.SetValue("contentTicketURI", liveLinkEvent.TicketUri);
-			eventContent.SetValue("contentThumbnail", liveLinkEvent.Thumbnail);
-			eventContent.SetValue("contentTags", ExtractTags(liveLinkEvent.Description));
-			eventContent.SetValue("developerFacebookEventIdentifier", liveLinkEvent.FacebookEventIdentifier);
+        // TODO: Surely this can be injected?
+        private IContentService ContentService()
+        {
+            return ApplicationContext.Current.Services.ContentService;
+        }
 
-			eventContent.SetValue("metaTitle", liveLinkEvent.Title);
-			eventContent.SetValue("metaDescription", liveLinkEvent.Description);
+        private void UpdateAndSaveEvent(IContentService contentService, IContent eventContent,
+            LiveLinkEvent liveLinkEvent)
+        {
+            eventContent.SetValue("contentTitle", liveLinkEvent.Title);
+            eventContent.SetValue("contentSummary", liveLinkEvent.Description);
+            eventContent.SetValue("contentDescription", FormatAsHtml(liveLinkEvent.Description));
+            eventContent.SetValue("contentStartDateTime", liveLinkEvent.StartDateTime);
+            eventContent.SetValue("contentEndDateTime", liveLinkEvent.EndDateTime);
+            eventContent.SetValue("contentTicketURI", liveLinkEvent.TicketUri);
+            eventContent.SetValue("contentThumbnail", liveLinkEvent.Thumbnail);
+            eventContent.SetValue("contentTags", ExtractTags(liveLinkEvent.Description));
+            eventContent.SetValue("developerFacebookEventIdentifier", liveLinkEvent.FacebookEventIdentifier);
 
-			contentService.SaveAndPublishWithStatus(eventContent);
-		}
+            eventContent.SetValue("metaTitle", liveLinkEvent.Title);
+            eventContent.SetValue("metaDescription", liveLinkEvent.Description);
 
-		private IDictionary<string, int> CreateEventIdentifierNodeMap(IEnumerable<LiveLinkEvent> events)
-		{
-			var dictionary = new Dictionary<string, int>();
+            contentService.SaveAndPublishWithStatus(eventContent);
+        }
 
-			var eventNodes = ContentService().GetByIds(Venues().Select(x => x.Id))
-				.SelectMany(x => x.Children());
+        private IDictionary<string, int> CreateEventIdentifierNodeMap(IEnumerable<LiveLinkEvent> events)
+        {
+            var dictionary = new Dictionary<string, int>();
 
-			var existingEventsMap = ExistingEventMap(eventNodes);
+            var eventNodes = ContentService().GetByIds(Venues().Select(x => x.Id))
+                .SelectMany(x => x.Children());
 
-			foreach (var existingEvent in existingEventsMap)
-			{
-				if (events.Any(x => existingEvent.Item1.Equals(x.FacebookEventIdentifier)))
-				{
-					if (!dictionary.ContainsKey(existingEvent.Item1))
-					{
-						dictionary.Add(existingEvent.Item1, existingEvent.Item2);
-					}
-				}
-			}
+            var existingEventsMap = ExistingEventMap(eventNodes);
 
-			return dictionary;
-		}
+            foreach (var existingEvent in existingEventsMap)
+                if (events.Any(x => existingEvent.Item1.Equals(x.FacebookEventIdentifier)))
+                    if (!dictionary.ContainsKey(existingEvent.Item1))
+                        dictionary.Add(existingEvent.Item1, existingEvent.Item2);
 
-		private IEnumerable<Tuple<string, int>> ExistingEventMap(IEnumerable<IContent> events)
-		{
-			var existingEventMap = new List<Tuple<string, int>>(); 
-			foreach (var eventNode in events)
-			{
-				var identifier = eventNode.GetValue<string>("developerFacebookEventIdentifier");
+            return dictionary;
+        }
 
-				if (!string.IsNullOrEmpty(identifier))
-					existingEventMap.Add(new Tuple<string, int>(identifier, eventNode.Id));
-			}
+        private IEnumerable<Tuple<string, int>> ExistingEventMap(IEnumerable<IContent> events)
+        {
+            var existingEventMap = new List<Tuple<string, int>>();
+            foreach (var eventNode in events)
+            {
+                var identifier = eventNode.GetValue<string>("developerFacebookEventIdentifier");
 
-			return existingEventMap;
-		}
-		
-		private string FormatAsHtml(string text)
-		{
-			if (string.IsNullOrEmpty(text)) return text;
+                if (!string.IsNullOrEmpty(identifier))
+                    existingEventMap.Add(new Tuple<string, int>(identifier, eventNode.Id));
+            }
 
-			var paragraphedText = "<p>" + text.Replace("\n", "<br />") + "</p>";
+            return existingEventMap;
+        }
 
-			return paragraphedText;
-		}
+        private string FormatAsHtml(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
 
-		private string ExtractTags(string text) => string.Join(",", _smartTagService.ExtractTags(text));
+            var paragraphedText = "<p>" + text.Replace("\n", "<br />") + "</p>";
 
-		private IPublishedContent Settings()
-			=> _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));
+            return paragraphedText;
+        }
 
-		private IEnumerable<IPublishedContent> Venues()
-		   => Settings().Children.First(x => x.DocumentTypeAlias.Equals("locations"))
-		   .Descendants().Where(x => x.DocumentTypeAlias.Equals("venue"));
+        private string ExtractTags(string text)
+        {
+            return string.Join(",", _smartTagService.ExtractTags(text));
+        }
 
-	}
+        private IPublishedContent Settings()
+        {
+            return _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));
+        }
+
+        private IEnumerable<IPublishedContent> Venues()
+        {
+            return Settings().Children.First(x => x.DocumentTypeAlias.Equals("locations"))
+                .Descendants().Where(x => x.DocumentTypeAlias.Equals("venue"));
+        }
+    }
 }

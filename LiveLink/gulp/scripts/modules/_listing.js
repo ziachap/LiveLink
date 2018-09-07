@@ -1,5 +1,0 @@
-﻿var listing = {
-	bindEvents: function() {
-		
-	}
-};

@@ -17,7 +17,6 @@ namespace LiveLink.Areas.API.Controllers
 	    public ActionResult Index(int id)
 	    {
 			// TODO: Error catching/logging
-
 		    var node = _umbracoWrapper.TypedContent(id);
 
 			return new RedirectToUmbracoPageResult(node);

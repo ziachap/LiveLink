@@ -4,15 +4,12 @@ using Our.Umbraco.Ditto;
 
 namespace LiveLink.Services.Models
 {
-	public class CityModel
-	{
-		[UmbracoProperty("id")]
-		public int Id { get; set; }
+    public class CityModel
+    {
+        [UmbracoProperty("id")]
+        public int Id { get; set; }
 
-		[UmbracoProperty("contentTitle")]
-		public string Title { get; set; }
-
-		//[Children("venue")]
-		//public IEnumerable<VenueSummaryModel> Venues { get; set; }
-	}
+        [UmbracoProperty("contentTitle")]
+        public string Title { get; set; }
+    }
 }

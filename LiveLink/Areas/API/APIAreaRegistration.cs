@@ -14,6 +14,8 @@ namespace LiveLink.Areas.API
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
+            // TODO: Don't think there's any benefit for manual routing in the API area, auto routing instead?
+
             context.MapRoute("ImportFacebookEvents", "API/import-facebook-events",
                 new { controller = "ImportFacebookEvents", action = "Index", id = UrlParameter.Optional });
 

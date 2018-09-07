@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveLink", "LiveLink\LiveLink.csproj", "{EE441865-1500-4D0A-A130-817CD26CBECC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveLink.Services", "LiveLink.Services\LiveLink.Services.csproj", "{4BEB5242-AF00-4A11-B4BF-FAF458C58A63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveLink.CacheBusting", "LiveLink.CacheBusting\LiveLink.CacheBusting.csproj", "{4A730D93-7E04-417A-99CA-23BE16A5C220}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveLink.Services.Tests", "LiveLink.Services.Tests\LiveLink.Services.Tests.csproj", "{309CED47-BFA6-4797-81C1-020BC2E4D3DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,8 +29,15 @@ Global
 		{4A730D93-7E04-417A-99CA-23BE16A5C220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A730D93-7E04-417A-99CA-23BE16A5C220}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A730D93-7E04-417A-99CA-23BE16A5C220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{309CED47-BFA6-4797-81C1-020BC2E4D3DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309CED47-BFA6-4797-81C1-020BC2E4D3DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{309CED47-BFA6-4797-81C1-020BC2E4D3DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{309CED47-BFA6-4797-81C1-020BC2E4D3DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F17B8C8-BAC9-43A8-8136-6D7A9693C4D4}
 	EndGlobalSection
 EndGlobal

@@ -1,20 +1,17 @@
-﻿console.log("ready");
+﻿var setup = {
+    init: function() {
 
-var setup = {
-	init: function () {
-
-		$('.ui.dropdown:not(.ui-dropdown-done)').each(function () {
-			$(this).dropdown();
-
-			$(this).addClass('ui-dropdown-done');
-		});
-	}
+        $('.ui.dropdown:not(.ui-dropdown-done)').each(function() {
+            $(this).dropdown();
+            $(this).addClass('ui-dropdown-done');
+        });
+    }
 
 };
 
 $(function() {
-	setup.init();
-	site.ajaxComplete(function () {
-		setup.init();
-	});
+    setup.init();
+    site.ajaxComplete(function() {
+        setup.init();
+    });
 });

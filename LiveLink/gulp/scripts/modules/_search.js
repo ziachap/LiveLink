@@ -1,66 +1,70 @@
 ﻿var search = {
-	searchResultsTemplate: null,
+    searchResultsTemplate: null,
 
-	request: null,
+    request: null,
 
-	init: function() {
-		search.searchResultsTemplate = Hogan.compile($('#searchResultsTemplate').html());
+    init: function() {
+        search.searchResultsTemplate = Hogan.compile($('#searchResultsTemplate').html());
 
-		$(document).on('click', function (event) {
-			if (!$(event.target).closest('.js-search-results').length && !$(event.target).closest('.js-search-input').length) {
-				search.close();
-			}
-		});
-		
-		$(".js-search-input:not(.js-search-input-done)").each(function () {
-			var input = $(this);
+        $(document).on('click',
+            function(event) {
+                if (!$(event.target).closest('.js-search-results').length &&
+                    !$(event.target).closest('.js-search-input').length) {
+                    search.close();
+                }
+            });
 
-			input.bind("propertychange change click keyup input paste", function (event) {
-				var text = $(this).val();
-				if (text.length > 2) {
-					ajax.execute(
-						"/API/content-search",
-						"text=" + text,
-						function(response) {
-							// TODO: Check for success
-							response = JSON.parse(response);
-							var content = search.searchResultsTemplate.render(response.Data);
+        $(".js-search-input:not(.js-search-input-done)").each(function() {
+            var input = $(this);
 
-							$(".js-search-results").each(function() {
-								$(this).html(content);
-								$(this).addClass("active");
-							});
-						});
-				} else {
-					search.close();
-				}
-			});
+            input.bind("propertychange change click keyup input paste",
+                function(event) {
+                    var text = $(this).val();
+                    if (text.length > 2) {
+                        ajax.execute(
+                            "/API/content-search",
+                            "text=" + text,
+                            function(response) {
+                                // TODO: Check for success
+                                response = JSON.parse(response);
+                                var content = search.searchResultsTemplate.render(response.Data);
 
-			input.addClass("js-search-input-done");
-		});
+                                $(".js-search-results").each(function() {
+                                    $(this).html(content);
+                                    $(this).addClass("active");
+                                });
+                            });
+                    } else {
+                        search.close();
+                    }
+                });
 
-		$(".js-search-results:not(.js-search-results-done)").each(function () {
-			var results = $(this);
+            input.addClass("js-search-input-done");
+        });
 
-			results.bind('clickoutside', function (event) {
-				search.close();
-			});
+        $(".js-search-results:not(.js-search-results-done)").each(function() {
+            var results = $(this);
 
-			$(this).addClass("js-search-results-done");
-		});
-	},
+            results.bind('clickoutside',
+                function(event) {
+                    search.close();
+                });
 
-	close: function () {
-		$(".js-search-results").each(function () {
-			$(this).removeClass("active");
-		});
-	}
+            $(this).addClass("js-search-results-done");
+        });
+    },
+
+    close: function() {
+        $(".js-search-results").each(function() {
+            $(this).removeClass("active");
+        });
+    }
 
 };
 
-$(function () {
-	search.init();
-	site.ajaxComplete(function () {
-		search.init();
-	});
+$(function() {
+    search.init();
+    site.ajaxComplete(function() {
+        search.init();
+    });
 });

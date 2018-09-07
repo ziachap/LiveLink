@@ -1,82 +1,81 @@
-﻿var map = {
-	map: null,
+﻿// Not currently in use
 
-	markers: [],
+var map = {
+    map: null,
 
-	infoWindow: null,
+    markers: [],
 
-	init: function () {
-		
-		//eventOverlay.init();
-		browsecontrols.init();
+    infoWindow: null,
 
-		$(".js-map:not(.js-map-done)").each(function () {
-			map.map = new google.maps.Map(this, {
-				zoom: 13,
-				center: { lat: 51.449517, lng: -2.575963 },
-				styles: mapstyle
-			});
-			//eventService.bind(events);
+    init: function() {
 
-			google.maps.event.addListener(map.map, 'idle', function () {
-				updateBoundInputs();
-				eventService.search();
-			});
+        browsecontrols.init();
 
-			function updateBoundInputs() {
-				var bounds = map.map.getBounds();
-				var ne = bounds.getNorthEast();
-				var sw = bounds.getSouthWest();
-				var minX = sw.lng(), maxX = ne.lng();
-				var minY = sw.lat(), maxY = ne.lat();
+        $(".js-map:not(.js-map-done)").each(function() {
+            map.map = new google.maps.Map(this,
+                {
+                    zoom: 13,
+                    center: { lat: 51.449517, lng: -2.575963 },
+                    styles: mapstyle
+                });
 
-				browsecontrols.form.find(".js-bounds-min-x").val(minX);
-				browsecontrols.form.find(".js-bounds-max-x").val(maxX);
-				browsecontrols.form.find(".js-bounds-min-y").val(minY);
-				browsecontrols.form.find(".js-bounds-max-y").val(maxY);
-			};
+            google.maps.event.addListener(map.map,
+                'idle',
+                function() {
+                    updateBoundInputs();
+                    eventService.search();
+                });
 
-			google.maps.event.addListener(map.map, 'click', function () {
-				map.infoWindow.close();
-				initInfoWindow();
-			});
+            function updateBoundInputs() {
+                var bounds = map.map.getBounds();
+                var ne = bounds.getNorthEast();
+                var sw = bounds.getSouthWest();
+                var minX = sw.lng(), maxX = ne.lng();
+                var minY = sw.lat(), maxY = ne.lat();
 
-			$(this).addClass("js-map-done");
+                browsecontrols.form.find(".js-bounds-min-x").val(minX);
+                browsecontrols.form.find(".js-bounds-max-x").val(maxX);
+                browsecontrols.form.find(".js-bounds-min-y").val(minY);
+                browsecontrols.form.find(".js-bounds-max-y").val(maxY);
+            };
 
-			eventService.search();
+            google.maps.event.addListener(map.map,
+                'click',
+                function() {
+                    map.infoWindow.close();
+                    initInfoWindow();
+                });
 
-			initInfoWindow();
+            $(this).addClass("js-map-done");
 
-			function initInfoWindow() {
-				map.infoWindow = new InfoBox({
-					alignBottom: true,
-					disableAutoPan: true,
-					maxWidth: 0,
-					pixelOffset: new google.maps.Size(-170, -50),
-					zIndex: null,
-					boxClass: "infowindow",
-					closeBoxURL: "",
-					infoBoxClearance: new google.maps.Size(20, 20),
-					isHidden: false,
-					pane: "floatPane",
-					enableEventPropagation: false
-				});
-			}
+            eventService.search();
 
-			geolocator.update();
+            initInfoWindow();
 
-		});
-	}
+            function initInfoWindow() {
+                map.infoWindow = new InfoBox({
+                    alignBottom: true,
+                    disableAutoPan: true,
+                    maxWidth: 0,
+                    pixelOffset: new google.maps.Size(-170, -50),
+                    zIndex: null,
+                    boxClass: "infowindow",
+                    closeBoxURL: "",
+                    infoBoxClearance: new google.maps.Size(20, 20),
+                    isHidden: false,
+                    pane: "floatPane",
+                    enableEventPropagation: false
+                });
+            }
+
+            geolocator.update();
+
+        });
+    }
 };
-$(function () {
-	map.init();
-	site.ajaxComplete(function () {
-		map.init();
-	});
-});
-
-$(document).ready(function () {
-	//$('.carousel').carousel({
-	//	interval: 2000
-	//});
+$(function() {
+    map.init();
+    site.ajaxComplete(function() {
+        map.init();
+    });
 });

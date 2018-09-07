@@ -6,8 +6,6 @@ using LiveLink.Services.Models;
 using LiveLink.Services.Models.ViewModels;
 using Newtonsoft.Json;
 using Umbraco.Core.Services;
-using Umbraco.Web;
-using Umbraco.Web.Security;
 
 namespace LiveLink.Areas.API.Controllers
 {

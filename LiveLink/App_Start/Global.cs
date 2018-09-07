@@ -12,9 +12,6 @@ namespace LiveLink
 	{
 		public Global()
 		{
-			//
-			// TODO: Add constructor logic here
-			//
 		}
 
 		void Application_Start(object sender, EventArgs e)

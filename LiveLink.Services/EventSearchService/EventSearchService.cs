@@ -16,21 +16,18 @@ namespace LiveLink.Services.EventSearchService
 		private readonly IExamineService _examineService;
 		private readonly IIndexFormatter<double> _doubleFormatter;
 		private readonly IIndexFormatter<int> _intFormatter;
-		private readonly IIndexFormatter<DateTime> _dateTimeFormatter;
 		private readonly IDateTimeProvider _dateTimeProvider;
 
 		public EventSearchService(IExamineService examineService,
 			IExamineSearchProviderWrapper examineSearchProviderWrapper,
 			IIndexFormatter<double> doubleFormatter,
-			IIndexFormatter<int> intFormatter, 
-			IIndexFormatter<DateTime> dateTimeFormatter,
+			IIndexFormatter<int> intFormatter,
 			IDateTimeProvider dateTimeProvider)
 		{
 			_examineService = examineService;
 			_examineSearchProviderWrapper = examineSearchProviderWrapper;
 			_doubleFormatter = doubleFormatter;
 			_intFormatter = intFormatter;
-			_dateTimeFormatter = dateTimeFormatter;
 			_dateTimeProvider = dateTimeProvider;
 		}
 		
@@ -41,7 +38,6 @@ namespace LiveLink.Services.EventSearchService
 			var query = searcher.CreateSearchCriteria(BooleanOperation.And).Field("__NodeTypeAlias", "event");
 
 			// TODO: Make IFilters and loop through them to build query
-
 			if (configuration.EarliestDate.HasValue && configuration.LatestDate.HasValue)
 				query = query.And().Range("contentStartDateTime",
 					configuration.EarliestDate.Value, configuration.LatestDate.Value.Date.AddDays(1));
