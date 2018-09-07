@@ -13,7 +13,6 @@
             $(this).find(".js-open-event:not(.js-open-event-done)").each(function() {
 
                 $(this).click(function() {
-                    console.log(id);
                     eventService.render(id);
                     return false;
                 });
