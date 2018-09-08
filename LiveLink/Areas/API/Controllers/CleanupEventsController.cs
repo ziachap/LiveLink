@@ -9,26 +9,25 @@ using LiveLink.Services.DuplicatesService;
 using LiveLink.Services.EventSearchService;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using Umbraco.Web;
 
 namespace LiveLink.Areas.API
 {
 	public class CleanupEventsController : Controller
 	{
-		private readonly IEventSearchService _eventSearchService;
 		private readonly IContentService _contentService;
-		private readonly IMediaService _mediaService;
-		private readonly IDuplicatesService _duplicatesService;
-		private readonly ILog _log;
-		private readonly IUmbracoWrapper _umbracoWrapper;
 		private readonly IDateTimeProvider _dateTimeProvider;
+		private readonly IDuplicatesService _duplicatesService;
+		private readonly IEventSearchService _eventSearchService;
+		private readonly ILog _log;
+		private readonly IMediaService _mediaService;
+		private readonly IUmbracoWrapper _umbracoWrapper;
 
 		public CleanupEventsController(IEventSearchService eventSearchService,
-			IContentService contentService, 
+			IContentService contentService,
 			IMediaService mediaService,
 			IDuplicatesService duplicatesService,
-			ILog log, 
-			IUmbracoWrapper umbracoWrapper, 
+			ILog log,
+			IUmbracoWrapper umbracoWrapper,
 			IDateTimeProvider dateTimeProvider)
 		{
 			_eventSearchService = eventSearchService;
@@ -40,19 +39,23 @@ namespace LiveLink.Areas.API
 			_dateTimeProvider = dateTimeProvider;
 		}
 
-		private void Log(string message) => _log.Debug("[CLEANUP EVENTS] " + message);
+		private void Log(string message)
+		{
+			_log.Debug("[CLEANUP EVENTS] " + message);
+		}
 
 		public object Debug()
 		{
 			Log($"START: Gathering events to cleanup");
-			
+
 			var config = new GetEventsConfiguration
 			{
 				EarliestDate = DateTime.MinValue,
 				LatestDate = _dateTimeProvider.Now().AddDays(-3)
 			};
 
-			Log($"Config: {config.EarliestDate.Value.ToString("yyyy MMMM dd")} -> {config.LatestDate.Value.ToString("yyyy MMMM dd")}");
+			Log(
+				$"Config: {config.EarliestDate.Value.ToString("yyyy MMMM dd")} -> {config.LatestDate.Value.ToString("yyyy MMMM dd")}");
 
 			var results = _eventSearchService.GetVenueEvents(config);
 
@@ -66,7 +69,8 @@ namespace LiveLink.Areas.API
 				var startDate = _umbracoWrapper.GetPropertyValue<DateTime>(publishedContent, "contentStartDateTime");
 				if (startDate > _dateTimeProvider.Now().AddDays(-2))
 				{
-					Log($"Event is NOT in cleanup date range! {publishedContent.Id}|{publishedContent.Name}|STARTS:{startDate.ToString("yyyy MMMM dd")}");
+					Log(
+						$"Event is NOT in cleanup date range! {publishedContent.Id}|{publishedContent.Name}|STARTS:{startDate.ToString("yyyy MMMM dd")}");
 				}
 				else
 				{

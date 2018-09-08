@@ -1,5 +1,4 @@
-﻿
-namespace LiveLink.Services.DuplicatesService
+﻿namespace LiveLink.Services.DuplicatesService
 {
 	public interface IDuplicatesService
 	{

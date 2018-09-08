@@ -6,13 +6,13 @@ using Umbraco.Web.Mvc;
 
 namespace LiveLink.Controllers
 {
-    // Not currently in use
+	// Not currently in use
 	public class LoginController : RenderMvcController
 	{
 		[HttpGet]
 		public override ActionResult Index(RenderModel model)
 		{
-			var viewModel =  new LoginViewModel(model.Content, model.CurrentCulture);
+			var viewModel = new LoginViewModel(model.Content, model.CurrentCulture);
 			return View("Login", viewModel);
 		}
 

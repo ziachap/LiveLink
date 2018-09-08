@@ -80,7 +80,10 @@ namespace LiveLink.Services.FacebookEventsService
 					_log.Error("Could not convert Facebook event to LiveLink event", ex);
 				}
 
-				if (liveLinkEvent != null) yield return liveLinkEvent;
+				if (liveLinkEvent != null)
+				{
+					yield return liveLinkEvent;
+				}
 			}
 		}
 

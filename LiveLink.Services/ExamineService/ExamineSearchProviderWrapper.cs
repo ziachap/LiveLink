@@ -5,10 +5,14 @@ namespace LiveLink.Services.ExamineService
 {
 	public class ExamineSearchProviderWrapper : IExamineSearchProviderWrapper
 	{
-		public BaseSearchProvider EventSearcher() 
-			=> ExamineManager.Instance.SearchProviderCollection["EventSearcher"];
+		public BaseSearchProvider EventSearcher()
+		{
+			return ExamineManager.Instance.SearchProviderCollection["EventSearcher"];
+		}
 
 		public BaseSearchProvider ContentSearcher()
-			=> ExamineManager.Instance.SearchProviderCollection["ContentSearcher"];
+		{
+			return ExamineManager.Instance.SearchProviderCollection["ContentSearcher"];
+		}
 	}
 }

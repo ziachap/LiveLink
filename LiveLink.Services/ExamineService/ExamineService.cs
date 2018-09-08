@@ -27,7 +27,7 @@ namespace LiveLink.Services.ExamineService
 					.Select(x => _umbracoWrapper.TypedContent(x.Id))
 					.Skip((page.Value - 1) * itemsPerPage.Value);
 			}
-			
+
 			return _umbracoWrapper.TypedSearch(criteria, searcher);
 		}
 
@@ -39,11 +39,10 @@ namespace LiveLink.Services.ExamineService
 				{
 					return true;
 				}
-				else
-				{
-					throw new Exception("Page specified but number of items per page not specified");
-				}
+
+				throw new Exception("Page specified but number of items per page not specified");
 			}
+
 			return false;
 		}
 	}

@@ -1,5 +1,4 @@
-﻿
-namespace LiveLink.Services.FacebookEventsService.Calls
+﻿namespace LiveLink.Services.FacebookEventsService.Calls
 {
 	public interface IFacebookApiCall<in TConfiguration, out TResponse>
 	{

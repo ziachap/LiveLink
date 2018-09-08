@@ -9,11 +9,10 @@ namespace LiveLink.Services.DuplicatesService
 {
 	public class DuplicatesService : IDuplicatesService
 	{
+		private const double TextSimilarityThreshold = 0.85;
 		private readonly IContentService _contentService;
 		private readonly IEventSearchService _eventSearchService;
 		private readonly ITextComparisonService _textComparisonService;
-
-		private const double TextSimilarityThreshold = 0.85;
 
 		public DuplicatesService(IContentService contentService, IEventSearchService eventSearchService,
 			ITextComparisonService textComparisonService)
@@ -26,7 +25,7 @@ namespace LiveLink.Services.DuplicatesService
 		public void RemoveDuplicates()
 		{
 			var allEvents = _eventSearchService.GetVenueEvents(new GetEventsConfiguration()).ToList();
-			
+
 			for (var i = 0; i < allEvents.Count; i++)
 			{
 				for (var j = i + 1; j < allEvents.Count; j++)
@@ -47,23 +46,35 @@ namespace LiveLink.Services.DuplicatesService
 			{
 				_contentService.Delete(content);
 			}
-		} 
+		}
 
-		private IPublishedContent Oldest(IPublishedContent a, IPublishedContent b) => a.UpdateDate < b.UpdateDate ? a : b;
+		private IPublishedContent Oldest(IPublishedContent a, IPublishedContent b)
+		{
+			return a.UpdateDate < b.UpdateDate ? a : b;
+		}
 
 		private bool AreEqual(IPublishedContent a, IPublishedContent b)
-			=> _textComparisonService.PercentageSimilarity(FormattedText(a), FormattedText(b)) > TextSimilarityThreshold
-			&& ContentStartDateTime(a).Date == ContentStartDateTime(b).Date;
+		{
+			return _textComparisonService.PercentageSimilarity(FormattedText(a), FormattedText(b)) >
+			       TextSimilarityThreshold
+			       && ContentStartDateTime(a).Date == ContentStartDateTime(b).Date;
+		}
 
 		private static string FormattedText(IPublishedContent content)
-			=> ContentTitle(content)
-			.ToLower()
-			.Replace("&", "and");
+		{
+			return ContentTitle(content)
+				.ToLower()
+				.Replace("&", "and");
+		}
 
 		private static string ContentTitle(IPublishedContent content)
-			=> content.GetPropertyValue<string>("contentTitle");
+		{
+			return content.GetPropertyValue<string>("contentTitle");
+		}
 
 		private static DateTime ContentStartDateTime(IPublishedContent content)
-			=> content.GetPropertyValue<DateTime>("contentStartDateTime");
+		{
+			return content.GetPropertyValue<DateTime>("contentStartDateTime");
+		}
 	}
 }

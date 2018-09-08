@@ -4,10 +4,13 @@ using Gibe.DittoProcessors.Processors;
 
 namespace LiveLink.Services.Processors
 {
-    public abstract class InjectableProcessorAttribute : TestableDittoProcessorAttribute
-    {
-        public Func<T> Inject<T>() => () => DependencyResolver.Current.GetService<T>();
+	public abstract class InjectableProcessorAttribute : TestableDittoProcessorAttribute
+	{
+		public bool ValueIsNull => string.IsNullOrEmpty(Value?.ToString());
 
-        public bool ValueIsNull => string.IsNullOrEmpty(Value?.ToString());
-    }
+		public Func<T> Inject<T>()
+		{
+			return () => DependencyResolver.Current.GetService<T>();
+		}
+	}
 }

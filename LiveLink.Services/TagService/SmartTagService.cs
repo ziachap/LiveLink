@@ -40,7 +40,10 @@ namespace LiveLink.Services.TagService
 				.ToList();
 		}
 
-		private bool ContainsTag(string text, string tag) => text.InvariantContains(tag);
+		private bool ContainsTag(string text, string tag)
+		{
+			return text.InvariantContains(tag);
+		}
 
 		private class TagCriteria
 		{

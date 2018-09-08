@@ -33,13 +33,12 @@ namespace LiveLink.Services.FacebookEventsService.Calls
 
 			// TODO: Work out why Events() on the client doesn't work
 			// This is a temporary workaround which directly uses the api url
-			var jsonData = _facebookApiWrapper
-				.Execute(c => c.Client.DoAuthenticatedGetRequest(url).GetBodyAsJsonObject().GetArray("data"));
-			
-			return new GetEventsResponse
-			{
-				Events = AsFacebookEvents(jsonData).ToList()
-			};
+			var jsonData = _facebookApiWrapper.Execute(c => 
+				c.Client.DoAuthenticatedGetRequest(url).GetBodyAsJsonObject().GetArray("data"));
+
+			return jsonData == null 
+				? new GetEventsResponse(Enumerable.Empty<FacebookEvent>()) 
+				: new GetEventsResponse(AsFacebookEvents(jsonData).ToList());
 		}
 
 		private IEnumerable<FacebookEvent> AsFacebookEvents(JsonArray facebookEvents)
@@ -77,24 +76,40 @@ namespace LiveLink.Services.FacebookEventsService.Calls
 			{
 				dateTime = DateTime.Parse(dateTimeText);
 			}
+
 			return dateTime;
 		}
-		
+
 		private object GetValueOrDefault(IDictionary<string, object> dictionary, string key)
 		{
-			if (dictionary.ContainsKey(key)) return dictionary[key];
+			if (dictionary.ContainsKey(key))
+			{
+				return dictionary[key];
+			}
+
 			return null;
 		}
 	}
 
 	public class GetEventsConfiguration
 	{
-		public FacebookEventsOptions EventsConfiguration { get; set; }
-		public string Identifier { get; set; }
+		public GetEventsConfiguration(FacebookEventsOptions eventsConfiguration, string identifier)
+		{
+			EventsConfiguration = eventsConfiguration;
+			Identifier = identifier;
+		}
+
+		public FacebookEventsOptions EventsConfiguration { get; }
+		public string Identifier { get; }
 	}
 
 	public class GetEventsResponse
 	{
-		public IEnumerable<FacebookEvent> Events { get; set; }
+		public GetEventsResponse(IEnumerable<FacebookEvent> events)
+		{
+			Events = events;
+		}
+
+		public IEnumerable<FacebookEvent> Events { get; }
 	}
 }

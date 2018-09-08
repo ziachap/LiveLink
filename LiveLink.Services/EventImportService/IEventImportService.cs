@@ -3,8 +3,8 @@ using LiveLink.Services.Models;
 
 namespace LiveLink.Services.EventImportService
 {
-    public interface IEventImportService
-    {
-        void SaveEvents(IEnumerable<LiveLinkEvent> events);
-    }
+	public interface IEventImportService
+	{
+		void SaveEvents(IEnumerable<LiveLinkEvent> events);
+	}
 }

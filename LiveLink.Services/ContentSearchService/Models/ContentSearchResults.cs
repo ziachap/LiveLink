@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Gibe.DittoProcessors.Media.Models;
-using Umbraco.Web.Models;
 
 namespace LiveLink.Services.ContentSearchService.Models
 {
@@ -28,7 +27,7 @@ namespace LiveLink.Services.ContentSearchService.Models
 		string Subtitle { get; }
 
 		string Description { get; }
-		
+
 		string Link { get; }
 
 		MediaImageModel Image { get; }

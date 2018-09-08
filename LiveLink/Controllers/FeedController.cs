@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Gibe.DittoServices.ModelConverters;
 using Gibe.UmbracoWrappers;
-using LiveLink.Areas.API.Controllers;
 using LiveLink.Services.EventSearchService;
 using LiveLink.Services.Extensions;
 using LiveLink.Services.Models;
@@ -13,18 +10,17 @@ using LiveLink.Services.Models.ViewModels;
 using Umbraco.Core.Models;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
-using FeedViewModel = LiveLink.Services.Models.ViewModels.FeedViewModel;
 
 namespace LiveLink.Controllers
 {
 	public class FeedController : RenderMvcController
 	{
+		private readonly IEventSearchService _eventSearchService;
 		private readonly IModelConverter _modelConverter;
 		private readonly IUmbracoWrapper _umbracoWrapper;
-		private readonly IEventSearchService _eventSearchService;
 
 		public FeedController(IModelConverter modelConverter,
-			IUmbracoWrapper umbracoWrapper, 
+			IUmbracoWrapper umbracoWrapper,
 			IEventSearchService eventSearchService)
 		{
 			_modelConverter = modelConverter;
@@ -34,16 +30,16 @@ namespace LiveLink.Controllers
 
 		public ActionResult Index(RenderModel model, GetEventsConfiguration configuration)
 		{
-            // TODO: These two methods might be worth moving into MVC attributes
+			// TODO: These two methods might be worth moving into MVC attributes
 			OverridePaging(configuration);
 			ValidateLocationSelection(configuration);
 
-		    // TODO: A lot of this code could be refactored out into a service
-            var selectedLocationNode = configuration.LocationId.HasValue 
+			// TODO: A lot of this code could be refactored out into a service
+			var selectedLocationNode = configuration.LocationId.HasValue
 				? _umbracoWrapper.TypedContent(configuration.LocationId.Value)
 				: model.Content;
 			var viewModel = _modelConverter.ToModel<FeedViewModel>(selectedLocationNode);
-			
+
 			viewModel.Countries = Countries(model.Content, configuration);
 
 			if (!configuration.CountryId.HasValue)
@@ -65,8 +61,8 @@ namespace LiveLink.Controllers
 		}
 
 
-	    // TODO: Is there a sensible way to reuse the logic in here?
-        private void ValidateLocationSelection(GetEventsConfiguration configuration)
+		// TODO: Is there a sensible way to reuse the logic in here?
+		private void ValidateLocationSelection(GetEventsConfiguration configuration)
 		{
 			if (!configuration.CountryId.HasValue)
 			{
@@ -86,7 +82,7 @@ namespace LiveLink.Controllers
 
 			var validVenues = _umbracoWrapper.TypedContent(configuration.CityId.Value)
 				.Children;
-			if (!configuration.VenueId.HasValue ||  validVenues.All(x => x.Id != configuration.VenueId.Value))
+			if (!configuration.VenueId.HasValue || validVenues.All(x => x.Id != configuration.VenueId.Value))
 			{
 				configuration.VenueId = null;
 			}
@@ -109,13 +105,14 @@ namespace LiveLink.Controllers
 			{
 				return Enumerable.Empty<LocationOption>();
 			}
+
 			return _umbracoWrapper.TypedContent(parentId.Value)
 				.Children
 				.Where(x => x.Children.Any())
 				.Select(x => Option(x, selectedId))
 				.ToList();
 		}
-		
+
 		private LocationOption Option(IPublishedContent content, int? selectedId)
 		{
 			var option = _modelConverter.ToModel<LocationOption>(content);

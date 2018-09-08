@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-namespace LiveLink.Services.IndexFormatters
+﻿namespace LiveLink.Services.IndexFormatters
 {
 	public interface IIndexFormatter<in T>
 	{

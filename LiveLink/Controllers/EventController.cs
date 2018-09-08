@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using Gibe.DittoServices.ModelConverters;
 using Gibe.UmbracoWrappers;
-using LiveLink.Services.Models.ViewModels;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
 
@@ -21,7 +20,7 @@ namespace LiveLink.Controllers
 
 		public override ActionResult Index(RenderModel model)
 		{
-            // Currently using DittoViews so this is disabled for now
+			// Currently using DittoViews so this is disabled for now
 			//var viewModel = _modelConverter.ToModel<EventViewModel>(model.Content);
 
 			return base.Index(model);
