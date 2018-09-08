@@ -1,95 +1,49 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using Gibe.UmbracoWrappers;
 using Skybrud.Social.Facebook;
-using Skybrud.Social.Facebook.Options.Events;
-using Skybrud.Social.Json;
 using Skybrud.Social.Umbraco.Facebook.PropertyEditors.OAuth;
 using Umbraco.Core.Logging;
+using Umbraco.Core.Models;
 
 namespace LiveLink.Services.FacebookEventsService
 {
-    public class FacebookApiWrapper : IFacebookApiWrapper
-    {
-		// TODO: This belongs in IFacebookEventsService
-        private readonly string[] _fields = {
-            "id",
-            "name",
-            "description",
-            "start_time",
-            "end_time",
-            "cover",
-            "ticket_uri",
-			"place"
-            };
+	public class FacebookApiWrapper : IFacebookApiWrapper
+	{
+		private readonly IUmbracoWrapper _umbracoWrapper;
 
-        public IEnumerable<FacebookEvent> GetEvents(FacebookOAuthData authenticationData,
-            FacebookEventsOptions eventsConfiguration, string identifier)
-        {
-            // This is a bit messy
-            try
-            {
-                var jsonData = Service(authenticationData).Client
-                    .DoAuthenticatedGetRequest("/" + identifier + $"/events?fields={string.Join(",", _fields)}&limit=10")
-                    .GetBodyAsJsonObject().GetArray("data");
-                return AsFacebookEvents(jsonData).ToList();
-            }
-            catch (Exception e)
-            {
-                LogHelper.Error<FacebookApiWrapper>("Unable to retrieve events from facebook", e);
-                return Enumerable.Empty<FacebookEvent>();
-            }
-        }
+		public FacebookApiWrapper(IUmbracoWrapper umbracoWrapper)
+		{
+			_umbracoWrapper = umbracoWrapper;
+		}
 
-        public FacebookService Service(FacebookOAuthData authenticationData)
-            => FacebookService.CreateFromAccessToken(authenticationData.AccessToken);
-
-        private IEnumerable<FacebookEvent> AsFacebookEvents(JsonArray facebookEvents)
-        {
-            for (int i = 0; i < facebookEvents.Length; i++)
-            {
-                yield return FacebookEvent((Dictionary<string, object>) facebookEvents[i]);
-            }
-        }
-
-        private FacebookEvent FacebookEvent(Dictionary<string, object> properties)
-        {
-	        var cover = GetValueOrDefault(properties, "cover") as Dictionary<string, object>;
-
-			// TODO: Can pull venues from this eventually, for promoter pages
-			//var place = GetValueOrDefault(properties, "place") as Dictionary<string, object>;
-			
-			return new FacebookEvent
-            {
-                Id = GetValueOrDefault(properties, "id") as string,
-                Name = GetValueOrDefault(properties, "name") as string,
-                StartDateTime = GetDateTimeOrDefault(properties, "start_time"),
-                EndDateTime = GetDateTimeOrDefault(properties, "end_time"),
-                Description = GetValueOrDefault(properties, "description") as string,
-                TicketUri = GetValueOrDefault(properties, "ticket_uri") as string,
-				CoverUrl = GetValueOrDefault(cover, "source") as string,
-			};
-        }
-
-	    private DateTime? GetDateTimeOrDefault(IDictionary<string, object> dictionary, string key)
-	    {
-			var dateTimeText = GetValueOrDefault(dictionary, key) as string;
-			DateTime? dateTime = null;
-			if (!string.IsNullOrEmpty(dateTimeText))
+		public T Execute<T>(Expression<Func<FacebookService, T>> request)
+		{
+			try
 			{
-				dateTime = DateTime.Parse(dateTimeText);
+				return request.Compile().Invoke(Service(AuthData()));
 			}
-		    return dateTime;
-	    }
+			catch (Exception ex)
+			{
+				LogHelper.Error<FacebookApiWrapper>("Facebook API request failed", ex);
+				return default(T);
+			}
+		}
 
+		public FacebookService Service(FacebookOAuthData authenticationData)
+		{
+			return FacebookService.CreateFromAccessToken(authenticationData.AccessToken);
+		}
 
-		private object GetValueOrDefault(IDictionary<string, object> dictionary, string key)
-        {
-            if (dictionary.ContainsKey(key))
-            {
-                return dictionary[key];
-            }
-            return null;
-        }
-    }
+		private FacebookOAuthData AuthData()
+		{
+			return _umbracoWrapper.GetPropertyValue<FacebookOAuthData>(Settings(), "settingsFacebookOAuth");
+		}
+
+		private IPublishedContent Settings()
+		{
+			return _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));
+		}
+	}
 }

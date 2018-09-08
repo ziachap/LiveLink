@@ -24,7 +24,7 @@ namespace LiveLink.App_Start
 {
 	using System;
 	using System.Web;
-
+	using LiveLink.Services.FacebookEventsService.Calls;
 	using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
 	using Ninject;
@@ -78,6 +78,7 @@ namespace LiveLink.App_Start
 				kernel.Bind<ISmartTagService>().To<SmartTagService>();
                 kernel.Bind<IFacebookApiWrapper>().To<FacebookApiWrapper>();
                 kernel.Bind<IFacebookEventsService>().To<FacebookEventsService>();
+                kernel.Bind<IFacebookApiCall<GetEventsConfiguration, GetEventsResponse>>().To<GetEventsCall>();
                 kernel.Bind<IContentSearchService>().To<ContentSearchService>();
 
 				kernel.Bind<IEventSearchService>().To<EventSearchService>();
