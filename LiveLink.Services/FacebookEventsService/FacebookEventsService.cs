@@ -40,16 +40,15 @@ namespace LiveLink.Services.FacebookEventsService
 
 		public IEnumerable<LiveLinkEvent> GetEventsForVenue(IPublishedContent venueContent, int? limit)
 		{
-			var config = new GetEventsConfiguration
+			var identifier = _umbracoWrapper
+				.GetPropertyValue<string>(venueContent, "developerFacebookPageIdentifier");
+
+			var eventsConfiguration = new FacebookEventsOptions
 			{
-				Identifier = _umbracoWrapper
-					.GetPropertyValue<string>(venueContent, "developerFacebookPageIdentifier"),
-				EventsConfiguration = new FacebookEventsOptions
-				{
-					Limit = limit
-				}
+				Limit = limit
 			};
 
+			var config = new GetEventsConfiguration(eventsConfiguration, identifier);
 			var response = _getEventsCall.Call(config);
 
 			return AsLiveLinkEvents(response.Events, venueContent.Id);
