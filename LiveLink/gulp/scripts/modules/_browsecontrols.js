@@ -30,11 +30,10 @@ var browsecontrols = {
 	}
 };
 
-/*
+
 $(function () {
 	browsecontrols.init();
 	site.ajaxComplete(function () {
 		browsecontrols.init();
 	});
 });
-*/

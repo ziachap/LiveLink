@@ -6,6 +6,19 @@
 	init: function() {
 		eventService.infoWindowTemplate = Hogan.compile($("#infoWindowTemplate").html());
 
+		// TODO: This should go somewhere else, as it's presentation related
+		$(".js-open-event:not(.js-open-event-done)").each(function () {
+
+			var id = $(this).attr("data-id");
+
+			$(this).click(function () {
+				eventService.render(id);
+				return false;
+			});
+
+			$(this).addClass("js-open-event-done");
+		});
+		/*
 		$(".js-event-card:not(.js-event-card-done)").each(function() {
 
 			var id = $(this).attr("data-id");
@@ -20,8 +33,8 @@
 				$(this).addClass("js-open-event-done");
 			});
 
-			$(this).addClass(" js-event-card-done");
-		});
+			$(this).addClass("js-event-card-done");
+		});*/
 	},
 
 	bind: function(venueEventsResponse) {

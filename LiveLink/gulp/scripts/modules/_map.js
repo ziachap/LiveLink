@@ -1,5 +1,5 @@
-﻿// Not currently in use
-
+﻿// TODO: Map is enabled temporarily, but needs some refactoring
+// TODO: Reduce dependencies between modules, or use some sort of DI
 var map = {
 	map: null,
 
@@ -27,6 +27,10 @@ var map = {
 				});
 
 			function updateBoundInputs() {
+				if (browsecontrols.form == null) {
+					browsecontrols.init();
+				}
+
 				var bounds = map.map.getBounds();
 				var ne = bounds.getNorthEast();
 				var sw = bounds.getSouthWest();
