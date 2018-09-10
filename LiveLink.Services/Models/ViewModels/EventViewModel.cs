@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Gibe.DittoProcessors.Media.Models;
 using Gibe.DittoProcessors.Processors;
 using LiveLink.Services.Processors;
@@ -57,7 +58,9 @@ namespace LiveLink.Services.Models.ViewModels
 
 		[UserIsWatching] public bool Watching { get; set; }
 
-		[OtherVenueEvents(4)] public IEnumerable<OtherEventModel> OtherEvents { get; set; }
+		// TODO: This is slow, leaving empty for now...
+		//[OtherVenueEvents(4)]
+		public IEnumerable<OtherEventModel> OtherEvents = Enumerable.Empty<OtherEventModel>();
 
 		[UmbracoProperty("contentTags")] public IEnumerable<string> Tags { get; set; }
 	}

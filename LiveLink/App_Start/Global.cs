@@ -29,13 +29,13 @@ namespace LiveLink
 		{
 			if (Request.IsLocal)
 			{
-				//MiniProfiler.Start();
+				MiniProfiler.Start();
 			}
 		}
 
 		protected void Application_EndRequest()
 		{
-			//MiniProfiler.Stop();
+			MiniProfiler.Stop();
 		}
 	}
 }
