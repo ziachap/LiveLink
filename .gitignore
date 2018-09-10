@@ -180,3 +180,5 @@ applicationhost.config
 
 #TortoiseGit Merge
 *.orig
+
+.vs/
