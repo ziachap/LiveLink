@@ -1,9 +1,8 @@
-﻿console.log("ready");
-
+﻿
 var nav = {
 	init: function() {
-		$(".nav-toggle").each(function () {
-			$(this).click(function () {
+		$(".nav-toggle").each(function() {
+			$(this).click(function() {
 				$("#nav-top").toggleClass("responsive");
 			});
 		});
@@ -11,9 +10,12 @@ var nav = {
 
 };
 
+// Disabled until needed
+/*
 $(function() {
-	//nav.init();
+	nav.init();
 	site.ajaxComplete(function () {
-		//nav.init();
+		nav.init();
 	});
 });
+*/

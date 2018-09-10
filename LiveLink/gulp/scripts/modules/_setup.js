@@ -1,12 +1,9 @@
-﻿console.log("ready");
+﻿var setup = {
+	init: function() {
 
-var setup = {
-	init: function () {
-
-		$('.ui.dropdown:not(.ui-dropdown-done)').each(function () {
+		$(".ui.dropdown:not(.ui-dropdown-done)").each(function() {
 			$(this).dropdown();
-
-			$(this).addClass('ui-dropdown-done');
+			$(this).addClass("ui-dropdown-done");
 		});
 	}
 
@@ -14,7 +11,7 @@ var setup = {
 
 $(function() {
 	setup.init();
-	site.ajaxComplete(function () {
+	site.ajaxComplete(function() {
 		setup.init();
 	});
 });

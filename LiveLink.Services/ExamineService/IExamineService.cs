@@ -7,6 +7,7 @@ namespace LiveLink.Services.ExamineService
 {
 	public interface IExamineService
 	{
-		IEnumerable<IPublishedContent> Search(BaseSearchProvider searcher, ISearchCriteria criteria, int? page, int? itemsPerPage);
+		IEnumerable<IPublishedContent> Search(BaseSearchProvider searcher, ISearchCriteria criteria, int? page,
+			int? itemsPerPage);
 	}
 }

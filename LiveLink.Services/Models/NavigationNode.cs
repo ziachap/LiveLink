@@ -5,16 +5,12 @@ namespace LiveLink.Services.Models
 {
 	public class NavigationNode
 	{
-		[UmbracoProperty("name")]
-		public string Title { get; set; }
+		[UmbracoProperty("name")] public string Title { get; set; }
 
-		[UmbracoProperty("url")]
-		public string Url { get; set; }
+		[UmbracoProperty("url")] public string Url { get; set; }
 
-		[DittoIgnore]
-		public bool Active { get; set; }
+		[DittoIgnore] public bool Active { get; set; }
 
-		[DittoIgnore]
-		public IEnumerable<NavigationNode> Children { get; set; }
+		[DittoIgnore] public IEnumerable<NavigationNode> Children { get; set; }
 	}
 }

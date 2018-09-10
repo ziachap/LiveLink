@@ -1,7 +1,7 @@
 ﻿var packeryService = {
-	init: function () {
-		$('.packed__grid').packery({
-			itemSelector: '.packed__grid-item',
+	init: function() {
+		$(".packed__grid").packery({
+			itemSelector: ".packed__grid-item",
 			gutter: 12
 		});
 
@@ -9,9 +9,9 @@
 };
 
 
-$(function () {
+$(function() {
 	packeryService.init();
-	site.ajaxComplete(function () {
+	site.ajaxComplete(function() {
 		packeryService.init();
 	});
 });

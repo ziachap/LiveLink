@@ -12,9 +12,6 @@ namespace LiveLink
 	{
 		public Global()
 		{
-			//
-			// TODO: Add constructor logic here
-			//
 		}
 
 		void Application_Start(object sender, EventArgs e)
@@ -32,13 +29,13 @@ namespace LiveLink
 		{
 			if (Request.IsLocal)
 			{
-				//MiniProfiler.Start();
+				MiniProfiler.Start();
 			}
 		}
 
 		protected void Application_EndRequest()
 		{
-			//MiniProfiler.Stop();
+			MiniProfiler.Stop();
 		}
 	}
 }

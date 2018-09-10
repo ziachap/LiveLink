@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-
-namespace LiveLink.Services.Models
+﻿namespace LiveLink.Services.Models
 {
 	public interface IApiResponse
 	{
@@ -19,9 +12,9 @@ namespace LiveLink.Services.Models
 			Data = data;
 		}
 
-		public bool Success => true;
-
 		public object Data { get; }
+
+		public bool Success => true;
 	}
 
 	public class ApiFailureResponse : IApiResponse
@@ -31,8 +24,8 @@ namespace LiveLink.Services.Models
 			Message = message;
 		}
 
-		public bool Success => false;
-
 		public string Message { get; }
+
+		public bool Success => false;
 	}
 }

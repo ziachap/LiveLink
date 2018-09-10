@@ -1,29 +1,36 @@
-﻿var map = {
+﻿// TODO: Map is enabled temporarily, but needs some refactoring
+// TODO: Reduce dependencies between modules, or use some sort of DI
+var map = {
 	map: null,
 
 	markers: [],
 
 	infoWindow: null,
 
-	init: function () {
-		
-		//eventOverlay.init();
+	init: function() {
+
 		browsecontrols.init();
 
-		$(".js-map:not(.js-map-done)").each(function () {
-			map.map = new google.maps.Map(this, {
-				zoom: 13,
-				center: { lat: 51.449517, lng: -2.575963 },
-				styles: mapstyle
-			});
-			//eventService.bind(events);
+		$(".js-map:not(.js-map-done)").each(function() {
+			map.map = new google.maps.Map(this,
+				{
+					zoom: 13,
+					center: { lat: 51.449517, lng: -2.575963 },
+					styles: mapstyle
+				});
 
-			google.maps.event.addListener(map.map, 'idle', function () {
-				updateBoundInputs();
-				eventService.search();
-			});
+			google.maps.event.addListener(map.map,
+				"idle",
+				function() {
+					updateBoundInputs();
+					eventService.search();
+				});
 
 			function updateBoundInputs() {
+				if (browsecontrols.form == null) {
+					browsecontrols.init();
+				}
+
 				var bounds = map.map.getBounds();
 				var ne = bounds.getNorthEast();
 				var sw = bounds.getSouthWest();
@@ -36,10 +43,12 @@
 				browsecontrols.form.find(".js-bounds-max-y").val(maxY);
 			};
 
-			google.maps.event.addListener(map.map, 'click', function () {
-				map.infoWindow.close();
-				initInfoWindow();
-			});
+			google.maps.event.addListener(map.map,
+				"click",
+				function() {
+					map.infoWindow.close();
+					initInfoWindow();
+				});
 
 			$(this).addClass("js-map-done");
 
@@ -68,15 +77,9 @@
 		});
 	}
 };
-$(function () {
+$(function() {
 	map.init();
-	site.ajaxComplete(function () {
+	site.ajaxComplete(function() {
 		map.init();
 	});
-});
-
-$(document).ready(function () {
-	//$('.carousel').carousel({
-	//	interval: 2000
-	//});
 });

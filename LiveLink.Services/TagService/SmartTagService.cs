@@ -6,7 +6,7 @@ namespace LiveLink.Services.TagService
 {
 	public class SmartTagService : ISmartTagService
 	{
-		// TODO: Don't make this hardcoded
+		// TODO: This really needs to go in a config or db
 		private readonly IEnumerable<TagCriteria> _tags = new[]
 		{
 			new TagCriteria("Drum & Bass", new[]
@@ -40,7 +40,10 @@ namespace LiveLink.Services.TagService
 				.ToList();
 		}
 
-		private bool ContainsTag(string text, string tag) => text.InvariantContains(tag);
+		private bool ContainsTag(string text, string tag)
+		{
+			return text.InvariantContains(tag);
+		}
 
 		private class TagCriteria
 		{

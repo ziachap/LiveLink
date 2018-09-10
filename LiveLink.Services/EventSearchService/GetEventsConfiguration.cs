@@ -21,7 +21,7 @@ namespace LiveLink.Services.EventSearchService
 
 		public int? LocationId => VenueId ?? CityId ?? CountryId;
 
-		public bool HasBounds => BoundMinX.HasValue 
-			&& BoundMaxX.HasValue && BoundMinY.HasValue && BoundMaxY.HasValue;
+		public bool HasBounds => BoundMinX.HasValue
+		                         && BoundMaxX.HasValue && BoundMinY.HasValue && BoundMaxY.HasValue;
 	}
 }

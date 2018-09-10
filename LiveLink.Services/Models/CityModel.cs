@@ -1,18 +1,11 @@
-﻿using System.Collections.Generic;
-using Gibe.DittoProcessors.Processors;
-using Our.Umbraco.Ditto;
+﻿using Our.Umbraco.Ditto;
 
 namespace LiveLink.Services.Models
 {
 	public class CityModel
 	{
-		[UmbracoProperty("id")]
-		public int Id { get; set; }
+		[UmbracoProperty("id")] public int Id { get; set; }
 
-		[UmbracoProperty("contentTitle")]
-		public string Title { get; set; }
-
-		//[Children("venue")]
-		//public IEnumerable<VenueSummaryModel> Venues { get; set; }
+		[UmbracoProperty("contentTitle")] public string Title { get; set; }
 	}
 }

@@ -332,7 +332,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationService\AuthenticationService.cs" />
     <Compile Include="AuthenticationService\IAuthenticationService.cs" />
+    <Compile Include="ContentSearchService\ContentSearchService.cs" />
     <Compile Include="ContentSearchService\IContentSearchService.cs" />
     <Compile Include="ContentSearchService\Models\ContentSearchConfiguration.cs" />
     <Compile Include="ContentSearchService\Models\ContentSearchResults.cs" />
@@ -351,6 +353,12 @@
     <Compile Include="ExamineService\ExamineSearchProviderWrapper.cs" />
     <Compile Include="ExamineService\ExamineService.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="FacebookEventsService\Calls\GetEventsCall.cs" />
+    <Compile Include="FacebookEventsService\Calls\IFacebookApiCall.cs" />
+    <Compile Include="FacebookEventsService\FacebookEventsService.cs" />
+    <Compile Include="IndexFormatters\DatetimeIndexFormatter.cs" />
+    <Compile Include="IndexFormatters\DoubleIndexFormatter.cs" />
+    <Compile Include="IndexFormatters\IntegerIndexFormatter.cs" />
     <Compile Include="Models\ApiSuccessResponse.cs" />
     <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\CountryModel.cs" />

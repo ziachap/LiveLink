@@ -10,8 +10,8 @@ namespace LiveLink.Services.Processors
 {
 	public class EventsAttribute : TestableDittoProcessorAttribute
 	{
-		private readonly IUmbracoWrapper _umbracoWrapper;
 		private readonly IModelConverter _modelConverter;
+		private readonly IUmbracoWrapper _umbracoWrapper;
 
 		public EventsAttribute()
 		{

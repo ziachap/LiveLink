@@ -2,7 +2,6 @@
 using System.Linq;
 using Gibe.DittoServices.ModelConverters;
 using LiveLink.Services.Models;
-using LiveLink.Services.Models.ViewModels;
 
 namespace LiveLink.Services.Processors
 {
@@ -10,12 +9,12 @@ namespace LiveLink.Services.Processors
 	{
 		private readonly int _limit;
 
-		public Func<IModelConverter> ModelConverter => Inject<IModelConverter>();
-
 		public OtherVenueEventsAttribute(int limit = default(int))
 		{
 			_limit = limit;
 		}
+
+		public Func<IModelConverter> ModelConverter => Inject<IModelConverter>();
 
 		public override object ProcessValue()
 		{

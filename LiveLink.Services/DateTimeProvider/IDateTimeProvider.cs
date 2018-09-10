@@ -16,16 +16,25 @@ namespace LiveLink.Services.DateTimeProvider
 			_dateTime = dateTime;
 		}
 
-		public DateTime Now() => _dateTime;
+		public DateTime Now()
+		{
+			return _dateTime;
+		}
 	}
 
 	public class UtcDateTimeProvider : IDateTimeProvider
 	{
-		public DateTime Now() => DateTime.UtcNow;
+		public DateTime Now()
+		{
+			return DateTime.UtcNow;
+		}
 	}
 
 	public class LocalDateTimeProvider : IDateTimeProvider
 	{
-		public DateTime Now() => DateTime.Now;
+		public DateTime Now()
+		{
+			return DateTime.Now;
+		}
 	}
 }

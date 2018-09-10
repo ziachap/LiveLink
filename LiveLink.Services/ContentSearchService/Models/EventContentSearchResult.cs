@@ -8,22 +8,19 @@ namespace LiveLink.Services.ContentSearchService.Models
 {
 	internal class EventContentSearchResult : IContentSearchResult
 	{
-		[UmbracoProperty("contentTitle")]
-		public string Title { get; set; }
-
 		[UmbracoProperty("contentStartDateTime")]
 		public DateTime StartDate { get; set; }
 
-		// TODO
-		public string Subtitle => StartDate.ToShortDateString();
+		[UmbracoProperty("contentSummary")] public string Summary { get; set; }
 
-		[UmbracoProperty("contentSummary")]
-		public string Summary { get; set; }
+		[UmbracoProperty("contentTitle")] public string Title { get; set; }
+
+		// TODO - Haven't worked out what the subtitle is going to be yet
+		public string Subtitle => StartDate.ToShortDateString();
 
 		public string Description => Summary.Truncate(64);
 
-		[UmbracoProperty("url")]
-		public string Link { get; set; }
+		[UmbracoProperty("url")] public string Link { get; set; }
 
 		[UmbracoProperty("contentThumbnail")]
 		[ImagePickerOrDefaultImage]

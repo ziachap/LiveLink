@@ -1,5 +1,4 @@
-﻿using System;
-using Gibe.DittoProcessors.Media.Models;
+﻿using Gibe.DittoProcessors.Media.Models;
 using LiveLink.Services.Processors;
 using Our.Umbraco.Ditto;
 
@@ -7,15 +6,13 @@ namespace LiveLink.Services.ContentSearchService.Models
 {
 	internal class VenueContentSearchResult : IContentSearchResult
 	{
-		[UmbracoProperty("contentTitle")]
-		public string Title { get; set; }
-		
+		[UmbracoProperty("contentTitle")] public string Title { get; set; }
+
 		public string Subtitle { get; set; }
 
 		public string Description { get; set; }
 
-		[UmbracoProperty("url")]
-		public string Link { get; set; }
+		[UmbracoProperty("url")] public string Link { get; set; }
 
 		[UmbracoProperty("contentLogo")]
 		[ImagePickerOrDefaultImage]

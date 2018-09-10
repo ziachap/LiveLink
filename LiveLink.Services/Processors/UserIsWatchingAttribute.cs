@@ -12,7 +12,10 @@ namespace LiveLink.Services.Processors
 		{
 			var user = AuthenticationService().CurrentUser();
 
-			if (user == null) return false;
+			if (user == null)
+			{
+				return false;
+			}
 
 			var watching = (user.GetValue<string>("watching") ?? string.Empty).Split(',').ToList();
 

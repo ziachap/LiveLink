@@ -14,14 +14,11 @@ namespace LiveLink.Services.EventImportService
 {
 	public class EventImportService : IEventImportService
 	{
-		private readonly IUmbracoWrapper _umbracoWrapper;
-		private readonly ISmartTagService _smartTagService;
 		private readonly IDateTimeProvider _dateTimeProvider;
+		private readonly ISmartTagService _smartTagService;
+		private readonly IUmbracoWrapper _umbracoWrapper;
 
-		private IContentService ContentService() 
-			=> ApplicationContext.Current.Services.ContentService;
-
-		// TODO: This is facebook related and should probably go somewhere else
+		// TODO: This is facebook related and shouldn't be in this class
 		private IDictionary<string, int> _eventIdentifierNodeMap;
 
 		public EventImportService(IUmbracoWrapper umbracoWrapper,
@@ -45,19 +42,28 @@ namespace LiveLink.Services.EventImportService
 			{
 				if (_eventIdentifierNodeMap.ContainsKey(liveLinkEvent.FacebookEventIdentifier))
 				{
-					var eventContent = contentService.GetById(_eventIdentifierNodeMap[liveLinkEvent.FacebookEventIdentifier]);
+					var eventContent =
+						contentService.GetById(_eventIdentifierNodeMap[liveLinkEvent.FacebookEventIdentifier]);
 					UpdateAndSaveEvent(contentService, eventContent, liveLinkEvent);
 				}
 				else
 				{
 					var venueContent = contentService.GetById(liveLinkEvent.VenueNodeId);
-					var eventContent = contentService.CreateContentWithIdentity(liveLinkEvent.Title, venueContent.Id, "event");
+					var eventContent =
+						contentService.CreateContentWithIdentity(liveLinkEvent.Title, venueContent.Id, "event");
 					UpdateAndSaveEvent(contentService, eventContent, liveLinkEvent);
 				}
 			}
 		}
-        
-		private void UpdateAndSaveEvent(IContentService contentService, IContent eventContent, LiveLinkEvent liveLinkEvent)
+
+		// TODO: Surely this can be injected?
+		private IContentService ContentService()
+		{
+			return ApplicationContext.Current.Services.ContentService;
+		}
+
+		private void UpdateAndSaveEvent(IContentService contentService, IContent eventContent,
+			LiveLinkEvent liveLinkEvent)
 		{
 			eventContent.SetValue("contentTitle", liveLinkEvent.Title);
 			eventContent.SetValue("contentSummary", liveLinkEvent.Description);
@@ -100,35 +106,46 @@ namespace LiveLink.Services.EventImportService
 
 		private IEnumerable<Tuple<string, int>> ExistingEventMap(IEnumerable<IContent> events)
 		{
-			var existingEventMap = new List<Tuple<string, int>>(); 
+			var existingEventMap = new List<Tuple<string, int>>();
 			foreach (var eventNode in events)
 			{
 				var identifier = eventNode.GetValue<string>("developerFacebookEventIdentifier");
 
 				if (!string.IsNullOrEmpty(identifier))
+				{
 					existingEventMap.Add(new Tuple<string, int>(identifier, eventNode.Id));
+				}
 			}
 
 			return existingEventMap;
 		}
-		
+
 		private string FormatAsHtml(string text)
 		{
-			if (string.IsNullOrEmpty(text)) return text;
+			if (string.IsNullOrEmpty(text))
+			{
+				return text;
+			}
 
 			var paragraphedText = "<p>" + text.Replace("\n", "<br />") + "</p>";
 
 			return paragraphedText;
 		}
 
-		private string ExtractTags(string text) => string.Join(",", _smartTagService.ExtractTags(text));
+		private string ExtractTags(string text)
+		{
+			return string.Join(",", _smartTagService.ExtractTags(text));
+		}
 
 		private IPublishedContent Settings()
-			=> _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));
+		{
+			return _umbracoWrapper.TypedContentAtRoot().First(x => x.DocumentTypeAlias.Equals("settings"));
+		}
 
 		private IEnumerable<IPublishedContent> Venues()
-		   => Settings().Children.First(x => x.DocumentTypeAlias.Equals("locations"))
-		   .Descendants().Where(x => x.DocumentTypeAlias.Equals("venue"));
-
+		{
+			return Settings().Children.First(x => x.DocumentTypeAlias.Equals("locations"))
+				.Descendants().Where(x => x.DocumentTypeAlias.Equals("venue"));
+		}
 	}
 }

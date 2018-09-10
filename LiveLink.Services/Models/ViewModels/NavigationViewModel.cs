@@ -6,10 +6,8 @@ namespace LiveLink.Services.Models.ViewModels
 	[DittoCache(CacheBy = DittoCacheBy.TargetType, CacheDuration = 60)]
 	public class NavigationViewModel
 	{
-		[Navigation]
-		public NavigationNode Navigation { get; set; }
+		[Navigation] public NavigationNode Navigation { get; set; }
 
-		[DittoIgnore]
-		public LoginForm LoginForm { get; set; }
+		[DittoIgnore] public LoginForm LoginForm { get; set; }
 	}
 }

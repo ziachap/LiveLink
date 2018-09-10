@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using LiveLink.Services.ContentSearchService;
 using LiveLink.Services.ContentSearchService.Models;
 using LiveLink.Services.Models;
@@ -7,16 +6,16 @@ using Newtonsoft.Json;
 
 namespace LiveLink.Areas.API.Controllers
 {
-    public class ContentSearchController : Controller
-    {
-	    private readonly IContentSearchService _contentSearchService;
+	public class ContentSearchController : Controller
+	{
+		private readonly IContentSearchService _contentSearchService;
 
-	    public ContentSearchController(IContentSearchService contentSearchService)
-	    {
-		    _contentSearchService = contentSearchService;
-	    }
+		public ContentSearchController(IContentSearchService contentSearchService)
+		{
+			_contentSearchService = contentSearchService;
+		}
 
-	    // GET: API/ContentSearch
+		// GET: API/ContentSearch
 		public object Index(string text)
 		{
 			var configuration = new ContentSearchConfiguration(text, 10);

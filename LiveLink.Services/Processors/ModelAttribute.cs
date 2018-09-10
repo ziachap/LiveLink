@@ -14,9 +14,13 @@ namespace LiveLink.Services.Processors
 		}
 
 		public Func<IModelConverter> ModelConverter => Inject<IModelConverter>();
+
 		public override object ProcessValue()
 		{
-			if (!(Value is IPublishedContent)) return null;
+			if (!(Value is IPublishedContent))
+			{
+				return null;
+			}
 
 			return ModelConverter().ToModel(_type, (IPublishedContent) Value);
 		}

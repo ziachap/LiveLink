@@ -10,8 +10,8 @@ namespace LiveLink.Services.EventImportService
 {
 	public class UmbracoImageRetriever : IUmbracoImageRetriever
 	{
-		private readonly IMediaService _mediaService;
 		private readonly ILog _log;
+		private readonly IMediaService _mediaService;
 
 		public UmbracoImageRetriever(IMediaService mediaService, ILog log)
 		{
@@ -22,26 +22,29 @@ namespace LiveLink.Services.EventImportService
 		public int? RetrieveAndSaveImage(string url, string filename)
 		{
 			// TODO: Gallery images
-			// TODO: Clean this whole thing up
-
-			if (string.IsNullOrEmpty(url)) return null;
+			// TODO: Clean this whole thing up (its a big wall of code!)
+			if (string.IsNullOrEmpty(url))
+			{
+				return null;
+			}
 
 			try
 			{
 				var fileName = filename;
 				var folderExists = false;
-				var folderId = 1153; //Folder Id in Media Library TODO: This is dumb
+
+				// TODO: This is a dumb way to do this, lookup the ID properly
+				var folderId = 1153;
 
 				var request = WebRequest.Create(url);
 				request.Timeout = 30000;
 
-				using (var response = (HttpWebResponse)request.GetResponse())
+				using (var response = (HttpWebResponse) request.GetResponse())
 				using (var stream = response.GetResponseStream())
 				{
 					if (response.StatusCode == HttpStatusCode.OK)
 					{
 						Stream streamCopy = new MemoryStream();
-
 						stream.CopyTo(streamCopy);
 
 						var assetID = _mediaService.GetChildren(folderId)
@@ -50,7 +53,6 @@ namespace LiveLink.Services.EventImportService
 							.FirstOrDefault();
 
 						var uri = new Uri(url);
-
 						var origFilename = Path.GetFileName(uri.LocalPath);
 
 						if (assetID != default(int))
@@ -79,7 +81,6 @@ namespace LiveLink.Services.EventImportService
 						{
 							throw new Exception("There was a problem saving the image - " + fileName, ex);
 						}
-
 					}
 				}
 			}
@@ -87,7 +88,7 @@ namespace LiveLink.Services.EventImportService
 			{
 				_log.Error("Image retrieval failed", ex);
 			}
-			
+
 			return null;
 		}
 	}

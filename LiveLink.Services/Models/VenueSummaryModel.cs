@@ -6,11 +6,9 @@ namespace LiveLink.Services.Models
 {
 	public class VenueSummaryModel
 	{
-		[UmbracoProperty("contentTitle")]
-		public string Title { get; set; }
+		[UmbracoProperty("contentTitle")] public string Title { get; set; }
 
-		[UmbracoProperty("url")]
-		public string Url { get; set; }
+		[UmbracoProperty("url")] public string Url { get; set; }
 
 		[UmbracoProperty("contentLatitude")]
 		[TextToDecimal]
@@ -24,7 +22,6 @@ namespace LiveLink.Services.Models
 		[ImagePickerOrDefaultImage]
 		public MediaImageModel Logo { get; set; }
 
-		[DittoIgnore]
-		public string LogoUrl => Logo?.Url;
+		[DittoIgnore] public string LogoUrl => Logo?.Url;
 	}
 }

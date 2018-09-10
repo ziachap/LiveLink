@@ -8,11 +8,12 @@ namespace LiveLink.Areas.API.Controllers
 {
 	public class ImportFacebookVenueEventsController : Controller
 	{
-		private readonly IFacebookEventsService _facebookEventsService;
 		private readonly IEventImportService _eventImportService;
+		private readonly IFacebookEventsService _facebookEventsService;
 		private readonly IUmbracoWrapper _umbracoWrapper;
 
-		public ImportFacebookVenueEventsController(IFacebookEventsService facebookEventsService, IEventImportService eventImportService, IUmbracoWrapper umbracoWrapper)
+		public ImportFacebookVenueEventsController(IFacebookEventsService facebookEventsService,
+			IEventImportService eventImportService, IUmbracoWrapper umbracoWrapper)
 		{
 			_facebookEventsService = facebookEventsService;
 			_eventImportService = eventImportService;

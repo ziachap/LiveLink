@@ -1,5 +1,4 @@
-﻿
-using static System.Decimal;
+﻿using static System.Decimal;
 
 namespace LiveLink.Services.Processors
 {
@@ -7,7 +6,10 @@ namespace LiveLink.Services.Processors
 	{
 		public override object ProcessValue()
 		{
-			if (ValueIsNull) return null;
+			if (ValueIsNull)
+			{
+				return null;
+			}
 
 			return Parse(Value.ToString());
 		}

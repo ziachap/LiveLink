@@ -6,18 +6,17 @@ using LiveLink.Services.Models;
 using LiveLink.Services.Models.ViewModels;
 using Newtonsoft.Json;
 using Umbraco.Core.Services;
-using Umbraco.Web;
-using Umbraco.Web.Security;
 
 namespace LiveLink.Areas.API.Controllers
 {
 	public class UserController : Controller
 	{
-		private readonly IMemberService _memberService;
 		private readonly IAuthenticationService _authenticationService;
+		private readonly IMemberService _memberService;
 		private readonly IUmbracoWrapper _umbracoWrapper;
 
-		public UserController(IMemberService memberService, IAuthenticationService authenticationService, IUmbracoWrapper umbracoWrapper)
+		public UserController(IMemberService memberService, IAuthenticationService authenticationService,
+			IUmbracoWrapper umbracoWrapper)
 		{
 			_memberService = memberService;
 			_authenticationService = authenticationService;
@@ -30,9 +29,11 @@ namespace LiveLink.Areas.API.Controllers
 			var member = _authenticationService.CurrentUser();
 
 			if (member == null)
+			{
 				return JsonConvert.SerializeObject(
 					new ApiFailureResponse("Could not find current user")
 				);
+			}
 
 			var watching = (member.GetValue<string>("watching") ?? string.Empty).Split(',').ToList();
 			var active = false;
@@ -46,7 +47,7 @@ namespace LiveLink.Areas.API.Controllers
 			{
 				watching.Remove(id.ToString());
 			}
-				
+
 			member.SetValue("watching", string.Join(",", watching));
 			_memberService.Save(member);
 
@@ -65,15 +66,16 @@ namespace LiveLink.Areas.API.Controllers
 		{
 			var user = _authenticationService.Login(form.Username, form.Password, form.RememberMe);
 
-			var response = (user != null
+			var response = user != null
 				? new ApiSuccessResponse(new
 				{
 					Name = user.Username
 				})
-				: (IApiResponse) new ApiFailureResponse($"User '{form.Username}' could not be authenticated"));
+				: (IApiResponse) new ApiFailureResponse($"User '{form.Username}' could not be authenticated");
 
 			return JsonConvert.SerializeObject(response);
 		}
+
 		public string Logout()
 		{
 			_authenticationService.Logout();
